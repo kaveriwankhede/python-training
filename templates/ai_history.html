@@ -1,0 +1,308 @@
+{% extends "base.html" %}
+
+{% block title %}AI History - Study Quiz Hub{% endblock %}
+
+{% block content %}
+
+<style>
+
+body{
+background:linear-gradient(135deg,#0f172a,#312e81,#6d28d9);
+min-height:100vh;
+}
+
+/* Header */
+
+.history-header{
+
+text-align:center;
+margin-bottom:45px;
+
+}
+
+.history-header h1{
+
+font-weight:800;
+color:white;
+font-size:45px;
+
+}
+
+.history-header p{
+
+color:#d1d5db;
+font-size:18px;
+
+}
+
+/* Search */
+
+.search-box{
+
+max-width:500px;
+margin:auto;
+margin-bottom:40px;
+
+}
+
+.search-box input{
+
+border-radius:50px;
+padding:14px 20px;
+border:none;
+
+}
+
+/* Card */
+
+.history-card{
+
+background:rgba(255,255,255,.12);
+
+backdrop-filter:blur(18px);
+
+border-radius:25px;
+
+padding:25px;
+
+margin-bottom:25px;
+
+box-shadow:0 15px 40px rgba(0,0,0,.35);
+
+transition:.4s;
+
+border:1px solid rgba(255,255,255,.15);
+
+}
+
+.history-card:hover{
+
+transform:translateY(-8px);
+
+box-shadow:0 25px 50px rgba(99,102,241,.4);
+
+}
+
+/* Labels */
+
+.label{
+
+font-weight:bold;
+color:#60a5fa;
+
+}
+
+.question{
+
+color:white;
+font-size:18px;
+
+}
+
+.answer{
+
+background:white;
+
+padding:18px;
+
+border-radius:15px;
+
+margin-top:15px;
+
+line-height:1.8;
+
+white-space:pre-wrap;
+
+}
+
+/* Date */
+
+.date{
+
+display:inline-block;
+
+padding:8px 16px;
+
+border-radius:30px;
+
+background:linear-gradient(90deg,#7c3aed,#2563eb);
+
+color:white;
+
+font-size:14px;
+
+margin-bottom:15px;
+
+}
+
+/* Subject */
+
+.subject{
+
+display:inline-block;
+
+padding:8px 16px;
+
+border-radius:30px;
+
+background:#22c55e;
+
+color:white;
+
+font-size:14px;
+
+margin-left:10px;
+
+}
+
+/* Counter */
+
+.counter{
+
+background:white;
+
+padding:12px 25px;
+
+border-radius:50px;
+
+display:inline-block;
+
+font-weight:bold;
+
+margin-bottom:35px;
+
+}
+
+/* Empty */
+
+.empty{
+
+text-align:center;
+
+padding:70px;
+
+color:white;
+
+font-size:22px;
+
+}
+
+</style>
+
+<div class="container py-5">
+
+<div class="history-header">
+
+<h1>🤖 AI Doubt History</h1>
+
+<p>
+View all your previous AI questions and answers.
+</p>
+
+<div class="counter">
+
+📚 Total Questions :
+{{ history|length }}
+
+</div>
+
+</div>
+
+<div class="search-box">
+
+<input
+type="text"
+id="search"
+class="form-control"
+placeholder="🔍 Search Question..."
+onkeyup="searchHistory()">
+
+</div>
+
+{% if history %}
+
+{% for row in history %}
+
+<div class="history-card searchItem">
+
+<div>
+
+<span class="date">
+
+📅 {{ row.date }}
+
+</span>
+
+<span class="subject">
+
+{{ row.subject }}
+
+</span>
+
+</div>
+
+<h5 class="label mt-4">
+
+❓ Question
+
+</h5>
+
+<div class="question">
+
+{{ row.question }}
+
+</div>
+
+<h5 class="label mt-4">
+
+🤖 AI Answer
+
+</h5>
+
+<div class="answer" id="answer{{ row.id }}">
+
+{{ row.answer }}
+
+</div>
+
+</div>
+
+{% endfor %}
+
+{% else %}
+
+<div class="empty">
+
+🤖 No AI History Available
+
+<br><br>
+
+Start asking questions to your AI Assistant.
+
+</div>
+
+{% endif %}
+
+</div>
+
+<script>
+
+function searchHistory(){
+
+let input=document.getElementById("search").value.toLowerCase();
+
+let cards=document.getElementsByClassName("searchItem");
+
+for(let i=0;i<cards.length;i++){
+
+let text=cards[i].innerText.toLowerCase();
+
+cards[i].style.display=text.includes(input)?"block":"none";
+
+}
+
+}
+
+</script>
+
+{% endblock %}

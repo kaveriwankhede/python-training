@@ -1,0 +1,106 @@
+
+
+
+{% extends "base.html" %}
+
+{% block title %} Home - Study Quiz Hub {% endblock %}
+{% block content %}
+<body style="background-color: #1e1036;">
+{% with messages = get_flashed_messages() %}
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-warning">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+{% endwith %}
+<body style="background-color: #1e1036;">
+<div class="container mt-5">
+    <h1 class="text-center fw-bold text-white"
+    style="font-size:55px;">
+    💻 Explore Programing Languages
+    </h1>
+    <br>
+<p class="text-center fw-semibold"
+   style="font-size:22px;
+          color:#93C5FD;
+          letter-spacing:1px;
+          ">
+    ✨ Choose Your Favorite Programming Language & Start QuizcAs! ✨<br>
+    ***********************************************************
+</p>
+    <div class="row g-4">
+
+        <!-- Card 1 -->
+        <div class="col-md-6">
+            <div class="card text-center h-100">
+                <div class="card-body" style="background-color:#8B5CF6;">
+                    <h2>🔹 C</h2>
+                    <p>Learn basics of C Programming.</p>
+                    <img src="{{ url_for('static', filename='images/c_lang.jpg') }}"
+                         class="img-fluid rounded mb-3"
+                         style="height:180px;">
+                    <br>
+                    <a href="{{ url_for('c_lang', qno=0) }}"
+                       class="btn btn-light">Start Quiz</a>
+                      <a href="{{ url_for('generate_ai_quiz', subject='C') }}" class="btn btn-success">🤖 AI Quiz</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="col-md-6">
+            <div class="card text-center h-100">
+                <div class="card-body" style="background-color:#DB2777;">
+                    <h2>⚡ C++</h2>
+                    <p>Object Oriented Programming with C++.</p>
+                    <img src="{{ url_for('static', filename='images/c++_lang.jpg') }}"
+                         class="img-fluid rounded mb-3"
+                         style="height:180px;">
+                    <br>
+                    <a href="{{ url_for('cpp_lang', qno=0) }}"
+                       class="btn btn-light">Start Quiz</a>
+                       <a href="{{ url_for('generate_ai_quiz', subject='Cpp') }}" class="btn btn-success">🤖 AI Quiz</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="col-md-6">
+            <div class="card text-center h-100">
+                <div class="card-body" style="background-color:#06B6D4;">
+                    <h2>☕ Java</h2>
+                    <p>Core Java and Advanced Java concepts.</p>
+                    <img src="{{ url_for('static', filename='images/java.jpg') }}"
+                         class="img-fluid rounded mb-3"
+                         style="height:180px;">
+                    <br>
+                    <a href="{{ url_for('java_lang', qno=0) }}"
+                       class="btn btn-light">Start Quiz</a>
+                       <a href="{{ url_for('generate_ai_quiz', subject='Java') }}" class="btn btn-success">🤖 AI Quiz</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Card 4 -->
+        <div class="col-md-6">
+            <div class="card text-center h-100">
+                <div class="card-body" style="background-color:#10B981;">
+                    <h2>🐍 Python</h2>
+                    <p>Python Programming and Atomation.</p>
+                    <img src="{{ url_for('static', filename='images/python.jpg') }}"
+                         class="img-fluid rounded mb-3"
+                         style="height:180px;">
+                    <br>
+                    <a href="{{ url_for('python_lang', qno=0) }}"
+                       class="btn btn-light">Start Quiz</a>
+                       <a href="{{ url_for('generate_ai_quiz', subject='Python') }}" class="btn btn-success">🤖 AI Quiz</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}

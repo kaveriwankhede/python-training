@@ -1,0 +1,208 @@
+{% extends "base.html" %}
+
+{% block title %}AI Quiz | Study Quiz Hub{% endblock %}
+
+{% block content %}
+
+<style>
+body{
+    background: lightcyan;
+}
+
+.box{
+    background:#2c3e50;
+    padding:30px;
+    border-radius:15px;
+    margin-top:40px;
+    color:white;
+    box-shadow:0 8px 20px rgba(0,0,0,.2);
+}
+
+.option{
+    background:#34495e;
+    padding:12px 15px;
+    border-radius:10px;
+    margin-bottom:15px;
+    transition:.3s;
+    cursor:pointer;
+}
+
+.option:hover{
+    background:#3d566e;
+}
+
+.option input[type=radio]{
+    margin-right:10px;
+}
+
+.progress{
+    height:25px;
+}
+
+.progress-bar{
+    font-weight:bold;
+}
+
+#timer{
+    min-width:170px;
+}
+</style>
+
+<div class="container">
+
+    <!-- Timer -->
+    <div class="d-flex justify-content-end mt-4">
+
+        <div id="timer" class="badge bg-danger fs-5 p-3">
+            ⏰ Time Left:
+            <span>10:00</span>
+        </div>
+
+    </div>
+
+    <h2 class="text-center mt-3 text-dark">
+        🤖<br>
+        {{ subject }} AI Quiz
+    </h2>
+
+    <div class="box">
+
+        <h5 class="text-center">
+            Question {{ qno + 1 }} / {{ total }}
+        </h5>
+
+        <!-- Progress Bar -->
+        <div class="progress mt-4 mb-4">
+
+            <div class="progress-bar bg-success"
+                 role="progressbar"
+                 style="width: {{ ((qno+1)*100/total)|round(0) }}%;">
+
+                {{ qno+1 }} / {{ total }}
+
+            </div>
+
+        </div>
+
+        <form method="POST">
+
+            <h4 class="mb-4">
+                {{ question.q }}
+            </h4>
+
+            {% for opt in question.options %}
+
+            <label class="option d-block">
+
+                <input
+                    type="radio"
+                    name="answer"
+                    value="{{ opt }}"
+                    required>
+
+                {% if loop.index0 == 0 %}
+                    <strong>A.</strong>
+                {% elif loop.index0 == 1 %}
+                    <strong>B.</strong>
+                {% elif loop.index0 == 2 %}
+                    <strong>C.</strong>
+                {% else %}
+                    <strong>D.</strong>
+                {% endif %}
+
+                {{ opt }}
+
+            </label>
+
+            {% endfor %}
+
+            <!-- Navigation Buttons -->
+            <div class="d-flex justify-content-between mt-5">
+
+                {% if qno > 0 %}
+                <button
+                    type="submit"
+                    name="prev"
+                    class="btn btn-secondary">
+
+                    ⬅ Previous
+
+                </button>
+                {% else %}
+                <div></div>
+                {% endif %}
+
+                {% if qno < total-1 %}
+                <button
+                    type="submit"
+                    name="next"
+                    class="btn btn-primary">
+
+                    Next ➜
+
+                </button>
+                {% else %}
+                <button
+                    type="submit"
+                    name="submit"
+                    class="btn btn-success">
+
+                    🎯 Submit Quiz
+
+                </button>
+                {% endif %}
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+<script>
+
+// Quiz Time = 10 Minutes
+let endTime = {{ start_time }} + 600;
+
+function updateTimer(){
+
+    let now = Math.floor(Date.now() / 1000);
+
+    let left = endTime - now;
+
+
+    if(left <= 0){
+
+        alert("⏰ Time Up!");
+
+        // Hidden submit input
+        let hidden=document.createElement("input");
+        hidden.type="hidden";
+        hidden.name="submit";
+        hidden.value="1";
+
+        document.forms[0].appendChild(hidden);
+
+        document.forms[0].submit();
+
+        return;
+    }
+
+    let m = Math.floor(left / 60);
+    let s = left % 60;
+   
+
+   
+document.querySelector("#timer span").innerHTML =
+    m + ":" + (s < 10 ? "0" : "") + s;
+
+}
+
+updateTimer();
+
+setInterval(updateTimer,1000);
+
+</script>
+
+{% endblock %}

@@ -1,0 +1,246 @@
+{% extends "base.html" %}
+
+{% block title %}
+search Student
+{% endblock %}
+
+
+{% block content %}
+<style>
+    .student-header{
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+flex-wrap:wrap;
+
+}
+
+.student-header h2{
+
+color:white;
+
+font-weight:700;
+
+}
+
+.student-header p{
+
+color:#d1d5db;
+
+}
+
+.student-count{
+
+background:linear-gradient(135deg,#6366f1,#8b5cf6);
+
+color:white;
+
+padding:12px 22px;
+
+border-radius:50px;
+
+font-weight:600;
+
+box-shadow:0 10px 25px rgba(99,102,241,.35);
+
+}
+
+.student-card{
+
+background:rgba(255,255,255,.08);
+
+backdrop-filter:blur(18px);
+
+border-radius:25px;
+
+overflow:hidden;
+
+border:1px solid rgba(255,255,255,.12);
+
+box-shadow:0 20px 45px rgba(0,0,0,.30);
+
+}
+
+.student-card table{
+
+margin:0;
+
+color:white;
+
+}
+
+.student-card thead{
+
+background:linear-gradient(135deg,#4f46e5,#8b5cf6);
+
+}
+
+.student-card thead th{
+
+padding:18px;
+
+border:none;
+
+font-size:15px;
+
+}
+
+.student-card tbody td{
+
+padding:18px;
+
+border-color:rgba(255,255,255,.08);
+
+}
+
+.student-card tbody tr{
+
+transition:.3s;
+
+}
+
+.student-card tbody tr:hover{
+
+background:rgba(255,255,255,.08);
+
+transform:scale(1.01);
+
+}
+
+.avatar{
+
+width:45px;
+
+height:45px;
+
+border-radius:50%;
+
+background:linear-gradient(135deg,#06b6d4,#3b82f6);
+
+display:flex;
+
+align-items:center;
+
+justify-content:center;
+
+color:white;
+
+font-weight:700;
+
+font-size:18px;
+
+margin-right:15px;
+
+}
+
+.username{
+
+background:rgba(99,102,241,.20);
+
+padding:8px 15px;
+
+border-radius:30px;
+
+color:#93c5fd;
+
+font-weight:600;
+
+}
+</style>
+<div class="container py-5">
+
+    <!-- Header -->
+    <div class="student-header mb-4">
+
+        <div>
+            <h2 class="fw-bold mb-1">
+                <i class="bi bi-people-fill"></i>
+                Student Directory
+            </h2>
+
+            <p class="mb-0">
+                View all registered students in Study Quiz Hub.
+            </p>
+        </div>
+
+        <div>
+            <span class="student-count">
+                {{ students|length }} Students
+            </span>
+        </div>
+
+    </div>
+
+    <!-- Student Card -->
+    <div class="student-card">
+
+        <div class="table-responsive">
+
+            <table class="table table-hover align-middle mb-0">
+
+                <thead class="table-dark">
+
+                    <tr>
+                        <th>ID</th>
+                        <th>Student Name</th>
+                        <th>Username</th>
+                        <th>Email</th>
+                        <th>Total Attempts</th>
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    {% for student in students %}
+
+                    <tr>
+
+                        <td>{{ student['Sr_no'] }}</td>
+
+                        <td>
+                            <div class="d-flex align-items-center">
+
+                                <div class="avatar">
+                                    {{ student['Student_name'][0] }}
+                                </div>
+
+                                <div>
+                                    <strong>{{ student['Student_name'] }}</strong>
+                                </div>
+
+                            </div>
+                        </td>
+
+                        <td>
+                            @{{ student['Username'] }}
+                        </td>
+
+                        <td>
+                            {{ student['Email'] }}
+                        </td>
+
+                        <td>
+                            <span class="badge bg-primary">
+                                {{ student['total_attempts'] }}
+                            </span>
+                        </td>
+
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
+{% endblock %}

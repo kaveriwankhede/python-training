@@ -1,0 +1,407 @@
+{% extends "base.html" %}
+
+{% block title %}
+Contact Us
+{% endblock %}
+
+
+{% block content %}
+
+
+<style>
+
+body{
+
+    background:linear-gradient(135deg,#09001f,#1e1036,#003b5c);
+    font-family:'Poppins',sans-serif;
+
+}
+
+
+/* Main Card */
+
+.contact-card{
+
+    border:none;
+
+    border-radius:30px;
+
+    overflow:hidden;
+
+    background:white;
+
+    box-shadow:0 20px 50px rgba(0,0,0,.35);
+
+}
+
+
+
+/* Left Side */
+
+
+.contact-info{
+
+    background:linear-gradient(135deg,#667eea,#764ba2);
+
+    color:white;
+
+    padding:40px;
+
+    height:100%;
+
+}
+
+
+.contact-info h2{
+
+    font-weight:700;
+
+}
+
+
+
+.contact-item{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:15px;
+
+    margin-top:25px;
+
+}
+
+
+
+.contact-icon{
+
+    width:50px;
+
+    height:50px;
+
+    border-radius:50%;
+
+    background:rgba(255,255,255,.2);
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    font-size:25px;
+
+}
+
+
+
+/* Form */
+
+.form-area{
+
+    padding:40px;
+
+}
+
+
+
+.form-control{
+
+    border-radius:15px;
+
+    padding:14px;
+
+    border:1px solid #ddd;
+
+}
+
+
+.form-control:focus{
+
+    box-shadow:0 0 10px rgba(102,126,234,.5);
+
+}
+
+
+
+.send-btn{
+
+    background:linear-gradient(135deg,#667eea,#764ba2);
+
+    color:white;
+
+    border:none;
+
+    border-radius:30px;
+
+    padding:14px;
+
+    font-weight:bold;
+
+    transition:.3s;
+
+}
+
+
+
+.send-btn:hover{
+
+    transform:translateY(-3px);
+
+    color:white;
+
+}
+
+
+</style>
+
+
+
+
+<div class="container py-5">
+
+
+<div class="row justify-content-center">
+
+
+<div class="col-lg-10">
+
+
+<div class="card contact-card">
+
+
+
+<div class="row g-0">
+
+
+
+<!-- Contact Information -->
+
+
+<div class="col-md-5">
+
+
+<div class="contact-info">
+
+
+<h2>
+📩 Contact Us
+</h2>
+
+
+<p class="mt-3">
+
+Have questions? Our team is ready to help you.
+
+</p>
+
+
+
+
+
+<div class="contact-item">
+
+<div class="contact-icon">
+📧
+</div>
+
+<div>
+
+<h6>Email</h6>
+
+<p class="mb-0">
+support@studyquizhub.com
+</p>
+
+</div>
+
+</div>
+
+
+
+
+
+<div class="contact-item">
+
+<div class="contact-icon">
+🤖
+</div>
+
+<div>
+
+<h6>AI Support</h6>
+
+<p class="mb-0">
+24/7 Learning Assistance
+</p>
+
+</div>
+
+</div>
+
+
+
+
+
+<div class="contact-item">
+
+<div class="contact-icon">
+🎓
+</div>
+
+<div>
+
+<h6>Platform</h6>
+
+<p class="mb-0">
+Study Quiz Hub Portal
+</p>
+
+</div>
+
+</div>
+
+
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+<!-- Form -->
+
+
+<div class="col-md-7">
+
+
+<div class="form-area">
+
+
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+
+{% if messages %}
+
+{% for category,message in messages %}
+
+<div class="alert alert-{{category}}">
+
+{{message}}
+
+</div>
+
+{% endfor %}
+
+{% endif %}
+
+{% endwith %}
+
+
+
+
+
+<h3 class="fw-bold mb-4">
+
+Send us a Message 💬
+
+</h3>
+
+
+
+
+<form method="POST">
+
+
+
+<div class="mb-3">
+
+<label class="fw-bold">
+👤 Name
+</label>
+
+<input type="text"
+name="name"
+class="form-control"
+placeholder="Enter your name"
+required>
+
+</div>
+
+
+
+
+
+<div class="mb-3">
+
+<label class="fw-bold">
+📧 Email
+</label>
+
+<input type="email"
+name="email"
+class="form-control"
+placeholder="Enter your email"
+required>
+
+</div>
+
+
+
+
+
+<div class="mb-3">
+
+<label class="fw-bold">
+💬 Message
+</label>
+
+<textarea name="message"
+rows="5"
+class="form-control"
+placeholder="Write your message..."
+required></textarea>
+
+</div>
+
+
+
+
+
+<button class="btn send-btn w-100">
+
+🚀 Send Message
+
+</button>
+
+
+
+
+</form>
+
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+{% endblock %}

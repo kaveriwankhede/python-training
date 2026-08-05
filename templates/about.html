@@ -1,0 +1,948 @@
+{% extends "base.html" %}
+{% block title %} About - Study Quiz Hub Portal {% endblock %}
+{% block content %}
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  .about-section{
+     background: rgba(255,255,255,.08);
+    
+    background-size: 1400% 1400%;
+    animation: rainbow 8s ease infinite;
+    box-shadow:0 10px 30px rgba(0,0,0,0.3);
+
+     
+    
+    padding:70px 0;
+}
+
+.about-card{
+
+   
+    
+    
+   border-radius:20px;
+    padding:20px;
+    color:white;
+    background: linear-gradient(
+        270deg,
+        #ff0000,
+        #ff7f00,
+        #ffff00,
+        #00ff00,
+        #00ffff,
+        #0000ff,
+        #8b00ff,
+        #ff0000
+    );
+    background-size: 1400% 1400%;
+    animation: rainbow 8s ease infinite;
+    box-shadow:0 10px 30px rgba(0,0,0,0.3);
+
+    backdrop-filter: blur(18px);
+   
+
+    border-radius:25px;
+
+    padding:35px 60px;     /* Height कमी, Width जास्त */
+
+    text-align:center;
+
+    box-shadow:0 15px 40px rgba(0,0,0,.30);
+
+    transition:.4s;
+
+}
+
+.about-card:hover{
+
+    transform:translateY(-8px);
+
+    box-shadow:0 20px 45px rgba(108,99,255,.35);
+
+}
+
+.about-icon{
+
+    width:75px;
+    height:75px;
+
+    margin:auto;
+
+    border-radius:50%;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    background:linear-gradient(135deg,#6C63FF,#00C9FF);
+
+    color:#fff;
+
+    font-size:32px;
+
+    margin-bottom:18px;
+
+}
+
+.about-card h2{
+
+    color:#FFD43B;
+
+    font-size:34px;
+
+    font-weight:700;
+
+    margin-bottom:18px;
+
+}
+
+.about-card p{
+
+    color:#E5E7EB;
+
+    font-size:17px;
+
+    line-height:1.9;
+
+    max-width:850px;
+
+    margin:auto;
+
+}
+
+.about-btn{
+
+    display:inline-block;
+
+    margin-top:25px;
+
+    padding:12px 35px;
+
+    border-radius:50px;
+
+    background:linear-gradient(90deg,#6C63FF,#00C9FF);
+
+    color:#fff;
+
+    text-decoration:none;
+
+    font-weight:600;
+
+    transition:.3s;
+
+}
+
+.about-btn:hover{
+
+    color:#fff;
+
+    transform:scale(1.05);
+
+}
+
+@media(max-width:768px){
+
+.about-card{
+
+    padding:25px;
+
+}
+
+.about-card h2{
+
+    font-size:28px;
+
+}
+
+.about-card p{
+
+    font-size:16px;
+
+}
+
+}
+
+
+
+.why-section{
+    border-radius:20px;
+    padding:20px;
+    color:white;
+    background: linear-gradient(
+        270deg,
+        #ff0000,
+        #ff7f00,
+        #ffff00,
+        #00ff00,
+        #00ffff,
+        #0000ff,
+        #8b00ff,
+        #ff0000
+    );
+    background-size: 1400% 1400%;
+    animation: rainbow 8s ease infinite;
+    box-shadow:0 10px 30px rgba(0,0,0,0.3);
+  padding:40px 0;
+}
+
+.feature-card{
+    
+    
+    border-radius:20px;
+    padding:20px;
+    color:white;
+    background: linear-gradient(
+        270deg,
+        #ff0000,
+        #ff7f00,
+        #ffff00,
+        #00ff00,
+        #00ffff,
+        #0000ff,
+        #8b00ff,
+        #ff0000
+    );
+    background-size: 1400% 1400%;
+    animation: rainbow 8s ease infinite;
+    box-shadow:0 10px 30px rgba(0,0,0,0.3);
+
+    
+    border-radius:15px;
+
+    padding:12px 10px;
+
+    text-align:center;
+
+    height:150px;      /* Card Height */
+    width:100%;
+
+    transition:.3s;
+
+    box-shadow:0 5px 12px rgba(0,0,0,.25);
+}
+
+.feature-card:hover{
+    transform:translateY(-5px);
+    box-shadow:0 10px 22px rgba(0,201,255,.35);
+}
+
+.feature-icon{
+
+    width:40px;        /* Icon Circle Size */
+    height:40px;
+
+    margin:0 auto 8px;
+
+    border-radius:50%;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    background:linear-gradient(135deg,#6C63FF,#00C9FF);
+
+    color:#fff;
+
+    font-size:18px;    /* Icon Size */
+
+    transition:.3s;
+
+}
+
+.feature-card:hover .feature-icon{
+
+    transform:rotate(360deg);
+
+}
+
+.feature-card h5{
+
+    color:#FFD43B;
+
+    font-size:15px;
+
+    font-weight:700;
+
+    margin-bottom:5px;
+
+}
+
+.feature-card p{
+
+    color:#E5E7EB;
+
+    font-size:12px;
+
+    line-height:1.3;
+
+    margin:0;
+
+}
+
+@media(max-width:991px){
+
+.feature-card{
+
+height:auto;
+
+}
+
+}
+
+.feature-tech-section{
+
+    background:linear-gradient(135deg,#0F172A,#1E293B);
+
+    padding:70px 0;
+
+}
+
+.section-badge{
+
+    display:inline-block;
+
+    background:linear-gradient(90deg,#6C63FF,#00C9FF);
+
+    color:#fff;
+
+    padding:8px 22px;
+
+    border-radius:40px;
+
+    font-weight:600;
+
+}
+
+.section-title{
+
+    color:#fff;
+
+    font-size:42px;
+
+    font-weight:700;
+
+}
+
+.section-title span{
+
+    color:#FFD43B;
+
+}
+
+.section-subtitle{
+
+    color:#CBD5E1;
+
+}
+
+.info-card{
+
+    background:rgba(255,255,255,.08);
+
+    backdrop-filter:blur(12px);
+
+    border:1px solid rgba(255,255,255,.10);
+
+    border-radius:20px;
+
+    padding:25px;
+
+    height:100%;
+
+    transition:.3s;
+
+}
+
+.info-card:hover{
+
+    transform:translateY(-8px);
+
+    box-shadow:0 15px 30px rgba(0,201,255,.30);
+
+}
+
+.card-heading{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+    margin-bottom:20px;
+
+}
+
+.card-heading i{
+
+    width:50px;
+
+    height:50px;
+
+    border-radius:50%;
+
+    background:linear-gradient(135deg,#6C63FF,#00C9FF);
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    color:#fff;
+
+    font-size:22px;
+
+}
+
+.card-heading h3{
+
+    color:#FFD43B;
+
+    margin:0;
+
+    font-size:24px;
+
+}
+
+.custom-list{
+
+    list-style:none;
+
+    padding:0;
+
+    margin:0;
+
+}
+
+.custom-list li{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+
+    color:#fff;
+
+    background:rgba(255,255,255,.05);
+
+    margin-bottom:10px;
+
+    padding:12px 15px;
+
+    border-radius:10px;
+
+    transition:.3s;
+
+    font-size:15px;
+
+}
+
+.custom-list li:hover{
+
+    background:linear-gradient(90deg,#6C63FF,#00C9FF);
+
+    transform:translateX(6px);
+
+}
+
+.custom-list li i{
+
+    color:#FFD43B;
+
+    font-size:18px;
+
+}
+
+.creator-section{
+    background:linear-gradient(135deg,#0F172A,#1E293B);
+    padding:80px 0;
+}
+
+.creator-card{
+
+    background:rgba(255,255,255,.08);
+
+    backdrop-filter:blur(15px);
+
+    border:1px solid rgba(255,255,255,.12);
+
+    border-radius:25px;
+
+    padding:40px;
+
+    box-shadow:0 20px 40px rgba(0,0,0,.25);
+
+    transition:.4s;
+
+}
+
+.creator-card:hover{
+
+    transform:translateY(-8px);
+
+    box-shadow:0 25px 45px rgba(108,99,255,.35);
+
+}
+
+.creator-img{
+
+    width:170px;
+
+    height:170px;
+
+    border-radius:50%;
+
+    object-fit:cover;
+
+    border:6px solid #6C63FF;
+
+    box-shadow:0 10px 25px rgba(0,0,0,.35);
+
+}
+
+.creator-name{
+
+    color:#fff;
+
+    font-weight:700;
+
+}
+
+.creator-role{
+
+    display:inline-block;
+
+    margin-top:10px;
+
+    padding:8px 20px;
+
+    border-radius:30px;
+
+    background:linear-gradient(90deg,#6C63FF,#00C9FF);
+
+    color:#fff;
+
+    font-size:14px;
+
+}
+
+.creator-text{
+
+    color:#E5E7EB;
+
+    font-size:17px;
+
+    line-height:1.8;
+
+}
+
+.creator-info p{
+
+    color:#fff;
+
+    margin-bottom:10px;
+
+}
+
+.creator-info i{
+
+    color:#FFD43B;
+
+    margin-right:10px;
+
+}
+
+.social-icons a{
+
+    display:inline-flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    width:45px;
+
+    height:45px;
+
+    border-radius:50%;
+
+    margin-right:10px;
+
+    text-decoration:none;
+
+    color:#fff;
+
+    background:linear-gradient(135deg,#6C63FF,#00C9FF);
+
+    transition:.3s;
+
+}
+
+.social-icons a:hover{
+
+    transform:translateY(-5px) rotate(360deg);
+
+}
+
+.contact-btn{
+
+    display:inline-block;
+
+    margin-top:20px;
+
+    padding:12px 30px;
+
+    border-radius:30px;
+
+    text-decoration:none;
+
+    background:linear-gradient(90deg,#6C63FF,#00C9FF);
+
+    color:#fff;
+
+    font-weight:600;
+
+}
+
+.contact-btn:hover{
+
+    color:#fff;
+
+}
+
+</style>
+</head>
+
+<body style="background-color: #1e1036;">
+<section class="about-section py-5" class="rainbow-card">
+
+    <div class="container">
+      
+
+        <div class="row justify-content-center">
+
+            <div class="col-lg-10">
+
+                <div class="about-card">
+
+                    <div class="about-icon">
+                        <i class="bi bi-mortarboard-fill"></i>
+                    </div>
+
+                    <h2>About Study Quiz Hub</h2>
+
+                    <p>
+                        <strong>Study Quiz Hub</strong> is an interactive learning platform
+                        developed using <b>Python Flask, HTML5, CSS3, Bootstrap,
+                        JavaScript, SQLite</b>, and <b>Jinja2 Templates</b>.
+                        It helps students learn programming through theory notes,
+                        MCQ quizzes, automatic result generation, performance tracking,
+                        and interview preparation.
+                    </p>
+
+                    <a href="#" class="about-btn">Learn More</a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+  
+
+</section>
+<section class="py-5 feature-tech-section">
+
+    <div class="container">
+
+        <div class="text-center mb-5">
+            <span class="section-badge">🚀 Platform Highlights</span>
+
+            <h2 class="section-title mt-3">
+                Features & <span>Technology Stack</span>
+            </h2>
+
+            <p class="section-subtitle">
+                Learn smarter with modern features and technologies.
+            </p>
+        </div>
+
+        <div class="row g-4">
+
+            <!-- Left -->
+            <div class="col-lg-6">
+
+                <div class="info-card">
+
+                    <div class="card-heading">
+                        <i class="bi bi-stars"></i>
+                        <h3>Features</h3>
+                    </div>
+
+                    <ul class="custom-list">
+
+                        <li><i class="bi bi-check-circle-fill"></i> Programming MCQ Quiz</li>
+                        <li><i class="bi bi-check-circle-fill"></i> Theory Notes</li>
+                        <li><i class="bi bi-check-circle-fill"></i> AI Assistant</li>
+                        <li><i class="bi bi-check-circle-fill"></i> AI Doubt Solver</li>
+                        <li><i class="bi bi-check-circle-fill"></i> Interview Preparation</li>
+                        <li><i class="bi bi-check-circle-fill"></i> AI 7-Day Roadmap</li>
+                        <li><i class="bi bi-check-circle-fill"></i> Result & Analytics</li>
+                        <li><i class="bi bi-check-circle-fill"></i> Certificate</li>
+
+                    </ul>
+
+                </div>
+
+            </div>
+
+            <!-- Right -->
+
+            <div class="col-lg-6">
+
+                <div class="info-card">
+
+                    <div class="card-heading">
+                        <i class="bi bi-cpu-fill"></i>
+                        <h3>Technology Stack</h3>
+                    </div>
+
+                    <ul class="custom-list">
+
+                        <li><i class="bi bi-filetype-py"></i> Python</li>
+                        <li><i class="bi bi-lightning-charge-fill"></i> Flask</li>
+                        <li><i class="bi bi-filetype-html"></i> HTML5</li>
+                        <li><i class="bi bi-filetype-css"></i> CSS3</li>
+                        <li><i class="bi bi-bootstrap-fill"></i> Bootstrap 5</li>
+                        <li><i class="bi bi-database-fill"></i> SQLite</li>
+                        <li><i class="bi bi-filetype-js"></i> JavaScript</li>
+                        <li><i class="bi bi-github"></i> Git & GitHub</li>
+
+                    </ul>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+
+
+<section class="why-section py-5">
+
+<div class="container">
+
+<div class="text-center mb-5">
+
+<span class="why-badge">
+⭐ Why Students Love Study Quiz Hub
+</span>
+
+<h2 class="display-5 fw-bold mt-3">
+Why Choose <span class="text-warning">Study Quiz Hub?</span>
+</h2>
+
+<p class="lead text-light">
+Learn smarter with AI-powered features and interactive quizzes.
+</p>
+
+</div>
+
+<div class="row g-4">
+
+    <!-- 1 -->
+    <div class="col-12 col-sm-6 col-lg-3">
+        <div class="feature-card">
+            <div class="feature-icon">
+                <i class="bi bi-journal-bookmark-fill"></i>
+            </div>
+            <h5>Theory Notes</h5>
+            <p>Simple notes with easy explanations.</p>
+        </div>
+    </div>
+
+    <!-- 2 -->
+    <div class="col-12 col-sm-6 col-lg-3">
+        <div class="feature-card">
+            <div class="feature-icon">
+                <i class="bi bi-patch-question-fill"></i>
+            </div>
+            <h5>Practice Quiz</h5>
+            <p>Unlimited MCQs with timer and score.</p>
+        </div>
+    </div>
+
+    <!-- 3 -->
+    <div class="col-12 col-sm-6 col-lg-3">
+        <div class="feature-card">
+            <div class="feature-icon">
+                <i class="bi bi-graph-up-arrow"></i>
+            </div>
+            <h5>Performance</h5>
+            <p>Track progress and weak topics.</p>
+        </div>
+    </div>
+
+    <!-- 4 -->
+    <div class="col-12 col-sm-6 col-lg-3">
+        <div class="feature-card">
+            <div class="feature-icon">
+                <i class="bi bi-award-fill"></i>
+            </div>
+            <h5>Certificate</h5>
+            <p>Earn certificates after quizzes.</p>
+        </div>
+    </div>
+
+    <!-- 5 -->
+    <div class="col-12 col-sm-6 col-lg-3">
+        <div class="feature-card">
+            <div class="feature-icon">
+                <i class="bi bi-robot"></i>
+            </div>
+            <h5>AI Assistant</h5>
+            <p>Personalized AI learning support.</p>
+        </div>
+    </div>
+
+    <!-- 6 -->
+    <div class="col-12 col-sm-6 col-lg-3">
+    <div class="feature-card">
+        <div class="feature-icon">
+            <i class="bi bi-phone"></i>
+        </div>
+        <h5>Responsive Design</h5>
+        <p>Enjoy a seamless learning experience on mobile, tablet, and desktop devices.</p>
+    </div>
+</div>
+
+    <!-- 7 -->
+    <div class="col-12 col-sm-6 col-lg-3">
+        <div class="feature-card">
+            <div class="feature-icon">
+                <i class="bi bi-briefcase-fill"></i>
+            </div>
+            <h5>Interview Prep</h5>
+            <p>Prepare for placement interviews.</p>
+        </div>
+    </div>
+
+    <!-- 8 -->
+    <div class="col-12 col-sm-6 col-lg-3">
+        <div class="feature-card">
+            <div class="feature-icon">
+                <i class="bi bi-calendar-check-fill"></i>
+            </div>
+            <h5>7-Day AI Roadmap</h5>
+            <p>AI roadmap after quiz completion.</p>
+        </div>
+    </div>
+
+</div>
+
+</div>
+
+</section>
+
+
+
+
+
+
+<section class="py-5 creator-section">
+
+<div class="container">
+
+<div class="row justify-content-center">
+
+<div class="col-lg-8">
+
+<div class="creator-card">
+
+<div class="row align-items-center">
+
+<!-- Left Side -->
+<div class="col-md-4 text-center">
+
+<div class="creator-bg"></div>
+
+<img src="{{ url_for('static', filename='images/lady.jpg') }}"
+class="creator-img"
+alt="Kaveri Wankhede">
+
+<h3 class="creator-name mt-3">
+Kaveri S. Wankhede
+</h3>
+
+<span class="creator-role">
+<i class="bi bi-mortarboard-fill"></i>
+Project Creator
+</span>
+
+</div>
+
+<!-- Right Side -->
+<div class="col-md-8">
+
+<h2 class="text-warning mb-3">
+👩‍💻 Meet the Creator
+</h2>
+
+<p class="creator-text">
+I am a Computer Engineering student passionate about software development and AI.
+I developed <strong>Study Quiz Hub</strong> to help students improve their programming skills through
+MCQ quizzes, coding practice, AI Roadmaps, theory notes, and interview preparation.
+</p>
+
+<div class="creator-info mt-4">
+
+<p><i class="bi bi-envelope-fill"></i> kaveri@example.com</p>
+
+<p><i class="bi bi-geo-alt-fill"></i> Maharashtra, India</p>
+
+</div>
+
+<div class="social-icons mt-4">
+
+<a href="https://github.com/kaveriwankhede/python-training"><i class="bi bi-github"></i></a>
+
+<a href="#"><i class="bi bi-linkedin"></i></a>
+
+<a href="#"><i class="bi bi-envelope-fill"></i></a>
+
+</div>
+
+<a href="contact" class="contact-btn mt-4">
+
+<i class="bi bi-chat-dots-fill"></i>
+
+Contact Me
+
+</a>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+{% endblock %}

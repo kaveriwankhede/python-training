@@ -1,0 +1,101 @@
+{% extends "base.html" %}
+
+{% block title %} Home - Study Quiz Hub {% endblock %}
+{% block content %}
+{% with messages = get_flashed_messages() %}
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-warning">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+{% endwith %}
+<body style="background-color: #1e1036;">
+
+<div class="container mt-5">
+    <h1 class="text-center fw-bold text-white"
+    style="font-size:55px;">
+    📚 Explore Computer Science Subject
+    </h1>
+    <br>
+<p class="text-center fw-semibold"
+   style="font-size:22px;
+          color:#93C5FD;
+          letter-spacing:1px;
+          ">
+    ✨ Choose Your Favorite Computer Science Subject & Start Learning ✨<br>
+    *******************************************************************
+</p>
+    <div class="row g-4">
+
+        <!-- Card 1 -->
+        <!-- Operating System -->
+        <div class="col-md-6">
+            <div class="card text-center h-100">
+                <div class="card-body" style="background-color:#A855F7;">
+                    <h2>💻</h2>
+                    <h3>Operating System</h3>
+                    <p>Process, Memory Management and Scheduling.</p>
+                    <img src="{{ url_for('static', filename='images/operating_system.png') }}"
+                    class="img-fluid rounded shadow mb-3"
+                    style="width:300px; height:200px;"><br>
+                    <a href="{{ url_for('operating_system', qno=0) }}" class="btn btn-light">Start Quiz</a>
+                    <a href="{{ url_for('generate_ai_quiz', subject='Operating System') }}" class="btn btn-success">🤖 AI Quiz</a>
+                </div>
+            </div>
+        </div>
+        <!-- DBMS -->
+        <div class="col-md-6">
+            <div class="card text-center h-100">
+                <div class="card-body" style="background-color:#EF4444;">
+                    <h2>🗄️</h2>
+                    <h3>Database Management System</h3>
+                    <p>SQL, Normalization and Database Design.</p>
+                    <img src="{{ url_for('static', filename='images/dbms.jpg') }}"
+                    class="img-fluid rounded shadow mb-3"
+                    style="width:300px; height:200px;"><br>
+                    <a href="{{ url_for('dbms_lang', qno=0) }}" class="btn btn-light">Start Quiz</a>
+                    <a href="{{ url_for('generate_ai_quiz', subject='DBMS') }}" class="btn btn-success">🤖 AI Quiz</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Computer Networks -->
+        <div class="col-md-6">
+            <div class="card text-center h-100">
+                <div class="card-body" style="background-color:#14B8A6;">
+                    <h2>🌐</h2>
+                    <h3>Computer Networks</h3>
+                    <p>TCP/IP, OSI Model and Networking Basics.</p>
+                    <img src="{{ url_for('static', filename='images/computer_network.jpg') }}"
+                    class="img-fluid rounded shadow mb-3"
+                    style="width:300px; height:200px;"><br>
+                    <a href="{{ url_for('computer_network', qno=0) }}" class="btn btn-light">Start Quiz</a>
+                    <a href="{{ url_for('generate_ai_quiz', subject='Computer Networks') }}" class="btn btn-success">🤖 AI Quiz</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Data Structures -->
+        <div class="col-md-6">
+            <div class="card text-center h-100">
+                <div class="card-body" style="background-color:#F59E0B;">
+                    <h2>📚</h2>
+                    <h3>Data Structures</h3>
+                    <p>Arrays, Stack, Queue, Tree and Graph.</p>
+                    <img src="{{ url_for('static', filename='images/data_structure.png') }}"
+                    class="img-fluid rounded shadow mb-3"
+                    style="width:300px; height:200px;"><br>
+                    <a href="{{ url_for('data_structure', qno=0) }}" class="btn btn-light">Start Quiz</a>
+                    <a href="{{ url_for('generate_ai_quiz', subject='Data Structures') }}" class="btn btn-success">🤖 AI Quiz</a>
+                </div>
+            </div>
+        </div>
+
+        
+
+    </div>
+</div>
+
+{% endblock %}

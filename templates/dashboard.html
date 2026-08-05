@@ -1,0 +1,234 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+<body style="background-color: #1e1036;">
+<div class="container mt-4">
+
+    <!-- Welcome -->
+    <div class="p-4 mb-4 rounded-4 text-white"
+         style="background:linear-gradient(90deg,#4e54c8,#8f94fb);">
+
+        <h2>
+            <i class="bi bi-speedometer2"></i>
+            Welcome to Study Quiz Hub
+        </h2>
+
+        <p class="mb-0">
+            Learn • Practice • Improve • Achieve Success
+        </p>
+
+    </div>
+
+    <!-- Statistics -->
+    <div class="row g-4">
+
+        <div class="col-md-4">
+            <div class="card shadow border-0 text-center">
+                <div class="card-body">
+
+                    <i class="bi bi-people-fill text-primary fs-1"></i>
+
+                    <h5 class="mt-3">Total Students</h5>
+
+                    <h2 class="fw-bold text-primary">
+                        {{ total_students }}
+                    </h2>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card shadow border-0 text-center">
+                <div class="card-body">
+
+                    <i class="bi bi-book-fill text-success fs-1"></i>
+
+                    <h5 class="mt-3">Subjects</h5>
+
+                    <h2 class="fw-bold text-success">
+                        {{ total_subjects }}
+                    </h2>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card shadow border-0 text-center">
+                <div class="card-body">
+
+                    <i class="bi bi-pencil-square text-warning fs-1"></i>
+
+                    <h5 class="mt-3">Quiz Attempts</h5>
+
+                    <h2 class="fw-bold text-warning">
+                        {{ total_quiz }}
+                    </h2>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card shadow border-0 text-center">
+                <div class="card-body">
+
+                    <i class="bi bi-trophy-fill text-danger fs-1"></i>
+
+                    <h5 class="mt-3">Highest Score</h5>
+
+                    <h2 class="fw-bold text-danger">
+                        {{ highest }}
+                    </h2>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card shadow border-0 text-center">
+                <div class="card-body">
+
+                    <i class="bi bi-graph-up-arrow text-info fs-1"></i>
+
+                    <h5 class="mt-3">Average Score</h5>
+
+                    <h2 class="fw-bold text-info">
+                        {{ average }}
+                    </h2>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card shadow border-0 text-center">
+                <div class="card-body">
+
+                    <i class="bi bi-lightbulb-fill text-warning fs-1"></i>
+
+                    <h5 class="mt-3">Today's AI Tip</h5>
+
+                    <p class="mb-0">
+                        Practice 20 MCQs daily.
+                    </p>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Quick Actions -->
+
+    <div class="card shadow mt-5 border-0">
+
+        <div class="card-header bg-primary text-white">
+
+            <h4 class="mb-0">
+                <i class="bi bi-lightning-fill"></i>
+                Quick Actions
+            </h4>
+
+        </div>
+
+        <div class="card-body text-center">
+
+            <a href="/subjects" class="btn btn-primary m-2">
+                <i class="bi bi-book"></i>
+                Subjects
+            </a>
+
+            <a href="/theory" class="btn btn-success m-2">
+                <i class="bi bi-journal-text"></i>
+                Theory
+            </a>
+
+            <a href="/technology" class="btn btn-warning m-2">
+                <i class="bi bi-pencil"></i>
+                Start Quiz
+            </a>
+
+            <a href="/students" class="btn btn-info m-2">
+                <i class="bi bi-people"></i>
+                Students
+            </a>
+
+            <a href="/profile" class="btn btn-secondary m-2">
+                <i class="bi bi-person-circle"></i>
+                Profile
+            </a>
+
+            <a href="/website_guide" class="btn btn-dark m-2">
+                <i class="bi bi-robot"></i>
+                get_ai_tip
+            </a>
+
+        </div>
+
+    </div>
+
+    <!-- Recent Quiz -->
+
+    <div class="card shadow mt-5 border-0">
+
+        <div class="card-header bg-success text-white">
+
+            <h4 class="mb-0">
+                <i class="bi bi-clock-history"></i>
+                Recent Quiz History
+            </h4>
+
+        </div>
+
+        <div class="card-body">
+
+            <table class="table table-bordered table-hover">
+
+                <thead class="table-dark">
+
+                <tr>
+
+                    <th>Student</th>
+
+                    <th>Subject</th>
+
+                    <th>Score</th>
+                    <th>Time</th>
+
+                </tr>
+
+                </thead>
+
+                <tbody>
+
+                {% for row in recent %}
+
+                <tr>
+
+                    <td>{{ row.Student_name }}</td>
+
+                    <td>{{ row.subject }}</td>
+
+                    <td>{{ row.score }}</td>
+
+                    <td>{{ row.time }}</td>
+
+                </tr>
+
+                {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

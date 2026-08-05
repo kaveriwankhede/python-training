@@ -1,0 +1,307 @@
+{% extends "base.html" %}
+
+{% block title %}
+Edit Student
+{% endblock %}
+
+
+{% block content %}
+
+
+<style>
+
+body{
+
+background:linear-gradient(135deg,#1e1036,#302b63);
+
+font-family:'Poppins',sans-serif;
+
+}
+
+
+.edit-card{
+
+border:none;
+
+border-radius:30px;
+
+overflow:hidden;
+
+box-shadow:0 20px 50px rgba(0,0,0,.4);
+
+}
+
+
+
+.edit-header{
+
+background:linear-gradient(135deg,#ff9966,#ff5e62);
+
+color:white;
+
+padding:30px;
+
+text-align:center;
+
+}
+
+
+
+.edit-header h2{
+
+font-weight:800;
+
+}
+
+
+.card-body{
+
+padding:40px;
+
+}
+
+
+
+.form-control,
+.form-select{
+
+border-radius:15px;
+
+padding:12px;
+
+}
+
+
+
+.save-btn{
+
+background:linear-gradient(135deg,#ff9966,#ff5e62);
+
+border:none;
+
+color:white;
+
+border-radius:25px;
+
+padding:13px;
+
+font-weight:bold;
+
+}
+
+
+
+</style>
+
+
+
+
+
+<div class="container py-5">
+
+
+<div class="row justify-content-center">
+
+
+<div class="col-md-7">
+
+
+<div class="card edit-card">
+
+
+
+<div class="edit-header">
+
+
+<h2>
+
+✏️ Edit Student
+
+</h2>
+
+
+<p>
+
+Update student information
+
+</p>
+
+
+</div>
+
+
+
+
+
+<div class="card-body">
+
+
+
+<form method="POST">
+
+
+
+
+
+<div class="mb-3">
+
+<label class="fw-bold">
+👤 Student Name
+</label>
+
+
+<input type="text"
+name="student_name"
+class="form-control"
+value="{{student['Student_name']}}"
+required>
+
+</div>
+
+
+
+
+
+
+<div class="mb-3">
+
+<label class="fw-bold">
+💻 Username
+</label>
+
+
+<input type="text"
+name="username"
+class="form-control"
+value="{{student['Username']}}"
+required>
+
+</div>
+
+
+
+
+
+
+<div class="mb-3">
+
+<label class="fw-bold">
+📧 Email
+</label>
+
+
+<input type="email"
+name="email"
+class="form-control"
+value="{{student['Email']}}"
+required>
+
+</div>
+
+
+
+
+
+
+
+<div class="mb-3">
+
+<label class="fw-bold">
+🔐 Password
+</label>
+
+
+<input type="password"
+name="password"
+class="form-control"
+value="{{student['Password']}}"
+required>
+
+</div>
+
+
+
+
+
+
+
+<div class="mb-4">
+
+<label class="fw-bold">
+📚 Subject
+</label>
+
+
+<select name="subject"
+class="form-select"
+required>
+
+
+<option value="Technology"
+{% if student['Subject']=='Technology' %}selected{% endif %}>
+Technology
+</option>
+
+
+<option value="Programming Language"
+{% if student['Subject']=='Programming Language' %}selected{% endif %}>
+Programming Language
+</option>
+
+
+<option value="Computer Science"
+{% if student['Subject']=='Computer Science' %}selected{% endif %}>
+Computer Science
+</option>
+
+
+</select>
+
+
+</div>
+
+
+
+
+
+
+
+<button class="btn save-btn w-100">
+
+💾 Save Changes
+
+</button>
+
+
+
+
+<a href="{{url_for('students')}}"
+class="btn btn-secondary w-100 mt-2">
+
+⬅ Cancel
+
+</a>
+
+
+
+
+
+</form>
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+{% endblock %}

@@ -1,0 +1,467 @@
+{% extends "base.html" %}
+
+{% block title %}
+Admin Messages & Feedback
+{% endblock %}
+
+
+{% block content %}
+
+
+<style>
+
+body{
+
+    background:linear-gradient(135deg,#1e1036,#302b63,#24243e);
+    font-family:'Poppins',sans-serif;
+
+}
+
+
+/* Cards */
+
+
+.admin-card{
+
+    border:none;
+
+    border-radius:25px;
+
+    overflow:hidden;
+
+    box-shadow:0 15px 40px rgba(0,0,0,.35);
+
+}
+
+
+
+/* Headers */
+
+
+.message-header{
+
+    background:linear-gradient(135deg,#667eea,#764ba2);
+
+    color:white;
+
+    padding:25px;
+
+}
+
+
+.feedback-header{
+
+    background:linear-gradient(135deg,#11998e,#38ef7d);
+
+    color:white;
+
+    padding:25px;
+
+}
+
+
+
+
+.header-icon{
+
+    font-size:35px;
+
+}
+
+
+
+
+/* Table */
+
+
+.table{
+
+    margin-bottom:0;
+
+}
+
+
+
+.table thead th{
+
+    text-align:center;
+
+    padding:15px;
+
+}
+
+
+
+.table tbody td{
+
+    vertical-align:middle;
+
+    text-align:center;
+
+}
+
+
+
+
+
+.message-box{
+
+    max-width:300px;
+
+    word-wrap:break-word;
+
+}
+
+
+
+
+
+
+/* Badge */
+
+
+.rating{
+
+    font-size:18px;
+
+}
+
+
+
+
+
+</style>
+
+
+
+
+
+
+<div class="container py-5">
+
+
+
+
+
+
+<!-- Contact Messages -->
+
+
+<div class="card admin-card mb-5">
+
+
+
+<div class="message-header">
+
+
+<h2>
+
+📩 Contact Messages
+
+</h2>
+
+
+<p class="mb-0">
+
+Students queries and support requests
+
+</p>
+
+
+</div>
+
+
+
+
+
+
+
+<div class="card-body p-0">
+
+
+
+
+
+<div class="table-responsive">
+
+
+<table class="table table-bordered table-hover">
+
+
+
+<thead class="table-dark">
+
+
+<tr>
+
+<th>ID</th>
+
+<th>Name</th>
+
+<th>Email</th>
+
+<th>Message</th>
+
+</tr>
+
+
+</thead>
+
+
+
+
+<tbody>
+
+
+{% for msg in messages %}
+
+
+<tr>
+
+
+<td>
+
+{{msg.id}}
+
+</td>
+
+
+<td>
+
+👤 {{msg.name}}
+
+</td>
+
+
+<td>
+
+📧 {{msg.email}}
+
+</td>
+
+
+<td class="message-box">
+
+{{msg.message}}
+
+</td>
+
+
+</tr>
+
+
+
+{% else %}
+
+
+<tr>
+
+<td colspan="4">
+
+No Contact Messages Found
+
+</td>
+
+</tr>
+
+
+{% endfor %}
+
+
+
+
+</tbody>
+
+
+
+</table>
+
+
+</div>
+
+
+
+
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+
+
+<!-- Feedback Section -->
+
+
+
+<div class="card admin-card">
+
+
+
+<div class="feedback-header">
+
+
+<h2>
+
+⭐ Student Feedback
+
+</h2>
+
+
+<p class="mb-0">
+
+Student reviews and learning experience
+
+</p>
+
+
+</div>
+
+
+
+
+
+
+
+<div class="card-body p-0">
+
+
+
+
+
+<div class="table-responsive">
+
+
+<table class="table table-bordered table-hover">
+
+
+
+
+
+<thead class="table-success">
+
+
+<tr>
+
+<th>ID</th>
+
+<th>Name</th>
+
+<th>Rating</th>
+
+<th>Feedback</th>
+
+</tr>
+
+
+</thead>
+
+
+
+
+
+<tbody>
+
+
+
+{% for row in feedbacks %}
+
+
+
+<tr>
+
+
+<td>
+
+{{row.id}}
+
+</td>
+
+
+<td>
+
+🎓 {{row.name}}
+
+</td>
+
+
+<td class="rating">
+
+
+{{row.rating}} ⭐
+
+</td>
+
+
+<td class="message-box">
+
+{{row.message}}
+
+</td>
+
+
+
+</tr>
+
+
+
+
+
+{% else %}
+
+
+<tr>
+
+<td colspan="4">
+
+No Feedback Available
+
+</td>
+
+
+</tr>
+
+
+{% endfor %}
+
+
+
+
+</tbody>
+
+
+
+
+</table>
+
+
+
+
+</div>
+
+
+
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+</div>
+
+
+
+{% endblock %}

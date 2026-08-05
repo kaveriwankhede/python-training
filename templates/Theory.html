@@ -1,0 +1,3331 @@
+{% extends "base.html" %}
+
+{% block content %}
+<style>
+    /* =========================
+   Explore Section
+========================= */
+
+#select{
+    background:linear-gradient(135deg,#0F172A,#1E293B,#111827);
+    padding:70px 0;
+}
+
+#select .card{
+    background:rgba(255,255,255,.08);
+    backdrop-filter:blur(15px);
+    border:none;
+    border-radius:20px;
+    overflow:hidden;
+    text-align:center;
+    transition:.4s;
+    box-shadow:0 12px 25px rgba(0,0,0,.25);
+    position:relative;
+    color:#fff;
+}
+
+
+#select .card:hover{
+    transform:translateY(-10px);
+    box-shadow:0 18px 35px rgba(0,201,255,.35);
+}
+
+/* Card Body */
+#select .card-body{
+    border-radius:20px;
+    padding:20px;
+    color:white;
+    background: linear-gradient(
+        270deg,
+        #ff0000,
+        #ff7f00,
+        #ffff00,
+        #00ff00,
+        #00ffff,
+        #0000ff,
+        #8b00ff,
+        #ff0000
+    );
+    background-size: 1400% 1400%;
+    animation: rainbow 8s ease infinite;
+    box-shadow:0 10px 30px rgba(0,0,0,0.3);
+    padding:30px 20px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+/* ===========================
+   Python Notes Section
+=========================== */
+
+#notes{
+    background:linear-gradient(135deg,#0F172A,#1E293B,#111827);
+    padding:50px 0;
+    color:white;
+}
+
+/* Heading */
+
+#notes h2{
+    color:#FFD43B;
+    font-weight:700;
+    margin-bottom:30px;
+}
+
+#notes h4{
+    color:#00C9FF;
+    text-align:center;
+    letter-spacing:2px;
+}
+
+/* Sidebar */
+
+#notes .card{
+    background:rgba(255,255,255,.08);
+    backdrop-filter:blur(12px);
+    border:none;
+    border-radius:18px;
+    overflow:hidden;
+    box-shadow:0 10px 25px rgba(0,0,0,.30);
+}
+
+/* Sticky Sidebar */
+
+#notes .col-md-3 .card{
+    position:sticky;
+    top:90px;
+}
+
+/* Sidebar Header */
+
+.card-header{
+    background:linear-gradient(135deg,#6C63FF,#00C9FF)!important;
+    color:white;
+    font-size:20px;
+    padding:18px;
+}
+
+/* Sidebar Links */
+
+.list-group-item{
+    background:transparent;
+    color:#fff;
+    border:none;
+    transition:.3s;
+}
+
+.list-group-item:hover{
+    background:linear-gradient(90deg,#6C63FF,#00C9FF);
+    color:white;
+    padding-left:25px;
+}
+
+/* Details */
+
+details{
+    color:white;
+}
+
+details summary{
+    cursor:pointer;
+    list-style:none;
+}
+
+details a{
+    color:#d1d5db;
+    transition:.3s;
+}
+
+details a:hover{
+    color:#FFD43B;
+}
+
+/* Right Notes */
+
+.card-body{
+    padding:35px;
+}
+
+.card-body section{
+    background:rgba(255,255,255,.05);
+    border-left:5px solid #00C9FF;
+    border-radius:15px;
+    padding:25px;
+    margin-bottom:30px;
+    transition:.3s;
+}
+
+.card-body section:hover{
+    transform:translateX(8px);
+    background:rgba(255,255,255,.08);
+}
+
+/* Section Heading */
+
+.card-body h3{
+    color:#FFD43B;
+    margin-bottom:15px;
+}
+
+/* Paragraph */
+
+.card-body p{
+    color:#E5E7EB;
+    line-height:1.8;
+}
+
+/* Lists */
+
+.card-body ul{
+    padding-left:20px;
+}
+
+.card-body li{
+    margin-bottom:10px;
+    color:#E5E7EB;
+}
+
+/* Code */
+
+pre{
+    background:#0D1117;
+    color:#00FF99;
+    padding:18px;
+    border-radius:12px;
+    overflow:auto;
+    font-size:15px;
+    border-left:5px solid #00C9FF;
+}
+
+/* HR */
+
+hr{
+    border:0;
+    height:1px;
+    background:rgba(255,255,255,.15);
+    margin:30px 0;
+}
+
+/* Scrollbar */
+
+::-webkit-scrollbar{
+    width:10px;
+}
+
+::-webkit-scrollbar-thumb{
+    background:#6C63FF;
+    border-radius:20px;
+}
+
+/* Responsive */
+
+@media(max-width:768px){
+
+#notes .col-md-3 .card{
+    position:relative;
+    top:0;
+    margin-bottom:20px;
+}
+
+.card-body{
+    padding:20px;
+}
+
+#notes h2{
+    font-size:28px;
+}
+
+}
+p{
+    color:#E5E7EB !important;
+}
+
+</style>
+<body style="background-color: #1e1036;">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+<div class="text-center mb-5">
+    <h2 class="fw-bold text-primary display-5">
+        📚 Theory Notes
+    </h2>
+    <p>
+        Learn • Practice • Succeed
+    </p>
+</div>
+
+<!-- Search Box -->
+<form method="GET" action="{{ url_for('theory') }}#notes">
+
+    <div class="input-group">
+
+        <input
+            type="text"
+            name="search"
+            class="form-control"
+            placeholder="Search Subject..."
+            list="subjects"
+            autocomplete="off">
+
+        <button class="btn btn-primary">
+            🔍 Search
+        </button>
+
+    </div>
+
+    <datalist id="subjects">
+
+        <option value="Python">
+        <option value="Java">
+        <option value="C">
+        <option value="C++">
+        <option value="DBMS">
+        <option value="Operating System">
+        <option value="Computer Network">
+        <option value="Web Development">
+        <option value="Mobile App Development">
+        <option value="Data Structure">
+        <option value="Artificial Intelligence">
+        <option value="Data Science">
+        <option value="Cyber Security">
+        <option value="Cloud Computing">
+
+    </datalist>
+
+</form>
+
+<!-- Subject Cards -->
+<div class="row mt-4" id="select">
+  
+
+    <!-- Python -->
+    <div class="col-md-3 mb-4">
+        <a href="{{ url_for('theory', search='Python') }}#notes" class="text-decoration-none">
+            <div class="card shadow-sm h-100">
+                <div class="card-body text-center">
+                    <div class="mb-1 fs-1">🐍</div>
+                    <h4 class="fw-bold text-dark">Python</h4>
+                    <p class="text-muted">Complete Theory Notes</p>
+                    <span class="btn btn-success btn-sm">Read Notes →</span>
+                </div>
+            </div>
+        </a>
+    </div>
+
+    <!-- Java -->
+    <div class="col-md-3 mb-4">
+        <a href="{{ url_for('theory', search='Java') }}#notes" class="text-decoration-none">
+            <div class="card shadow-sm h-100">
+                <div class="card-body text-center">
+                    <div class="mb-1 fs-1">☕</div>
+                    <h4 class="fw-bold text-dark">Java</h4>
+                    <p class="text-muted">Complete Theory Notes</p>
+                    <span class="btn btn-success btn-sm">Read Notes →</span>
+                </div>
+            </div>
+        </a>
+    </div>
+
+    <!-- C -->
+    <div class="col-md-3 mb-4">
+        <a href="{{ url_for('theory', search='C') }}#notes" class="text-decoration-none">
+            <div class="card shadow-sm h-100">
+                <div class="card-body text-center">
+                    <div class="mb-1 fs-1">💻</div>
+                    <h4 class="fw-bold text-dark">C</h4>
+                    <p class="text-muted">Complete Theory Notes</p>
+                    <span class="btn btn-success btn-sm">Read Notes →</span>
+                </div>
+            </div>
+        </a>
+    </div>
+
+    <!-- C++ -->
+    <div class="col-md-3 mb-4">
+        <a href="{{ url_for('theory', search='C++') }}#notes" class="text-decoration-none">
+            <div class="card shadow-sm h-100">
+                <div class="card-body text-center">
+                    <div class="mb-1 fs-1">⚙️</div>
+                    <h4 class="fw-bold text-dark">C++</h4>
+                    <span class="btn btn-success btn-sm">Read Notes →</span>
+                </div>
+            </div>
+        </a>
+    </div>
+
+    <!-- DBMS -->
+    <div class="col-md-3 mb-4">
+        <a href="{{ url_for('theory', search='DBMS') }}#notes" class="text-decoration-none">
+            <div class="card shadow-sm h-100">
+                <div class="card-body text-center">
+                    <div class="mb-1 fs-1">🗄️</div>
+                    <h4 class="fw-bold text-dark">DBMS</h4>
+                    <p class="text-muted">Complete Theory Notes</p>
+                    <span class="btn btn-success btn-sm">Read Notes →</span>
+                </div>
+            </div>
+        </a>
+    </div>
+
+    <!-- Operating System -->
+    <div class="col-md-3 mb-4">
+        <a href="{{ url_for('theory', search='Operating System') }}#notes" class="text-decoration-none">
+            <div class="card shadow-sm h-100">
+                <div class="card-body text-center">
+                    <div class="mb-1 fs-1">🖥️</div>
+                    <h4 class="fw-bold text-dark">Operating System</h4>
+                    <p class="text-muted">Complete Theory Notes</p>
+                    <span class="btn btn-success btn-sm">Read Notes →</span>
+                </div>
+            </div>
+        </a>
+    </div>
+
+    <!-- Computer Network -->
+    <div class="col-md-3 mb-4">
+        <a href="{{ url_for('theory', search='Computer Network') }}#notes" class="text-decoration-none">
+            <div class="card shadow-sm h-100">
+                <div class="card-body text-center">
+                    <div class="mb-1 fs-1">🌐</div>
+                    <h4 class="fw-bold text-dark">Computer Network</h4>
+                    <p class="text-muted">Complete Theory Notes</p>
+                    <span class="btn btn-success btn-sm">Read Notes →</span>
+                </div>
+            </div>
+        </a>
+    </div>
+    <!-- Web Development -->
+<div class="col-md-3 mb-4">
+    <a href="{{ url_for('theory', search='Web Development') }}#notes" class="text-decoration-none">
+        <div class="card shadow-sm h-100">
+            <div class="card-body text-center">
+                <div class="mb-1 fs-1">🌍</div>
+                <h4 class="fw-bold text-dark">Web Development</h4>
+                <p class="text-muted">Complete Theory Notes</p>
+                <span class="btn btn-success btn-sm">Read Notes →</span>
+            </div>
+        </div>
+    </a>
+</div>
+<!-- Mobile App Development -->
+<div class="col-md-3 mb-4">
+    <a href="{{ url_for('theory', search='Mobile App Development') }}#notes" class="text-decoration-none">
+        <div class="card shadow-sm h-100">
+            <div class="card-body text-center">
+                <div class="mb-1 fs-1">📱</div>
+                <h4 class="fw-bold text-dark">Mobile App Development</h4>
+                <p class="text-muted">Complete Theory Notes</p>
+                <span class="btn btn-success btn-sm">Read Notes →</span>
+            </div>
+        </div>
+    </a>
+</div>
+<!-- Data Structure -->
+<div class="col-md-3 mb-4">
+    <a href="{{ url_for('theory', search='Data Structure') }}#notes" class="text-decoration-none">
+        <div class="card shadow-sm h-100">
+            <div class="card-body text-center">
+                <div class="mb-1 fs-1">🌳</div>
+                <h4 class="fw-bold text-dark">Data Structure</h4>
+                <p class="text-muted">Complete Theory Notes</p>
+                <span class="btn btn-warning btn-sm">Read Notes →</span>
+            </div>
+        </div>
+    </a>
+</div>
+
+<!-- AI -->
+<div class="col-md-3 mb-4">
+    <a href="{{ url_for('theory', search='Artificial Intelligence') }}#notes" class="text-decoration-none">
+        <div class="card shadow-sm h-100">
+            <div class="card-body text-center">
+                <div class="mb-1 fs-1">🤖</div>
+                <h4 class="fw-bold text-dark">AI</h4>
+                <p class="text-muted">Complete Theory Notes</p>
+                <span class="btn btn-success btn-sm">Read Notes →</span>
+            </div>
+        </div>
+    </a>
+</div>
+
+<!-- Data Science -->
+<div class="col-md-3 mb-4">
+    <a href="{{ url_for('theory', search='Data Science') }}#notes" class="text-decoration-none">
+        <div class="card shadow-sm h-100">
+            <div class="card-body text-center">
+                <div class="mb-1 fs-1">📊</div>
+                <h4 class="fw-bold text-dark">Data Science</h4>
+                <p class="text-muted">Complete Theory Notes</p>
+                <span class="btn btn-success btn-sm">Read Notes →</span>
+            </div>
+        </div>
+    </a>
+</div>
+
+<!-- Cyber Security -->
+<div class="col-md-3 mb-4">
+    <a href="{{ url_for('theory', search='Cyber Security') }}#notes" class="text-decoration-none">
+        <div class="card shadow-sm h-100">
+            <div class="card-body text-center">
+                <div class="mb-1 fs-1">🔒</div>
+                <h4 class="fw-bold text-dark">Cyber Security</h4>
+                <p class="text-muted">Complete Theory Notes</p>
+                <span class="btn btn-success btn-sm">Read Notes →</span>
+            </div>
+        </div>
+    </a>
+</div>
+
+<!-- Cloud Computing -->
+<div class="col-md-3 mb-4">
+    <a href="{{ url_for('theory', search='Cloud Computing') }}#notes" class="text-decoration-none">
+        <div class="card shadow-sm h-100">
+            <div class="card-body text-center">
+                <div class="mb-1 fs-1">☁️</div>
+                <h4 class="fw-bold text-dark">Cloud Computing</h4>
+                <p class="text-muted">Complete Theory Notes</p>
+                <span class="btn btn-success btn-sm">Read Notes →</span>
+            </div>
+        </div>
+    </a>
+</div>
+</div>
+
+<!-- 👇 इथे Notes लिहायच्या -->
+<div id="notes" class="mt-1">
+{% if search == "Python" %}
+<h4>*****************************************************************************************************************************************</h4>
+<h2 style="text-align: center;"> 📚 Complete Python Theory Notes 📚<br>===============================</h2>
+<div class="row">
+    <!-- Left Sidebar -->
+    <div class="col-md-3">
+    <div class="card shadow">
+        <div class="card-header bg-primary text-white text-center fw-bold">🐍 Python Topics</div>
+            <div class="list-group list-group-flush">
+                <a href="#intro" class="list-group-item list-group-item-action">📘 Introduction</a>
+                <a href="#install" class="list-group-item list-group-item-action">💻 Installation</a>
+                <details class="list-group-item">
+                <summary class="fw-bold">📦 Variables</summary>
+                <div class="mt-2 ms-3">
+                    <a href="#local" class="d-block text-decoration-none mb-2">➜ Local Variable</a>
+                    <a href="#global" class="d-block text-decoration-none mb-2">➜ Global Variable</a>
+                    <a href="#instance" class="d-block text-decoration-none mb-2">➜ Instance Variable</a>
+                    <a href="#class" class="d-block text-decoration-none">➜ Class Variable</a>
+                </div>
+                </details>
+                <a href="#datatype" class="list-group-item list-group-item-action">📊 Data Types</a>
+                <a href="#operators" class="list-group-item list-group-item-action">➕ Operators</a>
+                <a href="#loops" class="list-group-item list-group-item-action">🔁 Loops</a>
+                <a href="#functions" class="list-group-item list-group-item-action">⚙️ Functions</a>
+                <a href="#oops" class="list-group-item list-group-item-action">🏛️ OOP</a>
+            </div>
+        </div>
+
+    </div>
+    <!-- Right Notes -->
+
+    <div class="col-md-9">
+
+        <div class="card shadow">
+
+            <div class="card-body">
+
+                <section id="intro">
+                    <h3>📘 Introduction</h3>
+                    <p>
+                        Python is a high-level, interpreted and object-oriented programming language.
+                        It is easy to learn and widely used in Web Development, AI,
+                        Machine Learning, Data Science and Automation.
+                    </p>
+                </section>
+
+                <hr>
+
+                <section id="syntax">
+                    <h3>✍️ Syntax</h3>
+
+                    <p>Python syntax is simple and easy to understand.</p>
+
+<pre>
+print("Hello World")
+</pre>
+
+                </section>
+
+                <hr>
+
+                <section id="variables">
+
+                    <h3>📦 Variables</h3>
+
+                    <p>
+                        Variables are used to store data.
+                    </p>
+
+<pre>
+name = "Kaveri"
+age = 21
+</pre>
+<section id="local">
+    <h3>Local Variable</h3>
+    <p>Local variables are declared inside a function...</p>
+</section>
+
+<hr>
+
+<section id="global">
+    <h3>Global Variable</h3>
+    <p>Global variables are declared outside a function...</p>
+</section>
+
+<hr>
+
+<section id="instance">
+    <h3>Instance Variable</h3>
+    <p>Instance variables belong to an object...</p>
+</section>
+
+<hr>
+
+<section id="class">
+    <h3>Class Variable</h3>
+    <p>Class variables are shared by all objects...</p>
+</section>
+
+                </section>
+
+                <hr>
+
+                <section id="datatypes">
+
+                    <h3>📊 Data Types</h3>
+
+                    <ul>
+                        <li>int</li>
+                        <li>float</li>
+                        <li>str</li>
+                        <li>bool</li>
+                        <li>list</li>
+                        <li>tuple</li>
+                        <li>dictionary</li>
+                    </ul>
+
+                </section>
+
+                <hr>
+
+                <section id="operators">
+
+                    <h3>➕ Operators</h3>
+
+                    <ul>
+                        <li>Arithmetic</li>
+                        <li>Comparison</li>
+                        <li>Logical</li>
+                        <li>Assignment</li>
+                    </ul>
+
+                </section>
+
+                <hr>
+
+                <section id="loops">
+
+                    <h3>🔁 Loops</h3>
+
+<pre>
+for i in range(5):
+    print(i)
+</pre>
+
+                </section>
+
+                <hr>
+
+                <section id="functions">
+
+                    <h3>⚙️ Functions</h3>
+
+<pre>
+def add(a,b):
+    return a+b
+</pre>
+
+                </section>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+{% elif search == "Java" %}
+
+<h4>*****************************************************************************************************************************************</h4>
+
+<h2 style="text-align: center;">
+☕ Complete Java Theory Notes ☕
+<br>===============================
+</h2>
+
+<div class="row">
+
+    <!-- Left Sidebar -->
+    <div class="col-md-3">
+
+        <div class="card shadow">
+
+            <div class="card-header bg-success text-white text-center fw-bold">
+                ☕ Java Topics
+            </div>
+
+            <div class="list-group list-group-flush">
+
+                <a href="#jintro" class="list-group-item list-group-item-action">
+                    📘 Introduction
+                </a>
+
+                <a href="#features" class="list-group-item list-group-item-action">
+                    ⭐ Features
+                </a>
+
+                <a href="#jvm" class="list-group-item list-group-item-action">
+                    ⚙️ JVM
+                </a>
+
+                <a href="#datatype" class="list-group-item list-group-item-action">
+                    📊 Data Types
+                </a>
+
+                <a href="#operators" class="list-group-item list-group-item-action">
+                    ➕ Operators
+                </a>
+
+                <a href="#ifelse" class="list-group-item list-group-item-action">
+                    🔀 If Else
+                </a>
+
+                <a href="#loops" class="list-group-item list-group-item-action">
+                    🔁 Loops
+                </a>
+
+                <a href="#array" class="list-group-item list-group-item-action">
+                    📚 Arrays
+                </a>
+
+                <a href="#oops" class="list-group-item list-group-item-action">
+                    🏛️ OOP
+                </a>
+
+                <a href="#exception" class="list-group-item list-group-item-action">
+                    ⚠️ Exception Handling
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Right Notes -->
+
+    <div class="col-md-9">
+
+        <div class="card shadow">
+
+            <div class="card-body">
+
+                <section id="jintro">
+
+                    <h3>📘 Introduction</h3>
+
+                    <p>
+                        Java is a high-level, object-oriented programming language
+                        developed by Sun Microsystems.
+                        It follows the principle of
+                        <b>Write Once, Run Anywhere (WORA).</b>
+                    </p>
+
+                </section>
+
+                <hr>
+
+                <section id="features">
+
+                    <h3>⭐ Features</h3>
+
+                    <ul>
+                        <li>Platform Independent</li>
+                        <li>Object Oriented</li>
+                        <li>Secure</li>
+                        <li>Robust</li>
+                        <li>Portable</li>
+                    </ul>
+
+                </section>
+
+                <hr>
+
+                <section id="jvm">
+
+                    <h3>⚙️ JVM</h3>
+
+                    <p>
+                        JVM (Java Virtual Machine) executes Java Bytecode
+                        and makes Java platform independent.
+                    </p>
+
+                </section>
+
+                <hr>
+
+                <section id="datatype">
+
+                    <h3>📊 Data Types</h3>
+
+                    <ul>
+                        <li>byte</li>
+                        <li>short</li>
+                        <li>int</li>
+                        <li>long</li>
+                        <li>float</li>
+                        <li>double</li>
+                        <li>char</li>
+                        <li>boolean</li>
+                    </ul>
+
+                </section>
+
+                <hr>
+
+                <section id="operators">
+
+                    <h3>➕ Operators</h3>
+
+                    <ul>
+                        <li>Arithmetic</li>
+                        <li>Relational</li>
+                        <li>Logical</li>
+                        <li>Assignment</li>
+                    </ul>
+
+                </section>
+
+                <hr>
+
+                <section id="ifelse">
+
+                    <h3>🔀 If Else</h3>
+
+<pre>
+if(marks >= 35){
+    System.out.println("Pass");
+}
+else{
+    System.out.println("Fail");
+}
+</pre>
+
+                </section>
+
+                <hr>
+
+                <section id="loops">
+
+                    <h3>🔁 Loops</h3>
+
+<pre>
+for(int i=1;i<=5;i++){
+    System.out.println(i);
+}
+</pre>
+
+                </section>
+
+                <hr>
+
+                <section id="array">
+
+                    <h3>📚 Arrays</h3>
+
+                    <p>
+                        Array is a collection of similar data types stored in contiguous memory locations.
+                    </p>
+
+                </section>
+
+                <hr>
+
+                <section id="oops">
+
+                    <h3>🏛️ OOP Concepts</h3>
+
+                    <ul>
+                        <li>Class</li>
+                        <li>Object</li>
+                        <li>Inheritance</li>
+                        <li>Polymorphism</li>
+                        <li>Encapsulation</li>
+                        <li>Abstraction</li>
+                    </ul>
+
+                </section>
+
+                <hr>
+
+                <section id="exception">
+
+                    <h3>⚠️ Exception Handling</h3>
+
+<pre>
+try{
+
+}
+catch(Exception e){
+
+}
+</pre>
+
+                </section>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+{% elif search == "C" %}
+
+<h4>*****************************************************************************************************************************************</h4>
+
+<h2 style="text-align:center;">
+💻 Complete C Programming Theory Notes 💻
+<br>=====================================
+</h2>
+
+<div class="row">
+
+    <!-- Left Sidebar -->
+    <div class="col-md-3">
+
+        <div class="card shadow">
+
+            <div class="card-header bg-danger text-white text-center fw-bold">
+                💻 C Topics
+            </div>
+
+            <div class="list-group list-group-flush">
+
+                <a href="#intro" class="list-group-item list-group-item-action">📘 Introduction</a>
+
+                <a href="#history" class="list-group-item list-group-item-action">📜 History</a>
+
+                <a href="#features" class="list-group-item list-group-item-action">⭐ Features</a>
+
+                <a href="#datatype" class="list-group-item list-group-item-action">📊 Data Types</a>
+
+                <a href="#variables" class="list-group-item list-group-item-action">📦 Variables</a>
+
+                <a href="#operators" class="list-group-item list-group-item-action">➕ Operators</a>
+
+                <a href="#ifelse" class="list-group-item list-group-item-action">🔀 If Else</a>
+
+                <a href="#loops" class="list-group-item list-group-item-action">🔁 Loops</a>
+
+                <a href="#functions" class="list-group-item list-group-item-action">⚙️ Functions</a>
+
+                <a href="#array" class="list-group-item list-group-item-action">📚 Arrays</a>
+
+                <a href="#pointer" class="list-group-item list-group-item-action">👉 Pointers</a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Right Notes -->
+
+    <div class="col-md-9">
+
+        <div class="card shadow">
+
+            <div class="card-body">
+
+                <section id="intro">
+
+                    <h3>📘 Introduction</h3>
+
+                    <p>
+                        C is a general-purpose procedural programming language
+                        developed by Dennis Ritchie in 1972.
+                    </p>
+
+                </section>
+
+                <hr>
+
+                <section id="history">
+
+                    <h3>📜 History</h3>
+
+                    <p>
+                        C was developed at Bell Laboratories by Dennis Ritchie.
+                    </p>
+
+                </section>
+
+                <hr>
+
+                <section id="features">
+
+                    <h3>⭐ Features</h3>
+
+                    <ul>
+                        <li>Simple</li>
+                        <li>Portable</li>
+                        <li>Fast Execution</li>
+                        <li>Structured Language</li>
+                        <li>Efficient</li>
+                    </ul>
+
+                </section>
+
+                <hr>
+
+                <section id="datatype">
+
+                    <h3>📊 Data Types</h3>
+
+                    <ul>
+                        <li>int</li>
+                        <li>float</li>
+                        <li>char</li>
+                        <li>double</li>
+                        <li>void</li>
+                    </ul>
+
+                </section>
+
+                <hr>
+
+                <section id="variables">
+
+                    <h3>📦 Variables</h3>
+
+                    <p>
+                        Variables are used to store data values.
+                    </p>
+
+<pre>
+int age = 20;
+char grade = 'A';
+</pre>
+
+                </section>
+
+                <hr>
+
+                <section id="operators">
+
+                    <h3>➕ Operators</h3>
+
+                    <ul>
+                        <li>Arithmetic</li>
+                        <li>Relational</li>
+                        <li>Logical</li>
+                        <li>Assignment</li>
+                    </ul>
+
+                </section>
+
+                <hr>
+
+                <section id="ifelse">
+
+                    <h3>🔀 If Else</h3>
+
+<pre>
+if(age >= 18){
+    printf("Eligible");
+}
+else{
+    printf("Not Eligible");
+}
+</pre>
+
+                </section>
+
+                <hr>
+
+                <section id="loops">
+
+                    <h3>🔁 Loops</h3>
+
+<pre>
+for(int i=1;i<=5;i++){
+    printf("%d",i);
+}
+</pre>
+
+                </section>
+
+                <hr>
+
+                <section id="functions">
+
+                    <h3>⚙️ Functions</h3>
+
+<pre>
+int add(int a,int b){
+    return a+b;
+}
+</pre>
+
+                </section>
+
+                <hr>
+
+                <section id="array">
+
+                    <h3>📚 Arrays</h3>
+
+                    <p>
+                        Array is a collection of similar data items stored in contiguous memory.
+                    </p>
+
+                </section>
+
+                <hr>
+
+                <section id="pointer">
+
+                    <h3>👉 Pointers</h3>
+
+                    <p>
+                        Pointer is a variable that stores the memory address of another variable.
+                    </p>
+
+<pre>
+int a = 10;
+int *p = &a;
+</pre>
+
+                </section>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+{% elif search == "C++" %}
+
+<h4>*****************************************************************************************************************************************</h4>
+
+<h2 style="text-align:center;">
+⚙️ Complete C++ Theory Notes ⚙️
+<br>=====================================
+</h2>
+
+<div class="row">
+
+    <!-- Left Sidebar -->
+    <div class="col-md-3">
+
+        <div class="card shadow">
+
+            <div class="card-header bg-warning text-dark text-center fw-bold">
+                ⚙️ C++ Topics
+            </div>
+
+            <div class="list-group list-group-flush">
+
+                <a href="#intro" class="list-group-item list-group-item-action">📘 Introduction</a>
+
+                <a href="#history" class="list-group-item list-group-item-action">📜 History</a>
+
+                <a href="#features" class="list-group-item list-group-item-action">⭐ Features</a>
+
+                <a href="#classes" class="list-group-item list-group-item-action">🏛️ Classes & Objects</a>
+
+                <a href="#datatype" class="list-group-item list-group-item-action">📊 Data Types</a>
+
+                <a href="#variables" class="list-group-item list-group-item-action">📦 Variables</a>
+
+                <a href="#operators" class="list-group-item list-group-item-action">➕ Operators</a>
+
+                <a href="#inheritance" class="list-group-item list-group-item-action">🧬 Inheritance</a>
+
+                <a href="#polymorphism" class="list-group-item list-group-item-action">🔄 Polymorphism</a>
+
+                <a href="#encapsulation" class="list-group-item list-group-item-action">🔒 Encapsulation</a>
+
+                <a href="#abstraction" class="list-group-item list-group-item-action">🎯 Abstraction</a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Right Notes -->
+
+    <div class="col-md-9">
+
+        <div class="card shadow">
+
+            <div class="card-body">
+
+                <section id="intro">
+
+                    <h3>📘 Introduction</h3>
+
+                    <p>
+                        C++ is an Object-Oriented Programming Language developed by Bjarne Stroustrup.
+                        It is an extension of the C programming language.
+                    </p>
+
+                </section>
+
+                <hr>
+
+                <section id="history">
+
+                    <h3>📜 History</h3>
+
+                    <p>
+                        C++ was developed by Bjarne Stroustrup in 1979 at Bell Labs.
+                    </p>
+
+                </section>
+
+                <hr>
+
+                <section id="features">
+
+                    <h3>⭐ Features</h3>
+
+                    <ul>
+                        <li>Object-Oriented</li>
+                        <li>Fast Execution</li>
+                        <li>Platform Independent</li>
+                        <li>Reusable Code</li>
+                        <li>Secure</li>
+                    </ul>
+
+                </section>
+
+                <hr>
+
+                <section id="classes">
+
+                    <h3>🏛️ Classes & Objects</h3>
+
+                    <p>
+                        A Class is a blueprint for creating objects.
+                        An Object is an instance of a class.
+                    </p>
+
+                </section>
+
+                <hr>
+
+                <section id="datatype">
+
+                    <h3>📊 Data Types</h3>
+
+                    <ul>
+                        <li>int</li>
+                        <li>float</li>
+                        <li>char</li>
+                        <li>double</li>
+                        <li>bool</li>
+                    </ul>
+
+                </section>
+
+                <hr>
+
+                <section id="variables">
+
+                    <h3>📦 Variables</h3>
+
+<pre>
+int age = 20;
+string name = "Kaveri";
+</pre>
+
+                </section>
+
+                <hr>
+
+                <section id="operators">
+
+                    <h3>➕ Operators</h3>
+
+                    <ul>
+                        <li>Arithmetic</li>
+                        <li>Relational</li>
+                        <li>Logical</li>
+                        <li>Assignment</li>
+                    </ul>
+
+                </section>
+
+                <hr>
+
+                <section id="inheritance">
+
+                    <h3>🧬 Inheritance</h3>
+
+                    <p>
+                        Inheritance allows one class to acquire the properties and methods of another class.
+                    </p>
+
+                </section>
+
+                <hr>
+
+                <section id="polymorphism">
+
+                    <h3>🔄 Polymorphism</h3>
+
+                    <p>
+                        Polymorphism allows one function to perform different tasks based on the object.
+                    </p>
+
+                </section>
+
+                <hr>
+
+                <section id="encapsulation">
+
+                    <h3>🔒 Encapsulation</h3>
+
+                    <p>
+                        Encapsulation means wrapping data and methods into a single unit called a class.
+                    </p>
+
+                </section>
+
+                <hr>
+
+                <section id="abstraction">
+
+                    <h3>🎯 Abstraction</h3>
+
+                    <p>
+                        Abstraction hides implementation details and shows only the essential features.
+                    </p>
+
+                </section>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+{% elif search == "DBMS" %}
+
+<h4>*****************************************************************************************************************************************</h4>
+
+<h2 style="text-align:center;">
+🗄️ Complete DBMS Theory Notes 🗄️
+<br>=====================================
+</h2>
+
+<div class="row">
+
+    <!-- Left Sidebar -->
+    <div class="col-md-3">
+
+        <div class="card shadow">
+
+            <div class="card-header bg-info text-white text-center fw-bold">
+                🗄️ DBMS Topics
+            </div>
+
+            <div class="list-group list-group-flush">
+
+                <a href="#intro" class="list-group-item list-group-item-action">📘 Introduction</a>
+
+                <a href="#features" class="list-group-item list-group-item-action">⭐ Features</a>
+
+                <a href="#database" class="list-group-item list-group-item-action">🗃️ Database</a>
+
+                <a href="#table" class="list-group-item list-group-item-action">📋 Tables</a>
+
+                <a href="#keys" class="list-group-item list-group-item-action">🔑 Keys</a>
+
+                <a href="#sql" class="list-group-item list-group-item-action">💻 SQL</a>
+
+                <a href="#normalization" class="list-group-item list-group-item-action">📐 Normalization</a>
+
+                <a href="#joins" class="list-group-item list-group-item-action">🔗 Joins</a>
+
+                <a href="#transaction" class="list-group-item list-group-item-action">💳 Transactions</a>
+
+                <a href="#acid" class="list-group-item list-group-item-action">⚡ ACID Properties</a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Right Notes -->
+
+    <div class="col-md-9">
+
+        <div class="card shadow">
+
+            <div class="card-body">
+
+                <section id="intro">
+                    <h3>📘 Introduction</h3>
+
+                    <p>
+                        DBMS (Database Management System) is software used to
+                        create, store, retrieve and manage data efficiently.
+                    </p>
+
+                </section>
+
+                <hr>
+
+                <section id="features">
+
+                    <h3>⭐ Features</h3>
+
+                    <ul>
+                        <li>Data Security</li>
+                        <li>Backup & Recovery</li>
+                        <li>Data Sharing</li>
+                        <li>Data Integrity</li>
+                        <li>Reduced Redundancy</li>
+                    </ul>
+
+                </section>
+
+                <hr>
+
+                <section id="database">
+
+                    <h3>🗃️ Database</h3>
+
+                    <p>
+                        A Database is an organized collection of related data.
+                    </p>
+
+                </section>
+
+                <hr>
+
+                <section id="table">
+
+                    <h3>📋 Tables</h3>
+
+                    <p>
+                        A Table stores data in the form of rows and columns.
+                    </p>
+
+                </section>
+
+                <hr>
+
+                <section id="keys">
+
+                    <h3>🔑 Keys</h3>
+
+                    <ul>
+                        <li>Primary Key</li>
+                        <li>Foreign Key</li>
+                        <li>Candidate Key</li>
+                        <li>Alternate Key</li>
+                        <li>Composite Key</li>
+                    </ul>
+
+                </section>
+
+                <hr>
+
+                <section id="sql">
+
+                    <h3>💻 SQL</h3>
+
+<pre>
+CREATE TABLE Student(
+    id INT,
+    name VARCHAR(50)
+);
+
+SELECT * FROM Student;
+</pre>
+
+                </section>
+
+                <hr>
+
+                <section id="normalization">
+
+                    <h3>📐 Normalization</h3>
+
+                    <p>
+                        Normalization is the process of organizing data to
+                        reduce redundancy and improve consistency.
+                    </p>
+
+                </section>
+
+                <hr>
+
+                <section id="joins">
+
+                    <h3>🔗 Joins</h3>
+
+                    <ul>
+                        <li>INNER JOIN</li>
+                        <li>LEFT JOIN</li>
+                        <li>RIGHT JOIN</li>
+                        <li>FULL JOIN</li>
+                    </ul>
+
+                </section>
+
+                <hr>
+
+                <section id="transaction">
+
+                    <h3>💳 Transactions</h3>
+
+                    <p>
+                        A transaction is a sequence of database operations
+                        performed as a single logical unit.
+                    </p>
+
+                </section>
+
+                <hr>
+
+                <section id="acid">
+
+                    <h3>⚡ ACID Properties</h3>
+
+                    <ul>
+                        <li>Atomicity</li>
+                        <li>Consistency</li>
+                        <li>Isolation</li>
+                        <li>Durability</li>
+                    </ul>
+
+                </section>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+{% elif search == "Operating System" %}
+
+<h4>*****************************************************************************************************************************************</h4>
+
+<h2 style="text-align:center;">
+🖥️ Complete Operating System Theory Notes 🖥️
+<br>===========================================
+</h2>
+
+<div class="row">
+
+    <!-- Left Sidebar -->
+    <div class="col-md-3">
+
+        <div class="card shadow">
+
+            <div class="card-header bg-dark text-white text-center fw-bold">
+                🖥️ OS Topics
+            </div>
+
+            <div class="list-group list-group-flush">
+
+                <a href="#intro" class="list-group-item list-group-item-action">📘 Introduction</a>
+
+                <a href="#functions" class="list-group-item list-group-item-action">⚙️ Functions</a>
+
+                <a href="#types" class="list-group-item list-group-item-action">📂 Types of OS</a>
+
+                <a href="#process" class="list-group-item list-group-item-action">🔄 Process</a>
+
+                <a href="#thread" class="list-group-item list-group-item-action">🧵 Thread</a>
+
+                <a href="#cpu" class="list-group-item list-group-item-action">💻 CPU Scheduling</a>
+
+                <a href="#deadlock" class="list-group-item list-group-item-action">⛔ Deadlock</a>
+
+                <a href="#memory" class="list-group-item list-group-item-action">💾 Memory Management</a>
+
+                <a href="#paging" class="list-group-item list-group-item-action">📄 Paging</a>
+
+                <a href="#security" class="list-group-item list-group-item-action">🔒 Security</a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Right Notes -->
+
+    <div class="col-md-9">
+
+        <div class="card shadow">
+
+            <div class="card-body">
+
+                <section id="intro">
+
+                    <h3>📘 Introduction</h3>
+
+                    <p>
+                        An Operating System (OS) is system software that acts
+                        as an interface between the user and computer hardware.
+                    </p>
+
+                </section>
+
+                <hr>
+
+                <section id="functions">
+
+                    <h3>⚙️ Functions of Operating System</h3>
+
+                    <ul>
+                        <li>Process Management</li>
+                        <li>Memory Management</li>
+                        <li>File Management</li>
+                        <li>Device Management</li>
+                        <li>Security</li>
+                    </ul>
+
+                </section>
+
+                <hr>
+
+                <section id="types">
+
+                    <h3>📂 Types of Operating System</h3>
+
+                    <ul>
+                        <li>Batch OS</li>
+                        <li>Time Sharing OS</li>
+                        <li>Distributed OS</li>
+                        <li>Network OS</li>
+                        <li>Real-Time OS</li>
+                    </ul>
+
+                </section>
+
+                <hr>
+
+                <section id="process">
+
+                    <h3>🔄 Process</h3>
+
+                    <p>
+                        A Process is a program in execution.
+                    </p>
+
+                </section>
+
+                <hr>
+
+                <section id="thread">
+
+                    <h3>🧵 Thread</h3>
+
+                    <p>
+                        A Thread is the smallest unit of execution inside a process.
+                    </p>
+
+                </section>
+
+                <hr>
+
+                <section id="cpu">
+
+                    <h3>💻 CPU Scheduling</h3>
+
+                    <ul>
+                        <li>FCFS</li>
+                        <li>SJF</li>
+                        <li>Priority Scheduling</li>
+                        <li>Round Robin</li>
+                    </ul>
+
+                </section>
+
+                <hr>
+
+                <section id="deadlock">
+
+                    <h3>⛔ Deadlock</h3>
+
+                    <p>
+                        Deadlock occurs when two or more processes wait
+                        indefinitely for resources held by each other.
+                    </p>
+
+                </section>
+
+                <hr>
+
+                <section id="memory">
+
+                    <h3>💾 Memory Management</h3>
+
+                    <p>
+                        Memory Management controls and coordinates computer memory efficiently.
+                    </p>
+
+                </section>
+
+                <hr>
+
+                <section id="paging">
+
+                    <h3>📄 Paging</h3>
+
+                    <p>
+                        Paging is a memory management technique that divides memory into pages and frames.
+                    </p>
+
+                </section>
+
+                <hr>
+
+                <section id="security">
+
+                    <h3>🔒 Security</h3>
+
+                    <p>
+                        Operating System provides authentication, access control,
+                        and protection against unauthorized access.
+                    </p>
+
+                </section>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% elif search == "Computer Network" %}
+
+<h4>*****************************************************************************************************************************************</h4>
+
+<h2 style="text-align:center;">
+🌐 Complete Computer Network Theory Notes 🌐
+<br>=========================================
+</h2>
+
+<div class="row">
+
+    <!-- Left Sidebar -->
+    <div class="col-md-3">
+
+        <div class="card shadow">
+
+            <div class="card-header bg-primary text-white text-center fw-bold">
+                🌐 Network Topics
+            </div>
+
+            <div class="list-group list-group-flush">
+
+                <a href="#intro" class="list-group-item list-group-item-action">📘 Introduction</a>
+
+                <a href="#types" class="list-group-item list-group-item-action">🌍 Types of Network</a>
+
+                <a href="#topology" class="list-group-item list-group-item-action">🕸️ Network Topology</a>
+
+                <a href="#osi" class="list-group-item list-group-item-action">📚 OSI Model</a>
+
+                <a href="#tcpip" class="list-group-item list-group-item-action">🌐 TCP/IP Model</a>
+
+                <a href="#ip" class="list-group-item list-group-item-action">📍 IP Address</a>
+
+                <a href="#devices" class="list-group-item list-group-item-action">📡 Networking Devices</a>
+
+                <a href="#protocols" class="list-group-item list-group-item-action">🔗 Protocols</a>
+
+                <a href="#security" class="list-group-item list-group-item-action">🔒 Network Security</a>
+
+                <a href="#advantages" class="list-group-item list-group-item-action">✅ Advantages</a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Right Notes -->
+
+    <div class="col-md-9">
+
+        <div class="card shadow">
+
+            <div class="card-body">
+
+                <section id="intro">
+
+                    <h3>📘 Introduction</h3>
+
+                    <p>
+                        A Computer Network is a collection of interconnected computers
+                        that communicate and share resources such as files, printers,
+                        and internet connections.
+                    </p>
+
+                </section>
+
+                <hr>
+
+                <section id="types">
+
+                    <h3>🌍 Types of Network</h3>
+
+                    <ul>
+                        <li>PAN (Personal Area Network)</li>
+                        <li>LAN (Local Area Network)</li>
+                        <li>MAN (Metropolitan Area Network)</li>
+                        <li>WAN (Wide Area Network)</li>
+                    </ul>
+
+                </section>
+
+                <hr>
+
+                <section id="topology">
+
+                    <h3>🕸️ Network Topology</h3>
+
+                    <ul>
+                        <li>Bus Topology</li>
+                        <li>Star Topology</li>
+                        <li>Ring Topology</li>
+                        <li>Mesh Topology</li>
+                        <li>Tree Topology</li>
+                    </ul>
+
+                </section>
+
+                <hr>
+
+                <section id="osi">
+
+                    <h3>📚 OSI Model</h3>
+
+                    <ol>
+                        <li>Application Layer</li>
+                        <li>Presentation Layer</li>
+                        <li>Session Layer</li>
+                        <li>Transport Layer</li>
+                        <li>Network Layer</li>
+                        <li>Data Link Layer</li>
+                        <li>Physical Layer</li>
+                    </ol>
+
+                </section>
+
+                <hr>
+
+                <section id="tcpip">
+
+                    <h3>🌐 TCP/IP Model</h3>
+
+                    <ul>
+                        <li>Application Layer</li>
+                        <li>Transport Layer</li>
+                        <li>Internet Layer</li>
+                        <li>Network Access Layer</li>
+                    </ul>
+
+                </section>
+
+                <hr>
+
+                <section id="ip">
+
+                    <h3>📍 IP Address</h3>
+
+                    <p>
+                        An IP Address is a unique address assigned to every device
+                        connected to a network.
+                    </p>
+
+                    <ul>
+                        <li>IPv4</li>
+                        <li>IPv6</li>
+                    </ul>
+
+                </section>
+
+                <hr>
+
+                <section id="devices">
+
+                    <h3>📡 Networking Devices</h3>
+
+                    <ul>
+                        <li>Hub</li>
+                        <li>Switch</li>
+                        <li>Router</li>
+                        <li>Bridge</li>
+                        <li>Gateway</li>
+                        <li>Repeater</li>
+                    </ul>
+
+                </section>
+
+                <hr>
+
+                <section id="protocols">
+
+                    <h3>🔗 Protocols</h3>
+
+                    <ul>
+                        <li>HTTP</li>
+                        <li>HTTPS</li>
+                        <li>FTP</li>
+                        <li>SMTP</li>
+                        <li>TCP</li>
+                        <li>UDP</li>
+                    </ul>
+
+                </section>
+
+                <hr>
+
+                <section id="security">
+
+                    <h3>🔒 Network Security</h3>
+
+                    <p>
+                        Network Security protects computers and data from
+                        unauthorized access, malware, and cyber attacks.
+                    </p>
+
+                </section>
+
+                <hr>
+
+                <section id="advantages">
+
+                    <h3>✅ Advantages</h3>
+
+                    <ul>
+                        <li>Resource Sharing</li>
+                        <li>Fast Communication</li>
+                        <li>Centralized Data Management</li>
+                        <li>Cost Effective</li>
+                        <li>Easy File Sharing</li>
+                    </ul>
+
+                </section>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+{% elif search == "Mobile App Development" %}
+
+<h4>*****************************************************************************************************************************************</h4>
+
+<h2 style="text-align:center;">
+📱 Complete Mobile App Development Theory Notes 📱
+<br>===============================================
+</h2>
+
+<div class="row">
+
+    <!-- Left Sidebar -->
+    <div class="col-md-3">
+
+        <div class="card shadow">
+
+            <div class="card-header bg-success text-white text-center fw-bold">
+                📱 Mobile App Topics
+            </div>
+
+            <div class="list-group list-group-flush">
+
+                <a href="#intro" class="list-group-item list-group-item-action">📘 Introduction</a>
+
+                <a href="#types" class="list-group-item list-group-item-action">📂 Types of Apps</a>
+
+                <a href="#android" class="list-group-item list-group-item-action">🤖 Android</a>
+
+                <a href="#ios" class="list-group-item list-group-item-action">🍎 iOS</a>
+
+                <a href="#flutter" class="list-group-item list-group-item-action">💙 Flutter</a>
+
+                <a href="#react" class="list-group-item list-group-item-action">⚛️ React Native</a>
+
+                <a href="#uiux" class="list-group-item list-group-item-action">🎨 UI/UX Design</a>
+
+                <a href="#database" class="list-group-item list-group-item-action">🗄️ Database</a>
+
+                <a href="#api" class="list-group-item list-group-item-action">🔗 API Integration</a>
+
+                <a href="#publish" class="list-group-item list-group-item-action">🚀 App Publishing</a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Right Notes -->
+
+    <div class="col-md-9">
+
+        <div class="card shadow">
+
+            <div class="card-body">
+
+                <section id="intro">
+
+                    <h3>📘 Introduction</h3>
+
+                    <p>
+                        Mobile App Development is the process of designing,
+                        developing and deploying applications for smartphones
+                        and tablets.
+                    </p>
+
+                </section>
+
+                <hr>
+
+                <section id="types">
+
+                    <h3>📂 Types of Mobile Apps</h3>
+
+                    <ul>
+                        <li>Native Apps</li>
+                        <li>Hybrid Apps</li>
+                        <li>Cross-Platform Apps</li>
+                        <li>Web Apps</li>
+                    </ul>
+
+                </section>
+
+                <hr>
+
+                <section id="android">
+
+                    <h3>🤖 Android</h3>
+
+                    <p>
+                        Android is Google's mobile operating system.
+                        Android applications are commonly developed using
+                        Java or Kotlin.
+                    </p>
+
+                </section>
+
+                <hr>
+
+                <section id="ios">
+
+                    <h3>🍎 iOS</h3>
+
+                    <p>
+                        iOS is Apple's mobile operating system.
+                        iOS applications are developed using Swift or Objective-C.
+                    </p>
+
+                </section>
+
+                <hr>
+
+                <section id="flutter">
+
+                    <h3>💙 Flutter</h3>
+
+                    <p>
+                        Flutter is Google's UI toolkit used to build
+                        Android, iOS, Web and Desktop applications
+                        from a single codebase using Dart.
+                    </p>
+
+                </section>
+
+                <hr>
+
+                <section id="react">
+
+                    <h3>⚛️ React Native</h3>
+
+                    <p>
+                        React Native is a JavaScript framework used
+                        to build cross-platform mobile applications.
+                    </p>
+
+                </section>
+
+                <hr>
+
+                <section id="uiux">
+
+                    <h3>🎨 UI/UX Design</h3>
+
+                    <p>
+                        UI (User Interface) focuses on the look of the app,
+                        while UX (User Experience) focuses on usability and
+                        user satisfaction.
+                    </p>
+
+                </section>
+
+                <hr>
+
+                <section id="database">
+
+                    <h3>🗄️ Database</h3>
+
+                    <p>
+                        Mobile applications use databases like SQLite,
+                        Firebase and MySQL to store user data securely.
+                    </p>
+
+                </section>
+
+                <hr>
+
+                <section id="api">
+
+                    <h3>🔗 API Integration</h3>
+
+                    <p>
+                        APIs allow mobile applications to communicate
+                        with servers and exchange data in real time.
+                    </p>
+
+                </section>
+
+                <hr>
+
+                <section id="publish">
+
+                    <h3>🚀 App Publishing</h3>
+
+                    <p>
+                        Android apps are published on the Google Play Store,
+                        while iOS apps are published on the Apple App Store.
+                    </p>
+
+                </section>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+<div class="card shadow">
+
+    <div class="card-header bg-success text-white text-center fw-bold">
+        🌐 Web Development Topics
+    </div>
+
+    <div class="list-group list-group-flush">
+
+        <a href="#intro" class="list-group-item list-group-item-action">
+            📘 Introduction
+        </a>
+
+        <a href="#internet" class="list-group-item list-group-item-action">
+            🌍 Internet & WWW
+        </a>
+
+        <a href="#frontend" class="list-group-item list-group-item-action">
+            🎨 Frontend Development
+        </a>
+
+        <a href="#backend" class="list-group-item list-group-item-action">
+            ⚙️ Backend Development
+        </a>
+
+        <a href="#html" class="list-group-item list-group-item-action">
+            📄 HTML
+        </a>
+
+        <a href="#css" class="list-group-item list-group-item-action">
+            🎨 CSS
+        </a>
+
+        <a href="#javascript" class="list-group-item list-group-item-action">
+            🟨 JavaScript
+        </a>
+
+        <a href="#bootstrap" class="list-group-item list-group-item-action">
+            💜 Bootstrap
+        </a>
+
+        <a href="#flask" class="list-group-item list-group-item-action">
+            🌶️ Flask Framework
+        </a>
+
+        <a href="#database" class="list-group-item list-group-item-action">
+            🗄️ Database
+        </a>
+
+        <a href="#api" class="list-group-item list-group-item-action">
+            🔗 REST API
+        </a>
+
+        <a href="#hosting" class="list-group-item list-group-item-action">
+            ☁️ Web Hosting
+        </a>
+
+        <a href="#deployment" class="list-group-item list-group-item-action">
+            🚀 Website Deployment
+        </a>
+
+    </div>
+
+</div>
+{% elif search == "Data Structure" %}
+
+<h4>*****************************************************************************************************************************************</h4>
+
+<h2 style="text-align:center;">
+🌳 Complete Data Structure Theory Notes 🌳
+<br>========================================
+</h2>
+
+<div class="row">
+
+    <!-- Left Sidebar -->
+    <div class="col-md-3">
+
+        <div class="card shadow">
+
+            <div class="card-header bg-warning text-dark text-center fw-bold">
+                🌳 Data Structure Topics
+            </div>
+
+            <div class="list-group list-group-flush">
+
+                <a href="#intro" class="list-group-item list-group-item-action">
+                    📘 Introduction
+                </a>
+
+                <a href="#types" class="list-group-item list-group-item-action">
+                    📂 Types of Data Structure
+                </a>
+
+                <a href="#array" class="list-group-item list-group-item-action">
+                    📚 Array
+                </a>
+
+                <a href="#linkedlist" class="list-group-item list-group-item-action">
+                    🔗 Linked List
+                </a>
+
+                <a href="#stack" class="list-group-item list-group-item-action">
+                    📦 Stack
+                </a>
+
+                <a href="#queue" class="list-group-item list-group-item-action">
+                    🚶 Queue
+                </a>
+
+                <a href="#tree" class="list-group-item list-group-item-action">
+                    🌳 Tree
+                </a>
+
+                <a href="#graph" class="list-group-item list-group-item-action">
+                    🕸️ Graph
+                </a>
+
+                <a href="#searching" class="list-group-item list-group-item-action">
+                    🔍 Searching
+                </a>
+
+                <a href="#sorting" class="list-group-item list-group-item-action">
+                    🔄 Sorting
+                </a>
+
+                <a href="#complexity" class="list-group-item list-group-item-action">
+                    ⏱️ Time Complexity
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Right Notes -->
+
+    <div class="col-md-9">
+
+        <div class="card shadow">
+
+            <div class="card-body">
+
+                <section id="intro">
+
+                    <h3>📘 Introduction</h3>
+
+                    <p>
+                        Data Structure is a method of organizing and storing data
+                        efficiently so that it can be accessed and modified easily.
+                    </p>
+
+                </section>
+
+                <hr>
+
+                <section id="types">
+
+                    <h3>📂 Types of Data Structure</h3>
+
+                    <ul>
+                        <li>Linear Data Structure</li>
+                        <li>Non-Linear Data Structure</li>
+                    </ul>
+
+                </section>
+
+                <hr>
+
+                <section id="array">
+
+                    <h3>📚 Array</h3>
+
+                    <p>
+                        An Array is a collection of elements of the same data type
+                        stored in contiguous memory locations.
+                    </p>
+
+<pre>
+int arr[5] = {10,20,30,40,50};
+</pre>
+
+                </section>
+
+                <hr>
+
+                <section id="linkedlist">
+
+                    <h3>🔗 Linked List</h3>
+
+                    <p>
+                        A Linked List is a linear data structure where each node
+                        contains data and a pointer to the next node.
+                    </p>
+
+                </section>
+
+                <hr>
+
+                <section id="stack">
+
+                    <h3>📦 Stack</h3>
+
+                    <p>
+                        Stack follows the <b>LIFO (Last In First Out)</b> principle.
+                    </p>
+
+                </section>
+
+                <hr>
+
+                <section id="queue">
+
+                    <h3>🚶 Queue</h3>
+
+                    <p>
+                        Queue follows the <b>FIFO (First In First Out)</b> principle.
+                    </p>
+
+                </section>
+
+                <hr>
+
+                <section id="tree">
+
+                    <h3>🌳 Tree</h3>
+
+                    <p>
+                        A Tree is a hierarchical data structure consisting of nodes
+                        connected by edges.
+                    </p>
+
+                </section>
+
+                <hr>
+
+                <section id="graph">
+
+                    <h3>🕸️ Graph</h3>
+
+                    <p>
+                        A Graph is a collection of vertices (nodes) and edges
+                        used to represent relationships.
+                    </p>
+
+                </section>
+
+                <hr>
+
+                <section id="searching">
+
+                    <h3>🔍 Searching</h3>
+
+                    <ul>
+                        <li>Linear Search</li>
+                        <li>Binary Search</li>
+                    </ul>
+
+                </section>
+
+                <hr>
+
+                <section id="sorting">
+
+                    <h3>🔄 Sorting</h3>
+
+                    <ul>
+                        <li>Bubble Sort</li>
+                        <li>Selection Sort</li>
+                        <li>Insertion Sort</li>
+                        <li>Merge Sort</li>
+                        <li>Quick Sort</li>
+                    </ul>
+
+                </section>
+
+                <hr>
+
+                <section id="complexity">
+
+                    <h3>⏱️ Time Complexity</h3>
+
+                    <p>
+                        Time Complexity measures the execution time of an algorithm.
+                        It is represented using <b>Big O Notation</b>.
+                    </p>
+
+                    <ul>
+                        <li>O(1)</li>
+                        <li>O(log n)</li>
+                        <li>O(n)</li>
+                        <li>O(n log n)</li>
+                        <li>O(n²)</li>
+                    </ul>
+
+                </section>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+{% elif search == "Artificial Intelligence" %}
+
+<h4>*****************************************************************************************************************************************</h4>
+
+<h2 style="text-align:center;">
+🤖 Complete Artificial Intelligence Theory Notes 🤖
+<br>=================================================
+</h2>
+
+<div class="row">
+
+    <!-- Left Sidebar -->
+    <div class="col-md-3">
+
+        <div class="card shadow">
+
+            <div class="card-header bg-dark text-white text-center fw-bold">
+                🤖 AI Topics
+            </div>
+
+            <div class="list-group list-group-flush">
+
+                <a href="#intro" class="list-group-item list-group-item-action">
+                    📘 Introduction
+                </a>
+
+                <a href="#history" class="list-group-item list-group-item-action">
+                    📜 History
+                </a>
+
+                <a href="#features" class="list-group-item list-group-item-action">
+                    ⭐ Features
+                </a>
+
+                <a href="#types" class="list-group-item list-group-item-action">
+                    📂 Types of AI
+                </a>
+
+                <a href="#ml" class="list-group-item list-group-item-action">
+                    🧠 Machine Learning
+                </a>
+
+                <a href="#dl" class="list-group-item list-group-item-action">
+                    🕸️ Deep Learning
+                </a>
+
+                <a href="#nlp" class="list-group-item list-group-item-action">
+                    💬 Natural Language Processing
+                </a>
+
+                <a href="#vision" class="list-group-item list-group-item-action">
+                    👁️ Computer Vision
+                </a>
+
+                <a href="#applications" class="list-group-item list-group-item-action">
+                    🌍 Applications
+                </a>
+
+                <a href="#advantages" class="list-group-item list-group-item-action">
+                    ✅ Advantages & Limitations
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Right Notes -->
+
+    <div class="col-md-9">
+
+        <div class="card shadow">
+
+            <div class="card-body">
+
+                <section id="intro">
+
+                    <h3>📘 Introduction</h3>
+
+                    <p>
+                        Artificial Intelligence (AI) is a branch of computer science
+                        that enables machines to think, learn and make decisions like humans.
+                    </p>
+
+                </section>
+
+                <hr>
+
+                <section id="history">
+
+                    <h3>📜 History</h3>
+
+                    <p>
+                        The term Artificial Intelligence was introduced by
+                        John McCarthy in 1956 during the Dartmouth Conference.
+                    </p>
+
+                </section>
+
+                <hr>
+
+                <section id="features">
+
+                    <h3>⭐ Features</h3>
+
+                    <ul>
+                        <li>Learning Ability</li>
+                        <li>Reasoning</li>
+                        <li>Problem Solving</li>
+                        <li>Decision Making</li>
+                        <li>Automation</li>
+                    </ul>
+
+                </section>
+
+                <hr>
+
+                <section id="types">
+
+                    <h3>📂 Types of AI</h3>
+
+                    <ul>
+                        <li>Narrow AI</li>
+                        <li>General AI</li>
+                        <li>Super AI</li>
+                    </ul>
+
+                </section>
+
+                <hr>
+
+                <section id="ml">
+
+                    <h3>🧠 Machine Learning</h3>
+
+                    <p>
+                        Machine Learning is a subset of AI that allows computers
+                        to learn from data without being explicitly programmed.
+                    </p>
+
+                </section>
+
+                <hr>
+
+                <section id="dl">
+
+                    <h3>🕸️ Deep Learning</h3>
+
+                    <p>
+                        Deep Learning uses neural networks with multiple layers
+                        to solve complex problems such as image and speech recognition.
+                    </p>
+
+                </section>
+
+                <hr>
+
+                <section id="nlp">
+
+                    <h3>💬 Natural Language Processing</h3>
+
+                    <p>
+                        NLP enables computers to understand, process and generate
+                        human language.
+                    </p>
+
+                </section>
+
+                <hr>
+
+                <section id="vision">
+
+                    <h3>👁️ Computer Vision</h3>
+
+                    <p>
+                        Computer Vision enables computers to identify and analyze
+                        images and videos.
+                    </p>
+
+                </section>
+
+                <hr>
+
+                <section id="applications">
+
+                    <h3>🌍 Applications</h3>
+
+                    <ul>
+                        <li>Chatbots</li>
+                        <li>Self-Driving Cars</li>
+                        <li>Healthcare</li>
+                        <li>Recommendation Systems</li>
+                        <li>Face Recognition</li>
+                    </ul>
+
+                </section>
+
+                <hr>
+
+                <section id="advantages">
+
+                    <h3>✅ Advantages & Limitations</h3>
+
+                    <b>Advantages:</b>
+
+                    <ul>
+                        <li>Fast Decision Making</li>
+                        <li>Automation</li>
+                        <li>Reduced Human Errors</li>
+                    </ul>
+
+                    <b>Limitations:</b>
+
+                    <ul>
+                        <li>High Development Cost</li>
+                        <li>No Human Emotions</li>
+                        <li>Requires Large Amount of Data</li>
+                    </ul>
+
+                </section>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+{% elif search == "Cloud Computing" %}
+
+<h4>*****************************************************************************************************************************************</h4>
+
+<h2 style="text-align:center;">
+☁️ Complete Cloud Computing Theory Notes ☁️
+<br>=========================================
+</h2>
+
+<div class="row">
+
+    <!-- Left Sidebar -->
+    <div class="col-md-3">
+
+        <div class="card shadow">
+
+            <div class="card-header bg-info text-white text-center fw-bold">
+                ☁️ Cloud Computing Topics
+            </div>
+
+            <div class="list-group list-group-flush">
+
+                <a href="#intro" class="list-group-item list-group-item-action">📘 Introduction</a>
+
+                <a href="#features" class="list-group-item list-group-item-action">⭐ Features</a>
+
+                <a href="#types" class="list-group-item list-group-item-action">☁️ Types of Cloud</a>
+
+                <a href="#services" class="list-group-item list-group-item-action">🛠️ Service Models</a>
+
+                <a href="#deployment" class="list-group-item list-group-item-action">🌍 Deployment Models</a>
+
+                <a href="#advantages" class="list-group-item list-group-item-action">✅ Advantages</a>
+
+                <a href="#disadvantages" class="list-group-item list-group-item-action">❌ Disadvantages</a>
+
+                <a href="#providers" class="list-group-item list-group-item-action">🏢 Cloud Providers</a>
+
+                <a href="#applications" class="list-group-item list-group-item-action">💼 Applications</a>
+
+                <a href="#security" class="list-group-item list-group-item-action">🔒 Cloud Security</a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Right Notes -->
+
+    <div class="col-md-9">
+
+        <div class="card shadow">
+
+            <div class="card-body">
+
+                <section id="intro">
+
+                    <h3>📘 Introduction</h3>
+
+                    <p>
+                        Cloud Computing is the delivery of computing services
+                        such as servers, storage, databases, networking,
+                        software and analytics over the Internet.
+                    </p>
+
+                </section>
+
+                <hr>
+
+                <section id="features">
+
+                    <h3>⭐ Features</h3>
+
+                    <ul>
+                        <li>On-Demand Services</li>
+                        <li>Scalability</li>
+                        <li>High Availability</li>
+                        <li>Resource Sharing</li>
+                        <li>Pay-as-you-go</li>
+                    </ul>
+
+                </section>
+
+                <hr>
+
+                <section id="types">
+
+                    <h3>☁️ Types of Cloud</h3>
+
+                    <ul>
+                        <li>Public Cloud</li>
+                        <li>Private Cloud</li>
+                        <li>Hybrid Cloud</li>
+                        <li>Community Cloud</li>
+                    </ul>
+
+                </section>
+
+                <hr>
+
+                <section id="services">
+
+                    <h3>🛠️ Service Models</h3>
+
+                    <ul>
+                        <li><b>IaaS</b> – Infrastructure as a Service</li>
+                        <li><b>PaaS</b> – Platform as a Service</li>
+                        <li><b>SaaS</b> – Software as a Service</li>
+                    </ul>
+
+                </section>
+
+                <hr>
+
+                <section id="deployment">
+
+                    <h3>🌍 Deployment Models</h3>
+
+                    <ul>
+                        <li>Public Deployment</li>
+                        <li>Private Deployment</li>
+                        <li>Hybrid Deployment</li>
+                        <li>Multi-Cloud Deployment</li>
+                    </ul>
+
+                </section>
+
+                <hr>
+
+                <section id="advantages">
+
+                    <h3>✅ Advantages</h3>
+
+                    <ul>
+                        <li>Cost Effective</li>
+                        <li>Anywhere Access</li>
+                        <li>Automatic Backup</li>
+                        <li>Easy Collaboration</li>
+                        <li>Flexible Storage</li>
+                    </ul>
+
+                </section>
+
+                <hr>
+
+                <section id="disadvantages">
+
+                    <h3>❌ Disadvantages</h3>
+
+                    <ul>
+                        <li>Internet Dependency</li>
+                        <li>Security Risks</li>
+                        <li>Downtime</li>
+                        <li>Limited Control</li>
+                    </ul>
+
+                </section>
+
+                <hr>
+
+                <section id="providers">
+
+                    <h3>🏢 Popular Cloud Providers</h3>
+
+                    <ul>
+                        <li>Amazon Web Services (AWS)</li>
+                        <li>Microsoft Azure</li>
+                        <li>Google Cloud Platform (GCP)</li>
+                        <li>IBM Cloud</li>
+                        <li>Oracle Cloud</li>
+                    </ul>
+
+                </section>
+
+                <hr>
+
+                <section id="applications">
+
+                    <h3>💼 Applications</h3>
+
+                    <ul>
+                        <li>Cloud Storage</li>
+                        <li>Online Banking</li>
+                        <li>Video Streaming</li>
+                        <li>E-Commerce</li>
+                        <li>Artificial Intelligence</li>
+                    </ul>
+
+                </section>
+
+                <hr>
+
+                <section id="security">
+
+                    <h3>🔒 Cloud Security</h3>
+
+                    <p>
+                        Cloud Security protects cloud-based applications,
+                        data and infrastructure using encryption,
+                        authentication and access control.
+                    </p>
+
+                </section>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+{% elif search == "Cyber Security" %}
+
+<h4>*****************************************************************************************************************************************</h4>
+
+<h2 style="text-align:center;">
+🔒 Complete Cyber Security Theory Notes 🔒
+<br>==========================================
+</h2>
+
+<div class="row">
+
+    <!-- Left Sidebar -->
+    <div class="col-md-3">
+
+        <div class="card shadow">
+
+            <div class="card-header bg-danger text-white text-center fw-bold">
+                🔒 Cyber Security Topics
+            </div>
+
+            <div class="list-group list-group-flush">
+
+                <a href="#intro" class="list-group-item list-group-item-action">📘 Introduction</a>
+
+                <a href="#importance" class="list-group-item list-group-item-action">⭐ Importance</a>
+
+                <a href="#types" class="list-group-item list-group-item-action">🛡️ Types of Cyber Security</a>
+
+                <a href="#threats" class="list-group-item list-group-item-action">⚠️ Cyber Threats</a>
+
+                <a href="#malware" class="list-group-item list-group-item-action">🦠 Malware</a>
+
+                <a href="#network" class="list-group-item list-group-item-action">🌐 Network Security</a>
+
+                <a href="#firewall" class="list-group-item list-group-item-action">🔥 Firewall</a>
+
+                <a href="#encryption" class="list-group-item list-group-item-action">🔐 Encryption</a>
+
+                <a href="#best" class="list-group-item list-group-item-action">✅ Best Practices</a>
+
+                <a href="#applications" class="list-group-item list-group-item-action">💼 Applications</a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Right Notes -->
+
+    <div class="col-md-9">
+
+        <div class="card shadow">
+
+            <div class="card-body">
+
+                <section id="intro">
+
+                    <h3>📘 Introduction</h3>
+
+                    <p>
+                        Cyber Security is the practice of protecting computers,
+                        networks, software and data from cyber attacks,
+                        unauthorized access and damage.
+                    </p>
+
+                </section>
+
+                <hr>
+
+                <section id="importance">
+
+                    <h3>⭐ Importance</h3>
+
+                    <ul>
+                        <li>Protects Personal Information</li>
+                        <li>Prevents Data Theft</li>
+                        <li>Ensures Privacy</li>
+                        <li>Secures Online Transactions</li>
+                        <li>Protects Business Data</li>
+                    </ul>
+
+                </section>
+
+                <hr>
+
+                <section id="types">
+
+                    <h3>🛡️ Types of Cyber Security</h3>
+
+                    <ul>
+                        <li>Network Security</li>
+                        <li>Application Security</li>
+                        <li>Cloud Security</li>
+                        <li>Information Security</li>
+                        <li>Endpoint Security</li>
+                    </ul>
+
+                </section>
+
+                <hr>
+
+                <section id="threats">
+
+                    <h3>⚠️ Cyber Threats</h3>
+
+                    <ul>
+                        <li>Phishing</li>
+                        <li>Ransomware</li>
+                        <li>Data Breach</li>
+                        <li>Password Attack</li>
+                        <li>Denial of Service (DoS)</li>
+                    </ul>
+
+                </section>
+
+                <hr>
+
+                <section id="malware">
+
+                    <h3>🦠 Malware</h3>
+
+                    <p>
+                        Malware is malicious software designed to damage
+                        or steal information from a computer system.
+                    </p>
+
+                    <ul>
+                        <li>Virus</li>
+                        <li>Worm</li>
+                        <li>Trojan Horse</li>
+                        <li>Spyware</li>
+                        <li>Adware</li>
+                    </ul>
+
+                </section>
+
+                <hr>
+
+                <section id="network">
+
+                    <h3>🌐 Network Security</h3>
+
+                    <p>
+                        Network Security protects computer networks
+                        from unauthorized access and cyber attacks.
+                    </p>
+
+                </section>
+
+                <hr>
+
+                <section id="firewall">
+
+                    <h3>🔥 Firewall</h3>
+
+                    <p>
+                        A Firewall monitors and controls incoming and outgoing
+                        network traffic based on security rules.
+                    </p>
+
+                </section>
+
+                <hr>
+
+                <section id="encryption">
+
+                    <h3>🔐 Encryption</h3>
+
+                    <p>
+                        Encryption converts readable data into unreadable
+                        format to protect confidential information.
+                    </p>
+
+                </section>
+
+                <hr>
+
+                <section id="best">
+
+                    <h3>✅ Best Security Practices</h3>
+
+                    <ul>
+                        <li>Use Strong Passwords</li>
+                        <li>Enable Two-Factor Authentication</li>
+                        <li>Keep Software Updated</li>
+                        <li>Install Antivirus Software</li>
+                        <li>Avoid Unknown Links</li>
+                    </ul>
+
+                </section>
+
+                <hr>
+
+                <section id="applications">
+
+                    <h3>💼 Applications</h3>
+
+                    <ul>
+                        <li>Banking Security</li>
+                        <li>E-Commerce</li>
+                        <li>Government Systems</li>
+                        <li>Healthcare</li>
+                        <li>Cloud Computing</li>
+                    </ul>
+
+                </section>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+{% elif search == "Data Science" %}
+
+<h4>*****************************************************************************************************************************************</h4>
+
+<h2 style="text-align:center;">
+📊 Complete Data Science Theory Notes 📊
+<br>=========================================
+</h2>
+
+<div class="row">
+
+    <!-- Left Sidebar -->
+    <div class="col-md-3">
+
+        <div class="card shadow">
+
+            <div class="card-header bg-primary text-white text-center fw-bold">
+                📊 Data Science Topics
+            </div>
+
+            <div class="list-group list-group-flush">
+
+                <a href="#intro" class="list-group-item list-group-item-action">📘 Introduction</a>
+
+                <a href="#lifecycle" class="list-group-item list-group-item-action">🔄 Data Science Life Cycle</a>
+
+                <a href="#collection" class="list-group-item list-group-item-action">📥 Data Collection</a>
+
+                <a href="#cleaning" class="list-group-item list-group-item-action">🧹 Data Cleaning</a>
+
+                <a href="#analysis" class="list-group-item list-group-item-action">📈 Data Analysis</a>
+
+                <a href="#visualization" class="list-group-item list-group-item-action">📊 Data Visualization</a>
+
+                <a href="#ml" class="list-group-item list-group-item-action">🤖 Machine Learning</a>
+
+                <a href="#tools" class="list-group-item list-group-item-action">🛠️ Tools</a>
+
+                <a href="#applications" class="list-group-item list-group-item-action">🌍 Applications</a>
+
+                <a href="#advantages" class="list-group-item list-group-item-action">✅ Advantages</a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Right Notes -->
+
+    <div class="col-md-9">
+
+        <div class="card shadow">
+
+            <div class="card-body">
+
+                <section id="intro">
+
+                    <h3>📘 Introduction</h3>
+
+                    <p>
+                        Data Science is the process of collecting,
+                        analyzing and interpreting data to extract
+                        meaningful insights for decision making.
+                    </p>
+
+                </section>
+
+                <hr>
+
+                <section id="lifecycle">
+
+                    <h3>🔄 Data Science Life Cycle</h3>
+
+                    <ol>
+                        <li>Data Collection</li>
+                        <li>Data Cleaning</li>
+                        <li>Data Analysis</li>
+                        <li>Model Building</li>
+                        <li>Evaluation</li>
+                        <li>Deployment</li>
+                    </ol>
+
+                </section>
+
+                <hr>
+
+                <section id="collection">
+
+                    <h3>📥 Data Collection</h3>
+
+                    <p>
+                        Data is collected from databases,
+                        websites, sensors and APIs.
+                    </p>
+
+                </section>
+
+                <hr>
+
+                <section id="cleaning">
+
+                    <h3>🧹 Data Cleaning</h3>
+
+                    <p>
+                        Data Cleaning removes missing values,
+                        duplicate records and incorrect data.
+                    </p>
+
+                </section>
+
+                <hr>
+
+                <section id="analysis">
+
+                    <h3>📈 Data Analysis</h3>
+
+                    <p>
+                        Data Analysis helps identify patterns,
+                        trends and relationships in data.
+                    </p>
+
+                </section>
+
+                <hr>
+
+                <section id="visualization">
+
+                    <h3>📊 Data Visualization</h3>
+
+                    <p>
+                        Data Visualization represents data
+                        using charts, graphs and dashboards.
+                    </p>
+
+                </section>
+
+                <hr>
+
+                <section id="ml">
+
+                    <h3>🤖 Machine Learning</h3>
+
+                    <p>
+                        Machine Learning is a branch of
+                        Data Science that enables computers
+                        to learn from data.
+                    </p>
+
+                </section>
+
+                <hr>
+
+                <section id="tools">
+
+                    <h3>🛠️ Tools</h3>
+
+                    <ul>
+                        <li>Python</li>
+                        <li>Pandas</li>
+                        <li>NumPy</li>
+                        <li>Matplotlib</li>
+                        <li>Jupyter Notebook</li>
+                        <li>SQL</li>
+                    </ul>
+
+                </section>
+
+                <hr>
+
+                <section id="applications">
+
+                    <h3>🌍 Applications</h3>
+
+                    <ul>
+                        <li>Healthcare</li>
+                        <li>Finance</li>
+                        <li>E-Commerce</li>
+                        <li>Social Media</li>
+                        <li>Fraud Detection</li>
+                        <li>Weather Forecasting</li>
+                    </ul>
+
+                </section>
+
+                <hr>
+
+                <section id="advantages">
+
+                    <h3>✅ Advantages</h3>
+
+                    <ul>
+                        <li>Better Decision Making</li>
+                        <li>Business Growth</li>
+                        <li>Automation</li>
+                        <li>Accurate Predictions</li>
+                        <li>Data-Driven Insights</li>
+                    </ul>
+
+                </section>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+{% endif %}
+
+</div>
+
+{% endblock %}

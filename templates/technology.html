@@ -1,0 +1,138 @@
+{% extends "base.html" %}
+
+{% block title %} Home - Study Quiz Hub {% endblock %}
+{% block content %}
+{% with messages = get_flashed_messages() %}
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-warning">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+{% endwith %}
+<body style="background-color: #1e1036;">
+
+<div class="container mt-5">
+    <h1 class="text-center fw-bold text-white"
+    style="font-size:55px;">
+    🚀 Explore Technology
+    </h1>
+    <br>
+<p class="text-center fw-semibold"
+   style="font-size:22px;
+          color:#93C5FD;
+          letter-spacing:1px;
+          ">
+    ✨ Choose Your Favorite Technology & Start Learning ✨<br>
+    ***********************************************************
+</p>
+    
+    <div class="row g-4">
+
+        <!-- Card 1 -->
+        <div class="col-md-6">
+            <div class="card text-center h-100">
+                <div class="card-body" style="background-color:#8B5CF6;">
+                    <h2>🌐</h2>
+                    <h3>Web Development</h3>
+                    <p>Create modern websites using HTML, CSS, JavaScript and Flask.</p>
+                    <img src="{{ url_for('static', filename='images/web_development.jpg') }}"
+                    class="img-fluid rounded shadow mb-3"
+                    style="width:300px; height:200px;"><br>
+                    <a href="{{ url_for('Web_Development', qno=0) }}" class="btn btn-light">Start Quiz</a>
+                    <a href="{{ url_for('generate_ai_quiz', subject='Web Development') }}" class="btn btn-success">🤖 AI Quiz</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="col-md-6">
+            <div class="card text-center h-100">
+                <div class="card-body" style="background-color:#DB2777;">
+                    <h2>🤖</h2>
+                    <h3>Artificial Intelligence</h3>
+                    <p>Machine Learning, Deep Learning and Generative AI.</p>
+                    <img src="{{ url_for('static', filename='images/Artificial_ intelligence.webp') }}"
+                    class="img-fluid rounded shadow mb-3"
+                    style="width:300px; height:200px;"><br>
+                    <a href="{{ url_for('Artificial_Intelligence', qno=0) }}" class="btn btn-light">Start Quiz</a>
+                    <a href="{{ url_for('generate_ai_quiz', subject='Artificial Intelligence') }}" class="btn btn-success">🤖 AI Quiz</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="col-md-6">
+            <div class="card text-center h-100">
+                <div class="card-body" style="background-color:#06B6D4;">
+                    <h2>📊</h2>
+                    <h3>Data Science</h3>
+                    <p>Data Analysis, Visualization, Pandas and NumPy.</p>
+                    <img src="{{ url_for('static', filename='images/data_science.jpg') }}"
+                    class="img-fluid rounded shadow mb-3"
+                    style="width:300px; height:200px;"><br>
+                    <a href="{{ url_for('data_science', qno=0) }}" class="btn btn-light">Start Quiz</a>
+                    <a href="{{ url_for('generate_ai_quiz', subject='Data Science') }}"
+   class="btn btn-success">
+    🤖 AI Quiz
+</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Card 4 -->
+        <div class="col-md-6">
+            <div class="card text-center h-100">
+                <div class="card-body" style="background-color:#10B981;">
+                    <h2>🔒</h2>
+                    <h3>Cyber Security</h3>
+                    <p>Ethical Hacking, Network Security and Cryptography.</p>
+                    <img src="{{ url_for('static', filename='images/cyber security.jpg') }}"
+                    class="img-fluid rounded shadow mb-3"
+                    style="width:300px; height:200px;"><br>
+                    <a href="{{ url_for('cyber_security', qno=0) }}" class="btn btn-light">Start Quiz</a>
+                    <a href="{{ url_for('generate_ai_quiz', subject='Cyber Security') }}"
+   class="btn btn-success">
+    🤖 AI Quiz
+</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Card 5 -->
+        <div class="col-md-6">
+            <div class="card text-center h-100">
+                <div class="card-body" style="background-color:#F97316;">
+                    <h2>☁️</h2>
+                    <h3>Cloud Computing</h3>
+                    <p>AWS, Azure, Google Cloud and DevOps Tools.</p>
+                    <img src="{{ url_for('static', filename='images/cloude_computing.jpg') }}"
+                    class="img-fluid rounded shadow mb-3"
+                    style="width:300px; height:200px;"><br>
+                    <a href="{{ url_for('cloud_computing', qno=0) }}" class="btn btn-light">Start Quiz</a>
+                    <a href="{{ url_for('generate_ai_quiz', subject='Cloud Computing') }}" class="btn btn-success">🤖 AI Quiz</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Card 6 -->
+        <div class="col-md-6">
+            <div class="card text-center h-100">
+                <div class="card-body" style="background-color:#3B82F6;">
+                    <h2>📱</h2>
+                    <h3>Mobile App Development</h3>
+                    <p>Android, iOS, Flutter and more.</p>
+                    <img src="{{ url_for('static', filename='images/mobile_app _development.jpg') }}"
+                    class="img-fluid rounded shadow mb-3"
+                    style="width:300px; height:200px;"><br>
+                    <a href="{{ url_for('Mobile_App_Development', qno=0) }}" class="btn btn-light">Start Quiz</a>
+                    <a href="{{ url_for('generate_ai_quiz', subject='Mobile App Development') }}" class="btn btn-success">🤖 AI Quiz</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}

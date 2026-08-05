@@ -1,0 +1,457 @@
+{% extends "base.html" %}
+
+{% block title %}
+Add Student - Study Quiz Hub
+{% endblock %}
+
+
+{% block content %}
+
+
+<style>
+
+body{
+
+    background:linear-gradient(135deg,#141e30,#243b55);
+    font-family:'Poppins',sans-serif;
+
+}
+
+
+
+/* Card */
+
+.student-card{
+
+    border:none;
+
+    border-radius:30px;
+
+    overflow:hidden;
+
+    box-shadow:0 20px 50px rgba(0,0,0,.4);
+
+}
+
+
+
+
+/* Header */
+
+
+.student-header{
+
+    background:linear-gradient(135deg,#11998e,#38ef7d);
+
+    color:white;
+
+    text-align:center;
+
+    padding:35px;
+
+}
+
+
+
+.student-icon{
+
+    font-size:60px;
+
+}
+
+
+.student-header h2{
+
+    font-weight:800;
+
+}
+
+
+
+
+
+
+/* Body */
+
+
+.student-body{
+
+    background:white;
+
+    padding:40px;
+
+}
+
+
+
+
+
+
+/* Input */
+
+
+.form-control,
+.form-select{
+
+    border-radius:15px;
+
+    padding:13px;
+
+}
+
+
+
+.form-control:focus,
+.form-select:focus{
+
+    box-shadow:0 0 10px rgba(17,153,142,.5);
+
+}
+
+
+
+
+
+
+/* Button */
+
+
+.add-student-btn{
+
+    background:linear-gradient(135deg,#11998e,#38ef7d);
+
+    border:none;
+
+    color:white;
+
+    border-radius:30px;
+
+    padding:14px;
+
+    font-weight:bold;
+
+    transition:.3s;
+
+}
+
+
+
+.add-student-btn:hover{
+
+    transform:translateY(-4px);
+
+    color:white;
+
+}
+
+
+
+</style>
+
+
+
+
+
+<div class="container py-5">
+
+
+<div class="row justify-content-center">
+
+
+<div class="col-lg-7">
+
+
+
+<div class="card student-card">
+
+
+
+
+
+
+<div class="student-header">
+
+
+<div class="student-icon">
+
+🎓
+
+</div>
+
+
+<h2>
+
+Add New Student
+
+</h2>
+
+
+<p class="mb-0">
+
+Create student account for Study Quiz Hub 🚀
+
+</p>
+
+
+</div>
+
+
+
+
+
+
+
+<div class="student-body">
+
+
+
+
+
+<form action="{{url_for('add_student')}}"
+method="POST">
+
+
+
+
+
+
+<div class="mb-3">
+
+
+<label class="fw-bold">
+
+👤 Student Name
+
+</label>
+
+
+<input
+
+type="text"
+
+name="student_name"
+
+class="form-control"
+
+placeholder="Enter student name"
+
+required>
+
+
+</div>
+
+
+
+
+
+
+
+<div class="mb-3">
+
+
+<label class="fw-bold">
+
+💻 Username
+
+</label>
+
+
+<input
+
+type="text"
+
+name="username"
+
+class="form-control"
+
+placeholder="Enter username"
+
+required>
+
+
+</div>
+
+
+
+
+
+
+
+<div class="mb-3">
+
+
+<label class="fw-bold">
+
+📧 Email
+
+</label>
+
+
+<input
+
+type="email"
+
+name="email"
+
+class="form-control"
+
+placeholder="Enter email address"
+
+required>
+
+
+</div>
+
+
+
+
+
+
+
+<div class="mb-3">
+
+
+<label class="fw-bold">
+
+🔐 Password
+
+</label>
+
+
+<input
+
+type="password"
+
+name="password"
+
+class="form-control"
+
+placeholder="Create password"
+
+required>
+
+
+</div>
+
+
+
+
+
+
+
+<div class="mb-4">
+
+
+<label class="fw-bold">
+
+📚 Learning Subject
+
+</label>
+
+
+
+<select
+
+name="subject"
+
+class="form-select"
+
+required>
+
+
+
+<option value="">
+
+Select Subject
+
+</option>
+
+
+
+<option value="Technology">
+
+🌐 Technology
+
+</option>
+
+
+
+<option value="Programming Language">
+
+💻 Programming Language
+
+</option>
+
+
+
+<option value="Computer Science">
+
+🖥 Computer Science
+
+</option>
+
+
+
+</select>
+
+
+
+</div>
+
+
+
+
+<div class="mb-3">
+    
+                        <label class="form-label">Student Photo</label>
+                        <input name="photo" class ="form-control" type="file" accept="image/*">
+                    </div>
+
+
+
+<div class="d-grid">
+
+
+<button type="submit"
+
+class="btn add-student-btn">
+
+
+➕ Add Student
+
+
+</button>
+
+
+</div>
+
+
+
+
+
+
+</form>
+
+
+
+
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+
+
+{% endblock %}

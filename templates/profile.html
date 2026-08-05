@@ -1,0 +1,522 @@
+{% extends "base.html" %}
+
+{% block title %}
+My Profile
+{% endblock %}
+
+
+{% block content %}
+
+<style>
+
+body{
+    background:linear-gradient(135deg,#09001f,#26004d,#001f3f);
+    font-family:'Poppins',sans-serif;
+}
+
+
+/* Main */
+
+.profile-container{
+
+    margin-top:50px;
+
+}
+
+
+
+/* Profile Card */
+
+.profile-card{
+
+    background:rgba(255,255,255,0.95);
+
+    border-radius:35px;
+
+    overflow:hidden;
+
+    border:none;
+
+    box-shadow:0 20px 50px rgba(0,0,0,.4);
+
+}
+
+
+
+/* Header */
+
+.profile-top{
+
+    height:220px;
+
+    background:
+    linear-gradient(135deg,#7f00ff,#00c6ff);
+
+    position:relative;
+
+}
+
+
+
+/* Avatar */
+
+
+.avatar{
+
+    width:160px;
+
+    height:160px;
+
+    border-radius:50%;
+
+    position:absolute;
+
+    bottom:-80px;
+
+    left:50%;
+
+    transform:translateX(-50%);
+
+    border:8px solid white;
+
+    background:white;
+
+    padding:5px;
+
+}
+
+
+
+/* Body */
+
+.profile-body{
+
+    padding:100px 40px 40px;
+
+    text-align:center;
+
+}
+
+
+
+/* Badge */
+
+
+.status{
+
+    background:#00c853;
+
+    color:white;
+
+    padding:8px 25px;
+
+    border-radius:30px;
+
+    font-size:14px;
+
+}
+
+
+
+/* Stats */
+
+
+.stat-box{
+
+    background:linear-gradient(135deg,#f5f7ff,#ffffff);
+
+    border-radius:22px;
+
+    padding:25px;
+
+    transition:.3s;
+
+    border:1px solid #eee;
+
+}
+
+
+.stat-box:hover{
+
+    transform:translateY(-10px);
+
+    box-shadow:0 15px 30px rgba(0,0,0,.15);
+
+}
+
+
+
+.stat-icon{
+
+    font-size:35px;
+
+}
+
+
+
+/* Information */
+
+
+.info-card{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:20px;
+
+    background:#f8f9ff;
+
+    padding:18px;
+
+    border-radius:20px;
+
+    margin-bottom:15px;
+
+    text-align:left;
+
+}
+
+
+
+.info-card:hover{
+
+    background:#eef0ff;
+
+}
+
+
+
+.info-icon{
+
+    width:55px;
+
+    height:55px;
+
+    background:#6c5ce7;
+
+    color:white;
+
+    border-radius:50%;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    font-size:25px;
+
+}
+
+
+
+/* Buttons */
+
+.btn-profile{
+
+    border-radius:30px;
+
+    padding:12px 30px;
+
+    font-weight:bold;
+
+}
+
+
+
+</style>
+
+
+
+<div class="container profile-container">
+
+
+<div class="row justify-content-center">
+
+
+<div class="col-lg-8">
+
+
+<div class="card profile-card">
+
+
+<div class="profile-top">
+
+
+<img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
+class="avatar">
+
+
+</div>
+
+
+
+
+<div class="profile-body">
+
+
+
+<h1 class="fw-bold">
+
+{{student.Student_name}}
+
+</h1>
+
+
+<span class="status">
+
+● Active Learner
+
+</span>
+
+
+<p class="text-muted mt-3">
+
+🚀 AI Powered Study Quiz Hub Student
+
+</p>
+
+
+
+
+<!-- Stats -->
+
+
+<div class="row mt-5">
+
+
+<div class="col-md-4">
+
+<div class="stat-box">
+
+<div class="stat-icon">
+📝
+</div>
+
+<h3>
+{{student.score}}
+</h3>
+
+<p>
+Quiz Score
+</p>
+
+</div>
+
+</div>
+
+
+
+
+
+<div class="col-md-4">
+
+<div class="stat-box">
+
+<div class="stat-icon">
+🏆
+</div>
+
+<h3>
+#1
+</h3>
+
+<p>
+Student Rank
+</p>
+
+</div>
+
+</div>
+
+
+
+
+
+<div class="col-md-4">
+
+<div class="stat-box">
+
+<div class="stat-icon">
+🤖
+</div>
+
+<h3>
+AI
+</h3>
+
+<p>
+Study Assistant
+</p>
+
+</div>
+
+</div>
+
+
+</div>
+
+
+
+
+
+<h3 class="text-start mt-5 mb-3">
+
+👤 Personal Information
+
+</h3>
+
+
+
+
+<div class="info-card">
+
+<div class="info-icon">
+🆔
+</div>
+
+<div>
+
+<small>
+Student ID
+</small>
+
+<h5>
+{{student.id}}
+</h5>
+
+</div>
+
+</div>
+
+
+
+
+
+
+<div class="info-card">
+
+<div class="info-icon">
+👨‍💻
+</div>
+
+<div>
+
+<small>
+Username
+</small>
+
+<h5>
+{{student.username}}
+</h5>
+
+</div>
+
+</div>
+
+
+
+
+
+
+<div class="info-card">
+
+<div class="info-icon">
+📧
+</div>
+
+<div>
+
+<small>
+Email Address
+</small>
+
+<h5>
+{{student.email}}
+</h5>
+
+</div>
+
+</div>
+
+
+
+
+
+
+<div class="info-card">
+
+<div class="info-icon">
+📚
+</div>
+
+<div>
+
+<small>
+Learning Subject
+</small>
+
+<h5>
+{{student.subject}}
+</h5>
+
+</div>
+
+</div>
+
+
+
+
+
+<div class="mt-4">
+
+
+<a href="/students"
+class="btn btn-secondary btn-profile">
+
+⬅ Back
+
+</a>
+
+
+
+<a href="{{ url_for('edit_student',
+                    source='score',
+                    id=student['id']) }}"
+   class="btn btn-sm btn-success">
+    <i class="bi bi-pencil-fill"></i>Edit Profile
+</a>
+
+
+
+
+<a href="{{url_for('logout')}}"
+class="btn btn-danger btn-profile">
+
+🚪 Logout
+
+</a>
+
+
+</div>
+
+
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+{% endblock %}

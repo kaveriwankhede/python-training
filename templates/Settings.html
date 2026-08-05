@@ -1,0 +1,370 @@
+{% extends "base.html" %}
+
+{% block title %}
+Settings
+{% endblock %}
+
+
+{% block content %}
+
+
+<style>
+
+body{
+
+    background:linear-gradient(135deg,#1e1036,#40206d);
+    font-family:'Poppins',sans-serif;
+
+}
+
+
+/* Main Card */
+
+.settings-card{
+
+    border:none;
+    border-radius:25px;
+    overflow:hidden;
+    background:rgba(255,255,255,0.95);
+
+}
+
+
+/* Header */
+
+.settings-header{
+
+    background:linear-gradient(135deg,#667eea,#764ba2);
+    color:white;
+    padding:30px;
+    text-align:center;
+
+}
+
+
+/* Setting Items */
+
+.setting-item{
+
+    display:flex;
+    align-items:center;
+    gap:20px;
+
+    padding:18px;
+
+    margin-bottom:15px;
+
+    border-radius:18px;
+
+    background:#f8f9ff;
+
+    text-decoration:none;
+
+    color:#333;
+
+    transition:0.3s;
+
+}
+
+
+
+.setting-item:hover{
+
+    transform:translateX(10px);
+
+    background:linear-gradient(135deg,#667eea,#764ba2);
+
+    color:white;
+
+}
+
+
+
+/* Icon */
+
+.setting-icon{
+
+    width:50px;
+    height:50px;
+
+    border-radius:50%;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    font-size:25px;
+
+    background:#e9e7ff;
+
+}
+
+
+
+/* Text */
+
+.setting-text h5{
+
+    margin:0;
+
+    font-weight:700;
+
+}
+
+
+.setting-text p{
+
+    margin:0;
+
+    font-size:14px;
+
+    opacity:.7;
+
+}
+
+
+
+.logout{
+
+    color:#dc3545;
+
+}
+
+
+.logout:hover{
+
+    background:#dc3545;
+
+    color:white;
+
+}
+
+
+</style>
+
+
+
+
+<div class="container py-5">
+
+
+<div class="row justify-content-center">
+
+
+<div class="col-lg-7">
+
+
+<div class="card shadow-lg settings-card">
+
+
+
+<div class="settings-header">
+
+
+<h2>
+⚙️ Account Settings
+</h2>
+
+
+<p class="mb-0">
+Manage your Study Quiz Hub account
+</p>
+
+
+</div>
+
+
+
+
+<div class="card-body p-4">
+
+
+
+<a href="/profile" class="setting-item">
+
+
+<div class="setting-icon">
+👤
+</div>
+
+
+<div class="setting-text">
+
+<h5>
+My Profile
+</h5>
+
+<p>
+View and manage your personal information
+</p>
+
+</div>
+
+
+</a>
+
+
+
+
+
+
+<a href="/forgot_password" class="setting-item">
+
+
+<div class="setting-icon">
+🔑
+</div>
+
+
+<div class="setting-text">
+
+<h5>
+Change Password
+</h5>
+
+<p>
+Update your account security
+</p>
+
+</div>
+
+
+</a>
+
+
+
+
+
+
+
+<a href="/dashboard" class="setting-item">
+
+
+<div class="setting-icon">
+📊
+</div>
+
+
+<div class="setting-text">
+
+<h5>
+Dashboard
+</h5>
+
+<p>
+Check your quiz progress and performance
+</p>
+
+</div>
+
+
+</a>
+
+
+
+
+
+
+
+<a href="/feedback" class="setting-item">
+
+
+<div class="setting-icon">
+⭐
+</div>
+
+
+<div class="setting-text">
+
+<h5>
+Give Feedback
+</h5>
+
+<p>
+Share your experience with us
+</p>
+
+</div>
+
+
+</a>
+
+
+
+
+
+
+
+<a href="/contact" class="setting-item">
+
+
+<div class="setting-icon">
+📩
+</div>
+
+
+<div class="setting-text">
+
+<h5>
+Contact Us
+</h5>
+
+<p>
+Get help and support
+</p>
+
+</div>
+
+
+</a>
+
+
+
+
+
+
+
+<a href="/logout" class="setting-item logout">
+
+
+<div class="setting-icon">
+🚪
+</div>
+
+
+<div class="setting-text">
+
+<h5>
+Logout
+</h5>
+
+<p>
+Sign out from your account
+</p>
+
+</div>
+
+
+</a>
+
+
+
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+
+{% endblock %}

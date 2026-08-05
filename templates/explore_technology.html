@@ -1,0 +1,376 @@
+{% extends "base.html" %}
+{% block title %}Add Students — College Portal{% endblock %}
+
+{% block content %}
+<style>
+    /* ===========================
+   Explore Section
+=========================== */
+
+
+#select{
+
+    border-radius:20px;
+    padding:20px;
+    color:white;
+    background: linear-gradient(
+        270deg,
+        #ff0000,
+        #ff7f00,
+        #ffff00,
+        #00ff00,
+        #00ffff,
+        #0000ff,
+        #8b00ff,
+        #ff0000
+    );
+    background-size: 1400% 1400%;
+    animation: rainbow 8s ease infinite;
+    box-shadow:0 10px 30px rgba(0,0,0,0.3);
+
+    padding:80px 0;
+
+}
+
+#select .card{
+background:linear-gradient(135deg,#0F172A,#1E293B,#111827);
+    
+    backdrop-filter:blur(15px);
+
+    border:1px solid rgba(255,255,255,.15);
+
+    border-radius:22px;
+
+    overflow:hidden;
+
+    transition:.45s;
+
+    position:relative;
+
+    color:white;
+
+    box-shadow:0 15px 30px rgba(0,0,0,.25);
+
+}
+
+#select .card::before{
+
+    content:"";
+
+    position:absolute;
+
+    top:0;
+
+    left:0;
+
+    width:100%;
+
+    height:6px;
+
+    background:linear-gradient(
+    90deg,
+    #ff0000,
+    #ff7f00,
+    #ffd700,
+    #00c853,
+    #00b0ff,
+    #2962ff,
+    #aa00ff);
+
+}
+
+#select .card:hover{
+
+    transform:translateY(-12px) scale(1.03);
+
+    box-shadow:0 20px 45px rgba(0,201,255,.35);
+
+}
+
+#select .card-body{
+
+    padding:35px 25px;
+
+}
+
+#select h1{
+
+    font-size:65px;
+
+    transition:.4s;
+
+}
+
+#select .card:hover h1{
+
+    transform:rotate(10deg) scale(1.15);
+
+}
+
+#select h4{
+
+    color:#FFD43B;
+
+    font-weight:700;
+
+    margin:15px 0;
+
+}
+
+#select p{
+
+    color:#E5E7EB;
+
+    line-height:1.7;
+
+    min-height:90px;
+
+}
+
+/* Buttons */
+
+#select .btn{
+
+    border:none;
+
+    border-radius:50px;
+
+    padding:10px 28px;
+
+    font-weight:600;
+
+    transition:.35s;
+
+    color:white;
+
+}
+
+#select .btn:hover{
+
+    transform:scale(1.08);
+
+    box-shadow:0 10px 20px rgba(0,0,0,.25);
+
+}
+
+/* Different Button Colors */
+
+#select .btn-danger{
+
+    background:linear-gradient(135deg,#ff416c,#ff4b2b);
+
+}
+
+#select .btn-primary{
+
+    background:linear-gradient(135deg,#4776E6,#8E54E9);
+
+}
+
+#select .btn-success{
+
+    background:linear-gradient(135deg,#11998e,#38ef7d);
+
+}
+
+#select .btn-warning{
+
+    background:linear-gradient(135deg,#F7971E,#FFD200);
+
+    color:#222;
+
+}
+
+#select .btn-dark{
+
+    background:linear-gradient(135deg,#232526,#414345);
+
+}
+
+/* Rainbow Cards */
+
+#select .col-md-4:nth-child(1) .card{
+
+    border-top:5px solid #ff4d4d;
+
+}
+
+#select .col-md-4:nth-child(2) .card{
+
+    border-top:5px solid #4f46e5;
+
+}
+
+#select .col-md-4:nth-child(3) .card{
+
+    border-top:5px solid #00c853;
+
+}
+
+#select .col-md-4:nth-child(4) .card{
+
+    border-top:5px solid #ff9800;
+
+}
+
+#select .col-md-4:nth-child(5) .card{
+
+    border-top:5px solid #00bcd4;
+
+}
+
+#select .col-md-4:nth-child(6) .card{
+
+    border-top:5px solid #aa00ff;
+
+}
+
+/* Mobile */
+
+@media(max-width:768px){
+
+#select h1{
+
+font-size:50px;
+
+}
+
+#select .card{
+
+margin-bottom:20px;
+
+}
+
+#select p{
+
+min-height:auto;
+
+}
+
+}
+
+</style>
+<body style="background-color: #1e1036;">
+<div class="container my-5">
+
+<div class="alert border-0 shadow-lg rounded-4 p-5 text-center"
+style="background:linear-gradient(135deg,#0F172A,#2563EB); color:white;">
+
+    <span class="badge bg-warning text-dark px-3 py-2 mb-3 fs-6">
+        🚀 Welcome to Quizzes page <span class="text-primary">
+                {{ session['Student_name'] }}
+        </span>
+    </span>
+
+    <h1 class="fw-bold mb-3">
+        🎯 Choose Your Learning Path
+    </h1>
+
+    <p class="lead mb-4">
+        Select your favorite Field and start your journey toward
+        <span class="fw-bold text-warning">knowledge, skills, and success.</span>
+    </p>
+
+
+    <a href="{{ url_for('explore_technology') }}#select" class="btn btn-warning btn-lg px-5 fw-bold rounded-pill">
+        🚀 Select Your Field
+    </a>
+
+    <p class="mt-4 mb-0">
+        💡 <em>Best of Luck! Believe in yourself and give your best.</em>
+    </p>
+
+</div>
+
+</div>
+
+<section id="select" class="py-5" class="rainbow">
+
+            <p class="text-center text-success fw-semibold fs-5">
+                🌟 Practice • Learn • Achieve • Succeed 🌟
+            </p>
+    <div class="row g-4 mt-3">
+    <!-- Technology --> 
+    <div class="col-12 col-md-4 mb-3"> 
+        <div class="card h-100 shadow-lg border-0 text-center"> 
+            <div class="card-body"> 
+                <h1>🚀</h1> 
+                <h4 class="fw-bold">Technology</h4> 
+                <p> Web Development, Data Science, Artificial Intelligence, Cyber Security, Cloud Computing and modern technologies. </p> 
+                <a href="{{ url_for('technology') }}" class="btn btn-danger">Explore</a> 
+            </div> 
+        </div> 
+    </div> 
+    <!-- Programming Languages --> 
+     <div class="col-12 col-md-4 mb-3"> 
+        <div class="card h-100 shadow-lg border-0 text-center"> 
+            <div class="card-body"> 
+                <h1>💻</h1> 
+                <h4 class="fw-bold">Programming Languages</h4> 
+                <p> Python, Java, C, C++, JavaScript, PHP, C#, TypeScript and many more programming languages. </p> 
+                <a href="{{ url_for('explore_programing_lang') }}" class="btn btn-primary"> Explore </a> 
+            </div> 
+        </div> 
+    </div> 
+    <!-- Computer Science --> 
+     <div class="col-12 col-md-4 mb-3"> 
+        <div class="card h-100 shadow-lg border-0 text-center"> 
+            <div class="card-body"> 
+                <h1>📚</h1> 
+                <h4 class="fw-bold">Computer Science</h4> 
+                <p> Operating System, DBMS, Computer Networks, Data Structures, Algorithms and Software Engineering. </p> 
+                <a href="{{ url_for('explore_computer_science') }}" class="btn btn-danger">Explore</a> 
+            </div> 
+        </div> 
+    </div>
+    <!-- Database Systems -->
+<div class="col-12 col-md-4 mb-3">
+    <div class="card h-100 shadow-lg border-0 text-center">
+        <div class="card-body">
+            <h1>🗄️</h1>
+            <h4 class="fw-bold">Database Systems</h4>
+            <p>
+                SQL, MySQL, PostgreSQL, MongoDB,
+                SQLite, Oracle and database management concepts.
+            </p>
+            <a href="{{ url_for('explore_technology') }}" class="btn btn-success">
+                Explore
+            </a>
+        </div>
+    </div>
+</div>
+<!-- Internet of Things -->
+<div class="col-12 col-md-4 mb-3">
+    <div class="card h-100 shadow-lg border-0 text-center">
+        <div class="card-body">
+            <h1>📡</h1>
+            <h4 class="fw-bold">Internet of Things (IoT)</h4>
+            <p>
+                Arduino, Raspberry Pi, ESP32,
+                Sensors, Embedded Systems and IoT Projects.
+            </p>
+            <a href="{{ url_for('explore_technology') }}" class="btn btn-warning">
+                Explore
+            </a>
+        </div>
+    </div>
+</div>
+<!-- Robotics -->
+<div class="col-12 col-md-4 mb-3">
+    <div class="card h-100 shadow-lg border-0 text-center">
+        <div class="card-body">
+            <h1>🤖</h1>
+            <h4 class="fw-bold">Robotics</h4>
+            <p>
+                Robot Programming, Sensors, Actuators,
+                Automation, Computer Vision and Robotics Projects.
+            </p>
+            <a href="{{ url_for('explore_technology') }}" class="btn btn-dark">
+                Explore
+            </a>
+        </div>
+    </div>
+</div>
+</section>
+</div>
+{% endblock %}

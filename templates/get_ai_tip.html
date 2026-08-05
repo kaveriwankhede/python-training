@@ -1,0 +1,123 @@
+
+ {% extends "base.html" %}
+
+{% block title %}AI Study Tips{% endblock %}
+
+{% block content %}
+<body style="background-color: #1e1036;">
+<div class="container mt-5">
+
+    <div class="row justify-content-center">
+
+        <div class="col-lg-8">
+
+            <div class="card shadow-lg border-0 rounded-4">
+
+                <div class="card-header text-center text-white py-4"
+                     style="background: linear-gradient(90deg,#4e54c8,#8f94fb);">
+
+                    <h2>
+                        🤖 AI Study Assistant
+                    </h2>
+
+                    <p class="mb-0">
+                        Personalized Study Tips for Better Performance
+                    </p>
+
+                </div>
+
+                <div class="card-body p-5">
+
+                    <div class="row">
+
+                        <div class="col-md-6">
+
+                            <div class="alert alert-primary">
+
+                                <h5>👤 Student Name</h5>
+
+                                <h4>{{ student.Student_name }}</h4>
+
+                            </div>
+
+                        </div>
+
+                        <div class="col-md-6">
+
+                            <div class="alert alert-success">
+
+                                <h5>📚 Subject</h5>
+
+                                <h4>{{ student.subject }}</h4>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="alert alert-warning text-center">
+
+                        <h5>
+
+                            📝 Score :
+                            <strong>{{ student.score }}/100</strong>
+
+                        </h5>
+
+                    </div>
+
+                    <hr>
+
+                    <h4 class="text-primary">
+
+                        💡 AI Recommendation
+
+                    </h4>
+
+                    <div class="alert alert-info fs-5">
+
+                        {{ tip }}
+
+                    </div>
+
+                    <div class="text-center mt-4">
+
+                        <a href="{{ url_for('get_ai_tip', Sr_no=student['Sr_no']) }}"
+                           class="btn btn-primary btn-lg">
+
+                            🔄 Generate Again
+
+                        </a>
+
+                        <a href="/dashboard"
+                           class="btn btn-success btn-lg ms-2">
+
+                            🏠 Dashboard
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+                <div class="card-footer text-center">
+
+                    <small class="text-muted">
+
+                        Study Quiz Hub • AI Powered Learning Assistant
+
+                    </small>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}
+                     

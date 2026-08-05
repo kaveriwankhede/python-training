@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+
+{% block title %}Certificate{% endblock %}
+
+{% block content %}
+<body style="background-color: #1e1036;">
+
+<div class="container mt-5">
+
+    <div class="card shadow-lg border-5 border-warning">
+
+        <div class="card-body text-center p-5">
+
+            <h1 class="text-warning">
+                🏆 Certificate of Achievement
+            </h1>
+
+            <hr>
+
+            {% if student %}
+
+            <h3>
+                This Certificate is Proudly Presented to
+            </h3>
+
+            <h2 class="text-primary mt-3">
+                {{ student.Student_name }}
+            </h2>
+
+            <p class="mt-4 fs-5">
+
+                For successfully completing the
+
+                <strong>{{ student.subject }}</strong>
+
+                Quiz with an excellent score of
+
+                <strong>{{ student.score }}</strong>.
+
+            </p>
+
+            <h4 class="text-success mt-4">
+                Congratulations!
+            </h4>
+
+            {% else %}
+
+            <h3 class="text-danger">
+                No Certificate Available
+            </h3>
+
+            {% endif %}
+
+            <br>
+
+            <a href="/dashboard" class="btn btn-primary">
+                Back to Dashboard
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

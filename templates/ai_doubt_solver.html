@@ -1,0 +1,566 @@
+{% extends "base.html" %}
+
+{% block title %}AI Doubt Solver - Study Quiz Hub{% endblock %}
+
+{% block content %}
+
+<style>
+
+body{
+    background:linear-gradient(135deg,#0f172a,#312e81,#6d28d9);
+}
+
+
+/* MAIN */
+
+.ai-container{
+
+    max-width:950px;
+    margin:auto;
+
+}
+
+
+/* AI CARD */
+
+.ai-card{
+
+    background:rgba(255,255,255,0.15);
+    backdrop-filter:blur(18px);
+
+    border-radius:30px;
+
+    overflow:hidden;
+
+    box-shadow:0 20px 60px rgba(0,0,0,.45);
+
+}
+
+
+
+/* HEADER */
+
+.ai-header{
+
+    padding:35px;
+
+    text-align:center;
+
+    color:white;
+
+    background:
+    linear-gradient(135deg,#7c3aed,#2563eb);
+
+}
+
+
+
+.ai-avatar{
+
+    height:110px;
+    width:110px;
+
+    margin:auto;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    font-size:60px;
+
+    background:white;
+
+    border-radius:50%;
+
+    box-shadow:
+    0 0 30px rgba(255,255,255,.8);
+
+    animation:aiMove 3s infinite;
+
+}
+
+
+
+@keyframes aiMove{
+
+50%{
+transform:translateY(-10px);
+}
+
+}
+
+
+
+/* GREETING */
+
+.greeting{
+
+    background:white;
+
+    border-radius:20px;
+
+    padding:20px;
+
+    box-shadow:0 8px 20px rgba(0,0,0,.2);
+
+    margin-bottom:25px;
+
+}
+
+
+
+.greeting h5{
+
+    color:#6f42c1;
+
+    font-weight:bold;
+
+}
+
+
+
+/* INPUT */
+
+.form-control,
+.form-select{
+
+    border-radius:18px;
+
+    padding:14px;
+
+    border:none;
+
+}
+
+
+
+.form-control:focus,
+.form-select:focus{
+
+    box-shadow:0 0 15px #8b5cf6;
+
+}
+
+
+
+
+/* VOICE */
+
+.voice-btn{
+
+    width:55px;
+
+    border-radius:50%;
+
+    font-size:25px;
+
+    animation:pulse 2s infinite;
+
+}
+
+
+
+@keyframes pulse{
+
+50%{
+
+box-shadow:0 0 20px orange;
+
+}
+
+}
+
+
+
+/* ASK BUTTON */
+
+
+.ask-btn{
+
+    border-radius:30px;
+
+    padding:14px;
+
+    font-size:18px;
+
+    font-weight:bold;
+
+    background:
+    linear-gradient(90deg,#00f5a0,#00d9f5);
+
+    border:none;
+
+}
+
+
+
+.ask-btn:hover{
+
+    transform:scale(1.03);
+
+}
+
+
+
+/* ANSWER */
+
+
+.answer-card{
+
+    background:white;
+
+    color:#222;
+
+    border-radius:20px;
+
+    padding:25px;
+
+    border-left:7px solid #7c3aed;
+
+    line-height:1.8;
+
+    white-space:pre-wrap;
+
+}
+
+
+
+.feature-box{
+
+    display:flex;
+
+    gap:15px;
+
+    justify-content:center;
+
+    margin-top:20px;
+
+}
+
+
+
+.feature-box span{
+
+    background:white;
+
+    padding:10px 18px;
+
+    border-radius:25px;
+
+    font-size:14px;
+
+}
+
+
+</style>
+
+
+
+<div class="container py-5">
+
+
+<div class="ai-container">
+
+
+<div class="ai-card">
+
+
+
+<div class="ai-header">
+
+
+<div class="ai-avatar">
+
+🤖
+
+</div>
+
+
+<h2 class="mt-3 fw-bold">
+
+AI Doubt Solver
+
+</h2>
+
+
+<p>
+
+Your Smart Learning Partner
+
+</p>
+
+
+</div>
+
+
+
+<div class="p-4">
+
+
+<div class="greeting">
+
+
+<h5>
+
+👋 Hello {{session['username'] if session.get('username') else 'Student'}}!
+
+</h5>
+
+
+<p class="mb-0">
+
+I am your AI Study Assistant 🤖
+
+<br>
+
+Ask me programming, technology or computer science doubts.
+
+</p>
+
+
+</div>
+
+
+
+
+<form method="POST">
+
+
+<label class="text-white fw-bold">
+
+📚 Choose Subject
+
+</label>
+
+
+<select name="subject"
+class="form-select mb-4">
+
+
+<option>🐍 Python</option>
+
+<option>💻 C Programming</option>
+
+<option>☕ Java</option>
+
+<option>🌐 HTML</option>
+
+<option>🎨 CSS</option>
+
+<option>⚡ JavaScript</option>
+
+<option>🔥 Flask</option>
+
+<option>🗄️ DBMS</option>
+
+
+</select>
+
+
+
+
+<label class="text-white fw-bold">
+
+💬 Ask Your Question
+
+</label>
+
+
+<div class="input-group mb-4">
+
+
+<textarea
+
+id="question"
+
+name="question"
+
+rows="4"
+
+class="form-control"
+
+placeholder="Type or speak your doubt..."
+
+required></textarea>
+
+
+
+<button type="button"
+
+class="btn btn-warning voice-btn"
+
+onclick="startVoice()">
+
+🎤
+
+</button>
+
+
+</div>
+
+
+
+<button class="btn ask-btn w-100">
+
+✨ Ask AI Assistant
+
+</button>
+
+
+
+</form>
+
+
+
+{% if answer %}
+
+
+<hr class="my-4">
+
+
+<h4 class="text-white">
+
+🤖 AI Explanation
+
+</h4>
+
+
+<div class="answer-card" id="answerText">
+{{ answer }}
+</div>
+
+<div class="feature-box">
+
+<button type="button" class="btn btn-primary" onclick="listenAnswer()">
+    🔊 Listen
+</button>
+
+<button type="button" class="btn btn-success" onclick="downloadAnswer()">
+    📄 Download
+</button>
+
+<a href="{{ url_for('ai_history') }}" class="btn btn-light">
+📜 History
+</a>
+
+</div>
+
+{% endif %}
+
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+
+
+<script>
+  
+function listenAnswer(){
+
+    const element = document.getElementById("answerText");
+
+    if(!element){
+        alert("Answer not found");
+        return;
+    }
+
+    const speech = new SpeechSynthesisUtterance(element.innerText);
+
+    speech.lang = "en-US";
+
+    window.speechSynthesis.cancel();
+    window.speechSynthesis.speak(speech);
+
+}
+
+function downloadAnswer(){
+
+    const element = document.getElementById("answerText");
+
+    if(!element){
+        alert("Answer not found");
+        return;
+    }
+
+    const blob = new Blob([element.innerText], {type:"text/plain"});
+
+    const a = document.createElement("a");
+
+    a.href = URL.createObjectURL(blob);
+
+    a.download = "AI_Answer.txt";
+
+    a.click();
+
+    URL.revokeObjectURL(a.href);
+
+}
+function startVoice(){
+
+    if(!('webkitSpeechRecognition' in window)){
+
+        alert("Your browser does not support voice input. Please use Google Chrome.");
+
+        return;
+
+    }
+
+
+    let recognition = new webkitSpeechRecognition();
+
+
+    recognition.lang = "en-IN";   // Indian English
+
+
+    recognition.continuous = false;
+
+
+    recognition.interimResults = false;
+
+
+
+    recognition.start();
+
+
+
+    recognition.onstart = function(){
+
+        console.log("Listening...");
+
+    }
+
+
+
+    recognition.onresult = function(event){
+
+        let text = event.results[0][0].transcript;
+
+        document.getElementById("question").value = text;
+
+    }
+
+
+
+    recognition.onerror = function(event){
+
+        alert("Microphone error: " + event.error);
+
+    }
+
+
+}
+
+</script>
+
+
+{% endblock %}

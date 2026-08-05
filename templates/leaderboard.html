@@ -1,0 +1,433 @@
+{% extends "base.html" %}
+{% block title %}Leaderboard{% endblock %}
+
+{% block content %}
+
+<!-- ① CSS -->
+
+<style>
+
+.rank-circle{
+    width:45px;
+    height:45px;
+    border-radius:50%;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-weight:bold;
+    margin:auto;
+    box-shadow:0 5px 12px rgba(0,0,0,.2);
+}
+
+.avatar-circle{
+    width:50px;
+    height:50px;
+    border-radius:50%;
+    background:linear-gradient(135deg,#2563eb,#7c3aed);
+    color:#fff;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:20px;
+    font-weight:700;
+}
+
+.bronze{
+    background:#CD7F32;
+    color:white;
+}
+
+.table tbody tr{
+    transition:.3s;
+}
+
+.table tbody tr:hover{
+    background:#eef4ff;
+    transform:translateY(-3px);
+}
+
+.table td{
+    vertical-align:middle;
+}
+
+</style>
+
+<!-- ② Hero Section -->
+
+<div class="container py-4">
+
+<style>
+
+body{
+    background:#f4f7fb;
+}
+
+.leaderboard-hero{
+    background:linear-gradient(135deg,#2563eb,#7c3aed);
+    color:white;
+    border-radius:25px;
+    padding:50px;
+    box-shadow:0 15px 40px rgba(0,0,0,.15);
+}
+
+.hero-icon{
+    font-size:70px;
+    animation:float 3s infinite;
+}
+
+@keyframes float{
+
+0%{transform:translateY(0);}
+50%{transform:translateY(-12px);}
+100%{transform:translateY(0);}
+
+}
+
+.winner-card{
+
+border:none;
+border-radius:20px;
+transition:.4s;
+box-shadow:0 8px 25px rgba(0,0,0,.12);
+
+}
+
+.winner-card:hover{
+
+transform:translateY(-8px);
+
+}
+
+.champion{
+
+background:linear-gradient(135deg,#FFD700,#FFB300);
+color:#000;
+
+}
+
+.second{
+
+background:linear-gradient(135deg,#d1d5db,#9ca3af);
+color:#000;
+
+}
+
+.third{
+
+background:linear-gradient(135deg,#CD7F32,#b45309);
+color:white;
+
+}
+
+.medal{
+
+font-size:55px;
+
+}
+
+
+
+
+
+
+
+
+.top3{
+
+display:flex;
+justify-content:center;
+gap:35px;
+margin:40px;
+flex-wrap:wrap;
+
+}
+
+.winner{
+
+width:270px;
+border-radius:25px;
+padding:30px;
+text-align:center;
+color:white;
+transition:.4s;
+box-shadow:0 15px 30px rgba(0,0,0,.2);
+
+}
+
+.winner:hover{
+
+transform:translateY(-12px) scale(1.04);
+
+}
+
+.gold{
+
+background:linear-gradient(135deg,#FFD700,#ff9800);
+
+}
+
+.silver{
+
+background:linear-gradient(135deg,#C0C0C0,#757575);
+
+}
+
+.bronze{
+
+background:linear-gradient(135deg,#CD7F32,#8D5524);
+
+}
+
+.avatar{
+
+width:90px;
+height:90px;
+border-radius:50%;
+background:white;
+color:#333;
+margin:auto;
+display:flex;
+justify-content:center;
+align-items:center;
+font-size:38px;
+font-weight:bold;
+
+}
+
+.crown{
+
+font-size:45px;
+animation:float 2s infinite;
+
+}
+
+@keyframes float{
+
+0%{transform:translateY(0);}
+50%{transform:translateY(-8px);}
+100%{transform:translateY(0);}
+
+}
+</style>
+<body style="background-color: #1e1036;">
+<div class="container py-4">
+
+<div class="leaderboard-hero text-center">
+
+<i class="bi bi-trophy-fill hero-icon text-warning"></i>
+
+<h1 class="display-5 fw-bold mt-3">
+
+🏆 Leaderboard
+
+</h1>
+
+<p class="lead">
+
+Congratulations to our Top Performers
+
+Keep Learning • Keep Growing • Keep Winning
+
+</p>
+
+</div>
+
+<div class="top3">
+
+    <!-- 2nd -->
+    <div class="winner silver">
+        <div class="medal">🥈</div>
+        <div class="avatar">{{leaderboard_entries[1].name[0]}}</div>
+        <h3>{{leaderboard_entries[1].name}}</h3>
+        <h2>{{leaderboard_entries[1].score}}</h2>
+        <p>{{leaderboard_entries[1].time}} sec</p>
+    </div>
+
+    <!-- 1st -->
+    <div class="winner gold">
+        <div class="crown">👑</div>
+        <div class="medal">🥇</div>
+        <div class="avatar">{{leaderboard_entries[0].name[0]}}</div>
+        <h3>{{leaderboard_entries[0].name}}</h3>
+        <h1>{{leaderboard_entries[0].score}}</h1>
+        <p>{{leaderboard_entries[0].time}} sec</p>
+    </div>
+
+    <!-- 3rd -->
+    <div class="winner bronze">
+        <div class="medal">🥉</div>
+        <div class="avatar">{{leaderboard_entries[2].name[0]}}</div>
+        <h3>{{leaderboard_entries[2].name}}</h3>
+        <h2>{{leaderboard_entries[2].score}}</h2>
+        <p>{{leaderboard_entries[2].time}} sec</p>
+    </div>
+
+</div>
+<!-- Leaderboard Table -->
+
+<div class="card border-0 shadow-lg rounded-4 overflow-hidden">
+
+    <div class="card-header border-0 py-3"
+        style="background:linear-gradient(90deg,#2563eb,#7c3aed);">
+
+        <div class="d-flex justify-content-between align-items-center">
+
+            <h4 class="text-white fw-bold mb-0">
+                <i class="bi bi-trophy-fill text-warning me-2"></i>
+                Top Performers
+            </h4>
+
+            <span class="badge bg-light text-dark px-3 py-2">
+                {{ students.time }}
+            </span>
+
+        </div>
+
+    </div>
+
+    <div class="table-responsive">
+
+        {% set leaderboard_entries = leaderboard_entries if leaderboard_entries is defined else leaderboard %}
+
+        <table class="table table-hover align-middle mb-0">
+
+            <thead style="background:#0f172a;color:white;">
+
+                <tr>
+
+                    <th class="text-center">🏆 Rank</th>
+
+                    <th>👤 Student</th>
+
+                    <th class="text-center">⭐ Score</th>
+
+                    <th class="text-center">⏱ Time</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                {% for student in leaderboard_entries %}
+
+                <tr>
+
+                    <td class="text-center">
+
+                        {% if loop.index == 1 %}
+
+                        <div class="rank-circle bg-warning text-dark">
+                            🥇
+                        </div>
+
+                        {% elif loop.index == 2 %}
+
+                        <div class="rank-circle bg-secondary text-white">
+                            🥈
+                        </div>
+
+                        {% elif loop.index == 3 %}
+
+                        <div class="rank-circle bronze">
+                            🥉
+                        </div>
+
+                        {% else %}
+
+                        <div class="rank-circle bg-primary text-white">
+                            {{ loop.index }}
+                        </div>
+
+                        {% endif %}
+
+                    </td>
+
+                    <td>
+
+                        <div class="d-flex align-items-center">
+
+                            <div class="avatar-circle me-3">
+
+                                {{ student.name[0]|upper }}
+
+                            </div>
+
+                            <div>
+
+                                <div class="fw-bold">
+                                    {{ student.name }}
+                                </div>
+
+                                <small class="text-muted">
+                                    Study Quiz Hub Student
+                                </small>
+
+                            </div>
+
+                        </div>
+
+                    </td>
+
+                    <td class="text-center">
+
+                        <span class="badge bg-success rounded-pill px-3 py-2">
+
+                            {{ student.score }}
+
+                        </span>
+
+                    </td>
+
+                    <td class="text-center">
+
+                        <span class="badge bg-dark rounded-pill px-3 py-2">
+
+                            {{ student.time }} sec
+
+                        </span>
+
+                    </td>
+
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+<div class="card">
+
+....
+
+</div>
+
+<div class="text-center mt-5">
+
+    <a href="{{ url_for('technology') }}"
+       class="btn btn-primary btn-lg rounded-pill px-5 me-3">
+
+        <i class="bi bi-arrow-repeat"></i>
+        Take Another Quiz
+
+    </a>
+
+    <a href="{{ url_for('Home') }}"
+       class="btn btn-outline-dark btn-lg rounded-pill px-5">
+
+        <i class="bi bi-house-fill"></i>
+        Home
+
+    </a>
+
+</div>
+
+<div class="text-center"></div>
+
+
+{% endblock %}

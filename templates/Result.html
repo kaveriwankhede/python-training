@@ -1,0 +1,306 @@
+{% extends "base.html" %}
+
+{% block title %} About - Study Quiz Hub Portal {% endblock %}
+
+{% block content %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Quiz Result</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        body{
+            background: linear-gradient(135deg,#0f172a,#1e293b);
+            min-height:100vh;
+        }
+
+
+
+        .score-circle{
+            width:140px;
+            height:140px;
+            border-radius:50%;
+            background:linear-gradient(45deg,#0dcaf0,#198754);
+            color:white;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            margin:auto;
+            font-size:35px;
+            font-weight:bold;
+            box-shadow:0 0 20px rgba(13,202,240,.5);
+        }
+
+        .btn-custom{
+            border-radius:30px;
+            padding:10px 25px;
+            font-weight:bold;
+        }
+    </style>
+</head>
+<script>
+localStorage.removeItem("quizTime");
+</script>
+    
+<body style="background-color: #1e1036;">
+
+<div class="container">
+
+    <div class="card result-card bg-dark text-white text-center p-5 " style="max-width:1000px; margin:auto; margin-top:80px; border:none; border-radius:20px;
+            box-shadow:0 0 25px rgba(0,0,0,0.4);">
+
+        <h1 class="mb-4">🏆 Quiz Completed!</h1>
+
+        <div class="score-circle">
+            {{ score }}
+        </div>
+
+        <h3 class="mt-4">
+            Score: {{ score }} / {{ total }}
+        </h3>
+
+        {% set percentage = (score / total) * 100 %}
+
+
+        {% if percentage >= 90 %}
+            <h4 class="mt-4 text-success">
+                🌟 Excellent! Outstanding Performance!
+            </h4>
+
+        {% elif percentage >= 75 %}
+            <h4 class="mt-4 text-primary">
+                🎉 Very Good! Keep It Up!
+            </h4>
+
+        {% elif percentage >= 60 %}
+            <h4 class="mt-4 text-info">
+                👍 Good Job!
+            </h4>
+
+        {% elif percentage >= 45 %}
+            <h4 class="mt-4 text-warning">
+                😊 Nice Effort! Keep Practicing!
+            </h4>
+
+        {% elif percentage >= 35 %}
+            <h4 class="mt-4 text-secondary">
+                📚 Need More Practice!
+            </h4>
+
+        {% else %}
+            <h4 class="mt-4 text-danger">
+                💪 Don't Give Up! Try Again!
+            </h4>
+        {% endif %}
+                
+        <p class="text-light">
+            Keep practicing and improve your knowledge.
+        </p>
+
+ 
+        <div class="progress" style="height:25px;">
+    <div class="progress-bar bg-success"
+         role="progressbar"
+         style="width: {{ percentage }}%;">
+        {{ percentage|round(1) }}%
+    </div>
+</div>
+
+       
+
+{% set percentage = ((score / total) * 100)|round(0) %}
+
+{% if percentage >= 90 %}
+    {% set grade = "A+" %}
+{% elif percentage >= 75 %}
+    {% set grade = "A" %}
+{% elif percentage >= 60 %}
+    {% set grade = "B" %}
+{% elif percentage >= 45 %}
+    {% set grade = "C" %}
+{% elif percentage >= 35 %}
+    {% set grade = "D" %}
+{% else %}
+    {% set grade = "F" %}
+{% endif %}
+
+<div class="row text-center mt-5">
+
+    <div class="col-md-3 mb-3">
+        <div class="card bg-primary text-white shadow border-0">
+            <div class="card-body">
+                <h5>📝 Attempted</h5>
+                <h3>{{ total }}/{{ total }}</h3>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3 mb-3">
+        <div class="card bg-success text-white shadow border-0">
+            <div class="card-body">
+                <h5>📊 Percentage</h5>
+                <h3>{{ percentage }}%</h3>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3 mb-3">
+        <div class="card bg-warning text-dark shadow border-0">
+            <div class="card-body">
+                <h5>🎓 Grade</h5>
+                <h3>{{ grade }}</h3>
+            </div>
+        </div>
+    </div>
+
+    <!-- Time Taken -->
+    <div class="col-md-3 mb-3">
+        <div class="card bg-info text-dark">
+            <div class="card-body">
+                <h5>⏰ Time Taken : </h5>
+                <h4>{{ time_taken }} seconds</h4>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- AI Tips section -->
+                     <div class="mb-3">
+                        <h5 class="fw-bold">AI Study Tips:</h5>
+                        {% if tip %}
+                        <div class ="alert alert-info">{{ tip }}</div>
+                        {% else %}
+                        <a href="{{url_for('get_ai_tip', Sr_no=student['Sr_no'])}}" class="btn btn-primary">Get AI Study Tips</a>
+                        {% endif %}
+                    </div>
+
+
+        <div class="row mt-4 align-items-center">
+
+    <!-- Left -->
+    <div class="col-4 text-start">
+        <a href="/" class="btn btn-info btn-primary btn-custom">
+            🔄 Restart Quiz
+        </a>
+    </div>
+
+    <div class="col-4 text-center">
+        <a href="{{ url_for('leaderboard') }}" class="btn btn-warning">
+            🏆 Leaderboard
+        </a>
+    </div>
+
+    <!-- Right -->
+    <div class="col-4 text-end">
+        <a href="{{ url_for('logout') }}" class="btn btn-info btn-danger btn-custom">
+            <i class="bi bi-box-arrow-right"></i> Logout
+        </a>
+    </div>
+
+</div>
+
+   
+    <br>
+    <a href="{{ url_for('personalized_quiz') }}"
+       class="btn btn-primary">
+        🤖 AI Personalized Quiz
+    </a>
+    <br>
+  
+  <a href="{{ url_for('wrong_questions', attempt_date=attempt_date) }}"
+   class="btn btn-danger">
+    <i class="bi bi-exclamation-triangle-fill"></i>
+    Wrong Question Analysis
+</a>
+
+        
+
+</div>
+
+
+    </div>
+    <hr class="my-5">
+
+<h2 class="text-warning mb-4">
+    📚 Correct Answers
+</h2>
+
+{% for q in answers %}
+
+<div class="card bg-secondary text-white mb-3 shadow">
+
+    <div class="card-body">
+
+        <h5 class="text-info">
+            Q{{ loop.index }}. {{ q.question }}
+        </h5>
+
+        <p class="mb-0">
+            <strong class="text-success">
+                ✅ Correct Answer:
+            </strong>
+            {{ q.answer }}
+        </p>
+
+    </div>
+
+</div>
+
+
+{% endfor %}
+<!-- Leaderboard -->
+    <div class="card border-0 shadow-lg rounded-4">
+        <div class="card-header bg-dark text-white">
+            <h4 class="mb-0">
+                <i class="bi bi-award-fill text-warning me-2"></i>
+                Top 5 Leaderboard
+            </h4>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-hover mb-0">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Rank</th>
+                        <th>Name</th>
+                        <th>Score</th>
+                        <th>Time Taken</th>
+                    </tr>
+
+                </thead>
+                <tbody>
+                    {% for student in leaderboard %}
+                    <tr>
+                        <td>
+                            <span class="badge bg-warning text-dark rank-badge">
+                                #{{ student.rank }}
+                            </span>
+                        </td>
+                        <td>{{ student.name }}</td>
+                        <td>
+                            <strong>{{ student.score }}</strong>
+                        </td>
+
+                        <td>
+                            <span class="badge bg-secondary text-white fs-6">
+                                {{ student.time_taken }}
+                            </span>
+                        </td>
+
+                    </tr>
+
+                    {% endfor %}
+                </tbody>
+                </table>
+                </div>
+
+</div>
+
+</body>
+</html>
+
+
+{% endblock %}
