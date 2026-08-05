@@ -54,6 +54,32 @@ def init_db():
         role TEXT DEFAULT 'student'
     )
     """)
+
+    conn.execute("""
+    CREATE TABLE IF NOT EXISTS students (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    student_name TEXT NOT NULL,
+    username TEXT UNIQUE NOT NULL,
+    email TEXT UNIQUE NOT NULL,
+    password TEXT NOT NULL,
+    course TEXT,
+    semester TEXT,
+    photo TEXT DEFAULT 'default.png',
+    role TEXT DEFAULT 'student',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+""")
+
+    conn.execute("""
+    CREATE TABLE IF NOT EXISTS notes (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    subject TEXT NOT NULL,
+    title TEXT NOT NULL,
+    description TEXT NOT NULL,  
+    pdf_link TEXT
+);
+""")
+
     conn.execute("""
     CREATE TABLE IF NOT EXISTS QUIZ_HISTORY (
         id INTEGER PRIMARY KEY AUTOINCREMENT,

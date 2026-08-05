@@ -480,8 +480,8 @@ def technology():
 
 
     
-@app.route('/Web_Development/<int:qno>', methods=['GET', 'POST'])
-def Web_Development(qno):
+@app.route('/web_development/<int:qno>', methods=['GET', 'POST'])
+def web_development(qno):
 
     session["Subject"] = "Web Development"
 
@@ -562,7 +562,7 @@ def Web_Development(qno):
             return redirect(url_for("Result"))
 
     return render_template(
-        "Web_Development.html",
+        "web_development.html",
         question=all_questions[qno],
         qno=qno,
         total=len(all_questions),
@@ -2014,33 +2014,6 @@ WHERE Username=?
         average_score=average_score
         )
 
-# @app.route('/delete_candidate/<int:id>')
-# def delete_candidate(id):
-        
-
-#     if session.get('role')!='admin':
-#         flash("Admin only! you do not have permission","danger")
-#         return redirect(url_for('Home'))
-
-#     conn = get_db()
-
-#     student = conn.execute(
-#             'SELECT * FROM USERS WHERE id=?',
-#             (id,)
-#             ).fetchone()
-#     if student is None:
-#                 flash("student not found","danger")
-#                 conn.close()
-            
-#     conn.execute(
-#             'DELETE FROM USERS WHERE id=?',
-#             (id,)
-#             )
-#     conn.commit()
-#     conn.close()
-#     flash("candidate deleted successfully","success")
-#     return redirect(url_for('students'))
-
 @app.route('/edit_student/<source>/<int:id>', methods=['GET','POST'])
 def edit_student(source, id):
 
@@ -2168,6 +2141,22 @@ def Result():
         dictionary_questions = QUESTIONS4
     elif subject == "Mobile App Development":
         dictionary_questions = QUESTIONS5
+    elif subject == "C":
+        dictionary_questions = QUESTIONS_C
+    elif subject == "C++":
+        dictionary_questions = QUESTIONS_CPP
+    elif subject == "Java":
+        dictionary_questions = QUESTIONS_JAVA
+    elif subject == "Python":
+        dictionary_questions = QUESTIONS_PYTHON
+    elif subject == "Operating System":
+        dictionary_questions = QUESTIONS_OS 
+    elif subject == "DBMS":
+        dictionary_questions = QUESTIONS_DBMS
+    elif subject == "Computer Network":
+        dictionary_questions = QUESTIONS_CN
+    elif subject == "Data Structure":
+        dictionary_questions = QUESTIONS_DS
     else:
         dictionary_questions = []
 
