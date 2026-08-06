@@ -49,7 +49,6 @@ def init_db():
         Email TEXT NOT NULL UNIQUE,
         Password TEXT NOT NULL,
         Subject TEXT NOT NULL,
-        score TEXT NOT NULL,
         date TEXT NOT NULL,
         role TEXT DEFAULT 'student'
     )
@@ -70,6 +69,14 @@ def init_db():
 );
 """)
 
+    conn.execute("""
+    CREATE TABLE IF NOT EXISTS feedback (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT NOT NULL,
+    rating INTEGER NOT NULL,
+    message TEXT NOT NULL
+);
+""")
     conn.execute("""
     CREATE TABLE IF NOT EXISTS notes (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -118,36 +125,10 @@ def init_db():
     )
     """)
 
-    conn.execute("""
-    CREATE TABLE IF NOT EXISTS GAME_SCORE (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    username TEXT NOT NULL,
-    subject TEXT NOT NULL,
-    score INTEGER DEFAULT 0,
-    coins INTEGER DEFAULT 0,
-    xp INTEGER DEFAULT 0,
-    total_questions INTEGER DEFAULT 0,
-    correct_answers INTEGER DEFAULT 0,
-    wrong_answers INTEGER DEFAULT 0,
-    game_time INTEGER DEFAULT 0,
-    created_at TEXT
-);
-""")
+ 
     
 
-    conn.execute("""
-CREATE TABLE IF NOT EXISTS quiz_race_questions (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    subject TEXT NOT NULL,
-    level TEXT NOT NULL,
-    question TEXT NOT NULL,
-    option1 TEXT NOT NULL,
-    option2 TEXT NOT NULL,
-    option3 TEXT NOT NULL,
-    option4 TEXT NOT NULL,
-    correct_answer TEXT NOT NULL
-);
-""")
+
     conn.execute("""
     CREATE TABLE IF NOT EXISTS ai_history (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -245,6 +226,14 @@ CREATE TABLE IF NOT EXISTS quiz_race_questions (
         conn.execute(
             "ALTER TABLE SCORE ADD COLUMN role TEXT DEFAULT 'student'"
         )
+    except sqlite3.OperationalError:
+        pass
+
+    try:
+        conn.execute("""
+        ALTER TABLE USERS
+        ADD COLUMN score INTEGER DEFAULT 0
+    """)
     except sqlite3.OperationalError:
         pass
 

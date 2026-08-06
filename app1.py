@@ -1,6 +1,6 @@
 
 
-from click import prompt
+from click import core, prompt
 from unicodedata import name
 from flask.cli import load_dotenv
 from flask import Flask, abort , render_template ,request ,flash ,redirect ,url_for ,session
@@ -409,7 +409,7 @@ def login():
             session["role"] = user["role"]
 
             flash("Login Successful!", "success")
-            return redirect(url_for("explore_technology"))
+            return redirect(url_for("dashboard"))
 
         else:
             flash("Invalid Username or Password!", "danger")
@@ -486,7 +486,7 @@ def web_development(qno):
     session["Subject"] = "Web Development"
 
     # New timer for every new quiz
-    if "start_time" not in session:
+    if qno == 0:
         session["start_time"] = time.time()
 
     conn = get_db()
@@ -533,11 +533,11 @@ def web_development(qno):
 
         # Next Question
         if "next" in request.form and qno < len(all_questions) - 1:
-            return redirect(url_for("Web_Development", qno=qno + 1))
+            return redirect(url_for("web_development", qno=qno + 1))
 
         # Previous Question
         if "prev" in request.form and qno > 0:
-            return redirect(url_for("Web_Development", qno=qno - 1))
+            return redirect(url_for("web_development", qno=qno - 1))
 
         # Submit Quiz
         if "submit" in request.form:
@@ -549,6 +549,7 @@ def web_development(qno):
                     score += 1
 
             session["score"] = score
+
 
             # Calculate Time Taken
             end_time = time.time()
@@ -574,7 +575,7 @@ def Artificial_Intelligence(qno):
 
     session["Subject"] = "Artificial Intelligence"   # Subject nusar change kara
 
-    if "start_time" not in session:
+    if qno == 0:
         session["start_time"] = time.time()
     conn = get_db()
 
@@ -653,7 +654,7 @@ def data_science(qno):
     # Subject save
     session["Subject"] = "Data Science"
 
-    if "start_time" not in session:
+    if qno == 0:
         session["start_time"] = time.time()
 
     conn = get_db()
@@ -733,7 +734,8 @@ def cloud_computing(qno):
     session["Subject"] = "Cloud Computing"   # Subject nusar change kara
 
     # New timer for every new quiz
-    if "start_time" not in session:
+   
+    if qno == 0:
         session["start_time"] = time.time()
     conn = get_db()
 
@@ -813,7 +815,7 @@ def cyber_security(qno):
     session["Subject"] = "Cyber Security"
 
     # Timer start only once
-    if "start_time" not in session:
+    if qno == 0:
         session["start_time"] = time.time()
 
     conn = get_db()
@@ -977,7 +979,7 @@ def c_lang(qno):
     # Subject save
     session["Subject"] = "C"
 
-    if "start_time" not in session:
+    if qno== 0:
         session["start_time"] = time.time()
 
     conn = get_db()
@@ -1048,7 +1050,7 @@ def cpp_lang(qno):
     session["Subject"] = "C++"      
 
     # Timer start only once
-    if "start_time" not in session:
+    if qno == 0:
         session["start_time"] = time.time()
 
     conn = get_db()
@@ -1118,7 +1120,7 @@ def java_lang(qno):
     session["Subject"] = "Java"
 
     # Timer start only once
-    if "start_time" not in session:
+    if qno == 0:
         session["start_time"] = time.time()
 
     conn = get_db()
@@ -1187,7 +1189,7 @@ def python_lang(qno):
     # Subject save
     session["Subject"] = "Python"
 
-    if "start_time" not in session:
+    if qno == 0:
         session["start_time"] = time.time()
 
     # Database madhun Python questions ghya
@@ -1286,7 +1288,7 @@ def operating_system(qno):
     # Subject save  
     session["Subject"] = "Operating System"
 
-    if "start_time" not in session:
+    if qno == 0:
         session["start_time"] = time.time()
 
     conn = get_db()
@@ -1356,7 +1358,7 @@ def dbms_lang(qno):
     # Subject save
     session["Subject"] = "DBMS"
 
-    if "start_time" not in session:
+    if qno == 0:
         session["start_time"] = time.time()
 
     conn = get_db()
@@ -1424,7 +1426,7 @@ def computer_network(qno):
     # Subject save
     session["Subject"] = "Computer Network"
 
-    if "start_time" not in session:
+    if qno == 0:
         session["start_time"] = time.time()
 
     conn = get_db()
@@ -1492,7 +1494,7 @@ def data_structure(qno):
     # Subject save
     session["Subject"] = "Data Structure"
 
-    if "start_time" not in session:
+    if qno == 0:
         session["start_time"] = time.time()
 
     conn = get_db()
@@ -1614,22 +1616,23 @@ def update_leaderboard(student_name, score, time):
     conn.commit()
     conn.close()
 
+
+
 def ranked_leaderboard():
 
     conn = get_db()
 
     rows = conn.execute("""
-    SELECT Student_name,
-           MAX(score) AS score,
-           MIN(time) AS time
-    FROM SCORE
-    GROUP BY Student_name
-    ORDER BY score DESC, time ASC
-    LIMIT 5
-    """).fetchall()
-
+     SELECT Student_name,
+            MAX(score) AS score,
+            MIN(time) AS time
+     FROM SCORE
+     GROUP BY Student_name
+     ORDER BY score DESC, time ASC
+     LIMIT 5
+     """).fetchall()
     for row in rows:
-        print(dict(row))
+         print(dict(row))
 
     conn.close()
 
@@ -1790,65 +1793,63 @@ def Add_Question():
 
 @app.route("/students")
 def students():
-     page = request.args.get('page', 1, type=int)
-     per_page = 2
-     offset = (page-1) * per_page
 
-     conn = get_db()
-     student=conn.execute('SELECT * FROM USERS ORDER BY id DESC LIMIT ? OFFSET ?', (per_page,offset)).fetchall()
-     total=conn.execute('SELECT COUNT(*) FROM USERS').fetchone()[0]
-    
-     total_page = (total + per_page - 1) // per_page
+    page = request.args.get('page', 1, type=int)
 
-     db_students = conn.execute(
-         "SELECT * FROM USERS ORDER BY id ASC"
-     ).fetchall()
+    per_page = 5
+    offset = (page - 1) * per_page
 
-     combined_students = []
+    conn = get_db()
 
-     # Dictionary Data
-     for s in stud:
-         combined_students.append({
-    'id': s.get('Sr_no'),
-    'Sr_no': s.get('Sr_no'),
-    'Name': s.get('Name'),
-    'username': s.get('username'),
-    'email': s.get('email'),
-    'score': s.get('score', 0),
-    'total_attempts': s.get('total_attempts', 0)
-})
+    # Total Students
+    total = conn.execute("""
+        SELECT COUNT(*)
+        FROM USERS
+    """).fetchone()[0]
 
-     # Database Data
-     for s in db_students:
+    total_page = (total + per_page - 1) // per_page
 
-         # SCORE table se latest score aur date nikalo
-         score_data = conn.execute("""
-    SELECT
-        MAX(score) AS score,
-        COUNT(*) AS total_attempts
-    FROM SCORE
-    WHERE Username = ?
-""", (s['Username'],)).fetchone()
+    # Current Page Students
+    db_students = conn.execute("""
+        SELECT *
+        FROM USERS
+        ORDER BY id ASC
+        LIMIT ? OFFSET ?
+    """, (per_page, offset)).fetchall()
 
-         combined_students.append({
-    'id': s['id'],
-    'Sr_no': s['id'],
-    'Name': s['Student_name'],
-    'username': s['Username'],
-    'email': s['Email'],
-    'score': score_data['score'] if score_data and score_data['score'] else 0,
-    'total_attempts': score_data['total_attempts'] if score_data else 0
-})
+    combined_students = []
 
-     conn.close()
+    for s in db_students:
 
-     return render_template(
-         "students.html",
-         students=combined_students,
-         student=student,
-         page=page,
-         total_page=total_page
-        
+        score_data = conn.execute("""
+            SELECT
+                MAX(score) AS score,
+                COUNT(*) AS total_attempts
+            FROM SCORE
+            WHERE Username = ?
+        """, (s["Username"],)).fetchone()
+
+        combined_students.append({
+
+            "id": s["id"],
+            "Name": s["Student_name"],
+            "username": s["Username"],
+            "email": s["Email"],
+            "photo": s["photo"] if "photo" in s.keys() else "default.png",
+
+            "score": score_data["score"] if score_data and score_data["score"] else 0,
+
+            "total_attempts": score_data["total_attempts"] if score_data else 0
+
+        })
+
+    conn.close()
+
+    return render_template(
+        "students.html",
+        students=combined_students,
+        page=page,
+        total_page=total_page
     )
 
 @app.route('/filter_result')
@@ -1926,12 +1927,13 @@ def add_student():
         conn.execute(
                 '''
                 INSERT INTO SCORE
-                (Student_name, username, email, password, subject, score, photo)
-                VALUES (?, ?, ?, ?, ?, ?, ?)
+                (Student_name, username, email, password, subject, score, time, photo)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?)
                 ''',
-                (Student_name, username, email, hashed_password, subject, 0, filename)
+                (Student_name, username, email, hashed_password, subject, 0, time.time(), filename)
                 )
-        
+
+
         conn.execute(
         '''
         INSERT INTO USERS
@@ -2206,15 +2208,17 @@ VALUES (?, ?, ?, ?, ?, ?, ?)
         })
 
     # Leaderboard
-    leaderboard = conn.execute("""
-        SELECT
-            Student_name AS name,
-            score,
-            time AS time
-        FROM SCORE
-        ORDER BY score DESC, time ASC
-        LIMIT 5
-    """).fetchall()
+    rows = ranked_leaderboard()
+
+    leaderboard_entries = []
+
+    for idx, row in enumerate(rows, start=1):
+        leaderboard_entries.append({
+            "rank": idx,
+            "name": row["Student_name"],
+            "score": row["score"],
+            "time": row["time"]
+        })
 
     total = len(all_answers)
     if total == 0:
@@ -2235,7 +2239,7 @@ VALUES (?, ?, ?, ?, ?, ?, ?)
         percentage=percentage,
         time_taken=time_taken,
         answers=all_answers,
-        leaderboard=leaderboard,
+        leaderboard_entries=leaderboard_entries,
         attempt_date=attempt_date
     )
 
@@ -2571,7 +2575,7 @@ def contact_messages():
     ).fetchall()
 
     feedbacks = conn.execute(
-        "SELECT * FROM contact ORDER BY id DESC"
+        "SELECT * FROM feedback ORDER BY id DESC"
     ).fetchall()
 
     conn.close()
@@ -2587,14 +2591,14 @@ def feedback():
 
     if request.method == "POST":
 
-        name = request.form["name"]
-        rating = request.form["rating"]
-        message = request.form["message"]
+        name = request.form.get("name")
+        rating = request.form.get("rating")
+        message = request.form.get("message")
 
         conn = get_db()
 
         conn.execute("""
-            INSERT INTO contact(name, rating, message)
+            INSERT INTO feedback (name, rating, message)
             VALUES (?, ?, ?)
         """, (name, rating, message))
 
