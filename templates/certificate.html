@@ -1,66 +1,496 @@
 {% extends "base.html" %}
 
-{% block title %}Certificate{% endblock %}
+{% block title %}Certificate of Achievement{% endblock %}
+
 
 {% block content %}
-<body style="background-color: #1e1036;">
 
-<div class="container mt-5">
+<style>
 
-    <div class="card shadow-lg border-5 border-warning">
+body{
+    background:linear-gradient(135deg,#111827,#312e81,#581c87);
+}
 
-        <div class="card-body text-center p-5">
 
-            <h1 class="text-warning">
-                🏆 Certificate of Achievement
-            </h1>
+/* Main Certificate */
 
-            <hr>
+.certificate-box{
 
-            {% if student %}
+    max-width:950px;
+    margin:50px auto;
 
-            <h3>
-                This Certificate is Proudly Presented to
-            </h3>
+    background:#fffdf7;
 
-            <h2 class="text-primary mt-3">
-                {{ student.Student_name }}
-            </h2>
+    border:18px solid #c9a227;
 
-            <p class="mt-4 fs-5">
+    padding:45px;
 
-                For successfully completing the
+    position:relative;
 
-                <strong>{{ student.subject }}</strong>
+    box-shadow:
+    0 15px 40px rgba(0,0,0,0.45);
 
-                Quiz with an excellent score of
+}
 
-                <strong>{{ student.score }}</strong>.
 
-            </p>
+/* Inner frame */
 
-            <h4 class="text-success mt-4">
-                Congratulations!
-            </h4>
+.certificate-box:before{
 
-            {% else %}
+    content:"";
 
-            <h3 class="text-danger">
-                No Certificate Available
-            </h3>
+    position:absolute;
 
-            {% endif %}
+    inset:18px;
 
-            <br>
+    border:3px double #c9a227;
 
-            <a href="/dashboard" class="btn btn-primary">
-                Back to Dashboard
-            </a>
+}
 
-        </div>
 
-    </div>
+/* Content */
+
+.certificate-content{
+
+    position:relative;
+
+    z-index:2;
+
+    text-align:center;
+
+}
+
+
+
+/* Logo */
+
+.logo{
+
+    font-size:60px;
+
+}
+
+
+
+/* Heading */
+
+.title{
+
+    font-family:Georgia,serif;
+
+    font-size:42px;
+
+    font-weight:bold;
+
+    letter-spacing:3px;
+
+    color:#8b6508;
+
+}
+
+
+
+.subtitle{
+
+    font-family:Georgia,serif;
+
+    font-size:20px;
+
+    color:#374151;
+
+}
+
+
+
+/* Student */
+
+.student-name{
+
+    font-family:"Brush Script MT",cursive;
+
+    font-size:48px;
+
+    font-weight:bold;
+
+    color:#1d4ed8;
+
+    margin:25px 0;
+
+}
+
+
+
+.description{
+
+    font-size:20px;
+
+    color:#374151;
+
+    line-height:1.8;
+
+}
+
+
+
+/* Score */
+
+.score{
+
+    font-size:30px;
+
+    font-weight:bold;
+
+    color:#15803d;
+
+    margin:20px;
+
+}
+
+
+
+/* Achievement */
+
+.congrats{
+
+    font-size:26px;
+
+    color:#b45309;
+
+    font-weight:bold;
+
+}
+
+
+
+/* Seal */
+
+.seal{
+
+    position:absolute;
+
+    right:60px;
+
+    bottom:130px;
+
+
+    height:100px;
+
+    width:100px;
+
+
+    border-radius:50%;
+
+
+    border:5px solid #dc2626;
+
+
+    color:#dc2626;
+
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+
+    font-size:14px;
+
+    font-weight:bold;
+
+
+    transform:rotate(-15deg);
+
+}
+
+
+
+
+/* Footer */
+
+.footer-section{
+
+    display:flex;
+
+    justify-content:space-around;
+
+    margin-top:60px;
+
+}
+
+
+
+.signature{
+
+    width:200px;
+
+}
+
+
+
+.line{
+
+    border-top:2px solid #111;
+
+    margin-bottom:8px;
+
+}
+
+
+
+/* Buttons */
+
+.print-btn{
+
+    margin-top:30px;
+
+}
+
+
+
+/* Print */
+
+@media print{
+
+
+body{
+
+    background:white;
+
+}
+
+
+.certificate-box{
+
+    margin:0;
+
+    box-shadow:none;
+
+}
+
+
+
+.print-btn,
+nav{
+
+    display:none!important;
+
+}
+
+
+}
+
+
+
+</style>
+
+
+
+
+<div class="container">
+
+
+{% if student %}
+
+
+
+<div class="certificate-box">
+
+
+
+<div class="certificate-content">
+
+
+
+<div class="logo">
+🏆
+</div>
+
+
+
+<div class="title">
+
+CERTIFICATE
 
 </div>
+
+
+<div class="subtitle">
+
+OF ACHIEVEMENT
+
+</div>
+
+
+<hr>
+
+
+
+<p class="subtitle mt-4">
+
+This certificate is proudly presented to
+
+</p>
+
+
+
+<div class="student-name">
+
+{{ student.Student_name }}
+
+</div>
+
+
+
+<p class="description">
+
+For successfully completing the
+
+<br>
+
+<strong>
+
+{{ student.subject }}
+
+</strong>
+
+<br>
+
+Quiz Assessment Program
+
+</p>
+
+
+
+
+<div class="score">
+
+Score : {{ student.score }}
+
+</div>
+
+
+
+<div class="congrats">
+
+🎉 Congratulations! 🎉
+
+</div>
+
+
+
+<p class="mt-4 text-muted">
+
+The learner has successfully demonstrated
+
+dedication, knowledge and commitment towards learning.
+
+</p>
+
+
+
+
+<div class="seal">
+
+VERIFIED
+
+<br>
+
+SQH
+
+</div>
+
+
+
+
+
+<div class="footer-section">
+
+
+
+<div class="signature">
+
+<div class="line"></div>
+
+<strong>Instructor</strong>
+
+</div>
+
+
+
+<div>
+
+<strong>Certificate ID</strong>
+
+<br>
+
+SQH-{{ student.Sr_no }}
+
+<br><br>
+
+<strong>Date</strong>
+
+<br>
+
+{{ student.date }}
+
+</div>
+
+
+
+
+<div class="signature">
+
+<div class="line"></div>
+
+<strong>Study Quiz Hub</strong>
+
+</div>
+
+
+</div>
+
+
+
+</div>
+
+
+</div>
+
+<div class="text-center mt-4">
+
+    <button onclick="window.print()" 
+    class="btn btn-warning print-btn">
+
+        🖨 Print Certificate
+
+    </button>
+
+
+    <a href="/dashboard" 
+    class="btn btn-primary print-btn">
+
+        Back to Dashboard
+
+    </a>
+
+</div>
+
+
+{% else %}
+
+<div class="alert alert-danger text-center">
+
+<h3>No Certificate Available</h3>
+
+</div>
+
+
+{% endif %}
+
+
+
+</div>
+
 
 {% endblock %}

@@ -453,7 +453,7 @@ def forgot_password():
         conn = get_db()
 
         user = conn.execute(
-            "SELECT * FROM SCORE WHERE Username=? AND Email=?",
+            "SELECT * FROM USERS WHERE Username=? AND Email=?",
             (username, email)
         ).fetchone()
 
@@ -462,7 +462,7 @@ def forgot_password():
             hashed_password = generate_password_hash(new_password)
 
             conn.execute(
-                "UPDATE SCORE SET Password=? WHERE Username=?",
+                "UPDATE USERS SET Password=? WHERE Username=?",
                 (hashed_password, username)
             )
 
@@ -472,7 +472,7 @@ def forgot_password():
 
             conn.close()
 
-            return redirect(url_for('Login'))
+            return redirect(url_for('login'))
 
         else:
 

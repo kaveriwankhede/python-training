@@ -150,16 +150,6 @@ body.dark-mode footer{
             <li class="nav-item">
             <a class="nav-link" href="{{ url_for('Home') }}">🏠 Home</a>
             </li>
-            <li class="nav-item">
-            <a class="nav-link" href="{{ url_for('about') }}">ℹ️ about</a>
-            </li>
-            
-            <li class="nav-item">
-            <a class="nav-link" href="{{ url_for('explore_technology') }}">❓ quizzes</a>
-            </li>
-            <li class="nav-item">
-            <a class="nav-link" href="{{ url_for('ai_doubt_solver') }}">🤖 <br>AI Doubt Solver</a>
-            </li>
             <li class="nav-item dropdown">
 
                     <a class="nav-link dropdown-toggle"
@@ -180,6 +170,36 @@ body.dark-mode footer{
             </a>
             </li>
             </ul>
+            
+            
+            <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('explore_technology') }}">❓ quizzes</a>
+            </li>
+            <li class="nav-item dropdown">
+
+                    <a class="nav-link dropdown-toggle"
+                       href="#"
+                       role="button"
+                       data-bs-toggle="dropdown">
+                        🤖 <br> AI Assistant
+                    </a>
+            <ul class="dropdown-menu">
+        
+             <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('website_guide') }}">✨ <br> Get AI Tip</a>
+            </li>
+
+            <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('ai_doubt_solver') }}">🤖 <br>AI Doubt Solver</a>
+            </li>
+            
+            <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('ai_roadmap') }}">🗺️ AI Roadmap</a>
+            </li>
+            
+            </ul>
+            
+          
             <!-- Dropdown -->
                 <li class="nav-item dropdown">
 
@@ -218,6 +238,9 @@ body.dark-mode footer{
             {% endif %}
             </ul>
             </li>
+            <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('about') }}">ℹ️ about</a>
+            </li>
              <li class="nav-item dropdown">
 
                     <a class="nav-link dropdown-toggle"
@@ -239,7 +262,7 @@ body.dark-mode footer{
             <li class="nav-item">
             <a class="nav-link" href="{{ url_for('dashboard') }}">📊 dashboard</a>
             </li>
-            <li class="nav-item">
+            
             </ul>
             
             <li class="nav-item">

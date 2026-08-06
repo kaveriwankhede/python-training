@@ -1,41 +1,687 @@
-<!DOCTYPE html>
+{% extends "base.html" %}
 
-<html>
+{% block title %}AI Study Roadmap{% endblock %}
 
-<head>
+{% block content %}
+<style>
+   
+body{
 
-<title>AI Roadmap</title>
+    background:linear-gradient(135deg,#0f172a,#312e81,#6d28d9);
+    min-height:100vh;
 
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+}
 
-</head>
 
-<body style="background-color: #1e1036;" class="bg-light">
+/* Main Container */
 
-<div class="container mt-5">
+.roadmap-container{
 
-<div class="card shadow">
+    max-width:1100px;
 
-<div class="card-header bg-success text-white">
+}
 
-<h2>🧠 AI 7-Day Study Roadmap</h2>
+
+/* Header */
+
+.roadmap-header{
+
+    background:linear-gradient(135deg,#7c3aed,#2563eb);
+
+    color:white;
+
+    border-radius:20px;
+
+    padding:40px;
+
+    text-align:center;
+
+    box-shadow:0 12px 35px rgba(0,0,0,.35);
+
+}
+
+
+.ai-badge{
+
+    display:inline-block;
+
+    background:rgba(255,255,255,.2);
+
+    padding:8px 20px;
+
+    border-radius:50px;
+
+    margin-bottom:20px;
+
+    font-weight:bold;
+
+}
+
+
+.roadmap-header h1{
+
+    font-weight:700;
+
+    margin-bottom:15px;
+
+}
+
+
+.roadmap-header p{
+
+    font-size:18px;
+
+    opacity:.9;
+
+}
+
+
+/* Statistics */
+
+.stat-card{
+
+    background:white;
+
+    border-radius:20px;
+
+    padding:25px;
+
+    text-align:center;
+
+    box-shadow:0 10px 25px rgba(0,0,0,.15);
+
+    transition:.3s;
+
+}
+
+
+.stat-card:hover{
+
+    transform:translateY(-8px);
+
+}
+
+
+.stat-icon{
+
+    font-size:45px;
+
+    margin-bottom:10px;
+
+}
+
+
+.stat-card h2{
+
+    font-weight:bold;
+
+    color:#2563eb;
+
+}
+
+
+.stat-card p{
+
+    margin:0;
+
+    color:#6b7280;
+
+}
+
+
+/* Main Card */
+
+.roadmap-card{
+
+    background:white;
+
+    border-radius:20px;
+
+    overflow:hidden;
+
+    box-shadow:0 12px 30px rgba(0,0,0,.18);
+
+}
+
+
+/* Title */
+
+.roadmap-title{
+
+    background:linear-gradient(90deg,#7c3aed,#2563eb);
+
+    color:white;
+
+    padding:18px;
+
+    font-size:24px;
+
+    font-weight:bold;
+
+}
+
+
+/* AI Output */
+
+.roadmap-content{
+
+    padding:30px;
+
+}
+
+
+.roadmap-content pre{
+
+    white-space:pre-wrap;
+
+    font-size:17px;
+
+    line-height:1.9;
+
+    color:#374151;
+
+    margin:0;
+
+}
+
+
+/* Recommendation */
+
+.recommend-card{
+
+    background:#ecfeff;
+
+    border-left:6px solid #06b6d4;
+
+    border-radius:15px;
+
+    padding:25px;
+
+    box-shadow:0 8px 20px rgba(0,0,0,.12);
+
+}
+
+
+.recommend-card h3{
+
+    color:#0f766e;
+
+}
+
+
+.recommend-card p{
+
+    margin-bottom:0;
+
+    font-size:17px;
+
+}
+
+
+/* Buttons */
+
+.btn{
+
+    border-radius:10px;
+
+    padding:12px 28px;
+
+    font-weight:600;
+
+}
+
+
+/* Print */
+
+@media print{
+
+body{
+
+    background:white;
+
+}
+
+
+nav,
+footer,
+.btn{
+
+    display:none!important;
+
+}
+
+
+.roadmap-header{
+
+    box-shadow:none;
+
+}
+
+
+.roadmap-card{
+
+    box-shadow:none;
+
+    border:1px solid #ccc;
+
+}
+
+
+.stat-card{
+
+    box-shadow:none;
+
+    border:1px solid #ddd;
+
+}
+
+}
+
+
+/* Mobile */
+
+@media(max-width:768px){
+
+.roadmap-header{
+
+    padding:25px;
+
+}
+
+.roadmap-header h1{
+
+    font-size:28px;
+
+}
+
+.stat-card{
+
+    margin-bottom:15px;
+
+}
+
+}
+
+
+
+
+
+
+
+
+
+.feature-card{
+
+    background:white;
+
+    border-radius:20px;
+
+    padding:30px;
+
+    text-align:center;
+
+    box-shadow:0 15px 30px rgba(0,0,0,.15);
+
+    transition:.35s;
+
+    height:100%;
+
+    border-top:5px solid #7c3aed;
+
+}
+
+.feature-card:hover{
+
+    transform:translateY(-10px);
+
+    box-shadow:0 20px 40px rgba(0,0,0,.25);
+
+}
+
+.feature-icon{
+
+    width:80px;
+
+    height:80px;
+
+    margin:auto;
+
+    border-radius:50%;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    font-size:40px;
+
+    color:white;
+
+    margin-bottom:20px;
+
+}
+
+.feature-card h4{
+
+    font-weight:bold;
+
+    margin-bottom:15px;
+
+    color:#1f2937;
+
+}
+
+.feature-card p{
+
+    color:#6b7280;
+
+    min-height:90px;
+
+    line-height:1.7;
+
+}
+
+
+</style>
+<div class="container roadmap-container mt-5">
+
+    <!-- Header -->
+
+    <div class="roadmap-header">
+
+        <div class="ai-badge">
+            🤖 AI Powered
+        </div>
+
+        <h1>AI Personalized Study Roadmap</h1>
+
+        <p>
+            A smart learning plan generated from your quiz performance.
+        </p>
+
+    </div>
+
+
+    <!-- Statistics -->
+
+    <div class="row mt-4 g-4">
+
+        <div class="col-lg-3 col-md-6">
+
+            <div class="stat-card">
+
+                <div class="stat-icon">
+                    📅
+                </div>
+
+                <h2>7</h2>
+
+                <p>Study Days</p>
+
+            </div>
+
+        </div>
+
+
+        <div class="col-lg-3 col-md-6">
+
+            <div class="stat-card">
+
+                <div class="stat-icon">
+                    🎯
+                </div>
+
+                <h2>AI</h2>
+
+                <p>Weak Topic Analysis</p>
+
+            </div>
+
+        </div>
+
+
+        <div class="col-lg-3 col-md-6">
+
+            <div class="stat-card">
+
+                <div class="stat-icon">
+                    📚
+                </div>
+
+                <h2>100%</h2>
+
+                <p>Personalized</p>
+
+            </div>
+
+        </div>
+
+
+        <div class="col-lg-3 col-md-6">
+
+            <div class="stat-card">
+
+                <div class="stat-icon">
+                    ⚡
+                </div>
+
+                <h2>AI</h2>
+
+                <p>Generated</p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- Main Roadmap -->
+
+    <div class="roadmap-card mt-5">
+
+        <div class="roadmap-title">
+
+            🗺️ Your 7-Day Learning Journey
+
+        </div>
+
+        {% if roadmap %}
+
+        <div class="roadmap-content">
+
+            <pre>{{ roadmap }}</pre>
+
+        </div>
+
+        {% else %}
+
+        <div class="alert alert-warning text-center mt-4">
+
+            <h4>No Study Roadmap Available</h4>
+
+            <p>
+
+                Complete a quiz first to generate your personalized roadmap.
+
+            </p>
+
+        </div>
+
+        {% endif %}
+
+    </div>
+
+
+
+    <!-- AI Recommendation -->
+
+    <div class="recommend-card mt-5">
+
+        <h3>
+            🎯 AI Recommendation
+        </h3>
+
+        <p>
+
+            Follow this roadmap daily to strengthen your weak topics.
+
+            Complete each day's tasks before moving to the next day.
+
+        </p>
+
+    </div>
+
+
+<!-- ================= NEXT LEARNING STEPS ================= -->
+
+<div class="mt-5">
+
+    <h2 class="text-center text-white fw-bold mb-4">
+
+        🚀 Continue Your Learning Journey
+
+    </h2>
+
+    <div class="row g-4">
+
+        <!-- Practice Quiz -->
+
+        <div class="col-lg-4">
+
+            <div class="feature-card">
+
+                <div class="feature-icon bg-warning">
+
+                    📝
+
+                </div>
+
+                <h4>
+
+                    Practice Quiz
+
+                </h4>
+
+                <p>
+
+                    Improve your knowledge by attempting quizzes and strengthening your concepts.
+
+                </p>
+
+                <a href="/explore_technology"
+                class="btn btn-warning w-100">
+
+                    Start Practice →
+
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <!-- AI Doubt Solver -->
+
+        <div class="col-lg-4">
+
+            <div class="feature-card">
+
+                <div class="feature-icon bg-primary">
+
+                    🤖
+
+                </div>
+
+                <h4>
+
+                    AI Doubt Solver
+
+                </h4>
+
+                <p>
+
+                    Ask questions anytime and receive instant AI-powered explanations.
+
+                </p>
+
+                <a href="/ai_doubt_solver"
+                class="btn btn-primary w-100">
+
+                    Ask AI →
+
+                </a>
+
+            </div>
+
+        </div>
+
+
+      <!-- Theory Notes -->
+
+<div class="col-lg-4">
+
+    <div class="feature-card">
+
+        <div class="feature-icon bg-info">
+
+            📚
+
+        </div>
+
+        <h4>
+
+            Theory Notes
+
+        </h4>
+
+        <p>
+
+            Read well-structured theory notes, concepts, examples, and explanations to strengthen your understanding.
+
+        </p>
+
+        <a href="/Theory"
+        class="btn btn-info w-100">
+
+            Read Notes →
+
+        </a>
+
+    </div>
 
 </div>
 
-<div class="card-body">
+    <!-- Buttons -->
 
-<pre style="white-space: pre-wrap;">
+    <div class="text-center mt-5 mb-5">
 
-{{ roadmap }}
+        <button onclick="window.print()"
+        class="btn btn-success btn-lg me-2">
 
-</pre>
+            🖨 Print Roadmap
+
+        </button>
+
+
+        <a href="/dashboard"
+        class="btn btn-primary btn-lg me-2">
+
+            🏠 Dashboard
+
+        </a>
+
+
+        <a href="/explore_technology"
+        class="btn btn-warning btn-lg">
+
+            📚 Continue Learning
+
+        </a>
+
+    </div>
 
 </div>
 
-</div>
-
-</div>
-
-</body>
-
-</html>
+{% endblock %}
