@@ -1,5 +1,3 @@
-
-
 from click import core, prompt
 from unicodedata import name
 from flask.cli import load_dotenv
@@ -13,17 +11,15 @@ import os
 import sqlite3
 import time
 
-
-
 load_dotenv()
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 load_dotenv(os.path.join(BASE_DIR, '.env'))  # Load environment variables from .env file
 
-
-app = Flask(__name__)
+app = Flask(__name__) # create a flask application
 
 app.secret_key='linkkiwi2026' #needed for flashing message
 
+#path of database for photo upload
 UPLOAD_FOLDER = os.path.join(BASE_DIR, 'static', 'uploads')
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
@@ -34,6 +30,7 @@ def allowed_file(filename):
     #only allow certain file extensions
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
+#=================================> Dictionary for Web Development <=================================
 
 QUESTIONS = [
     {
@@ -52,6 +49,8 @@ QUESTIONS = [
         "answer": "<a>"
     }
 ]
+
+#=================================> Dictionary for AI <=================================
 
 QUESTIONS1 = [
     {
@@ -76,6 +75,8 @@ QUESTIONS1 = [
     }
 ]
 
+#=================================> Dictionary for Data Science <=================================
+
 QUESTIONS2 = [
     {
         "q": "Q1. What is Data Science?",
@@ -98,6 +99,8 @@ QUESTIONS2 = [
         "answer": "Python"
     }
 ]
+
+#=================================> Dictionary for Cloud Computing <=================================
 
 QUESTIONS3 = [
     {
@@ -122,6 +125,8 @@ QUESTIONS3 = [
     }
 ]
 
+#=================================> Dictionary for Cyber Security <=================================
+
 QUESTIONS4 = [
     {
         "q": "Q1. What is Cyber Security?",
@@ -144,6 +149,8 @@ QUESTIONS4 = [
         "answer": "A malicious software"
     }
 ]
+
+#=================================> Dictionary for Mobile App Development <=================================
 
 QUESTIONS5 = [
     {
@@ -168,6 +175,8 @@ QUESTIONS5 = [
     }
 ]
 
+#=================================> Dictionary for C <=================================
+
 QUESTIONS_C = [
     {
         "q": "Q1. Who is known as the father of C language?",
@@ -190,6 +199,8 @@ QUESTIONS_C = [
         "answer": "1972"
     }
 ]
+
+#=================================> Dictionary for C++ <=================================
 
 QUESTIONS_CPP = [
     {
@@ -214,6 +225,8 @@ QUESTIONS_CPP = [
     }
 ]
 
+#=================================> Dictionary for Java <=================================
+
 QUESTIONS_JAVA = [
     {
         "q": "Q1. Who developed Java programming language?",
@@ -236,6 +249,8 @@ QUESTIONS_JAVA = [
         "answer": "Sun Microsystems"
     }
 ]
+
+#=================================> Dictionary for Python <=================================
 
 QUESTIONS_PYTHON = [
     {
@@ -261,6 +276,8 @@ QUESTIONS_PYTHON = [
 
 ]
 
+#=================================> Dictionary for Mobile Operating System <=================================
+
 QUESTIONS_OS = [
     {
         "q": "Q1. What is an Operating System?",
@@ -283,6 +300,8 @@ QUESTIONS_OS = [
         "answer": "Windows"
     }
 ]
+
+#=================================> Dictionary for DBMS <=================================
 
 QUESTIONS_DBMS = [
     {
@@ -307,6 +326,8 @@ QUESTIONS_DBMS = [
     }
 ]
 
+#=================================> Dictionary for Computer Network <=================================
+
 QUESTIONS_CN = [
     {
         "q": "Q1. What is a computer network?",
@@ -329,6 +350,8 @@ QUESTIONS_CN = [
         "answer": "Local Area Network"
     }
 ]
+
+#=================================> Dictionary for Data Structure <=================================
 
 QUESTIONS_DS = [
     {
@@ -353,6 +376,8 @@ QUESTIONS_DS = [
     }
 ]
 
+#=================================> Dictionary for Student  <=================================
+
 stud = [
     {
         'Sr_no':1,
@@ -370,15 +395,13 @@ stud = [
     }
 ]
 
+#==================================> Home Route <=================================
 
 @app.route('/')
 def Home():
-        return render_template('Home.html',students=stud)
+    return render_template('Home.html',students=stud)
     
-    
-    
-
-
+#==================================> Login Route <=================================
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -416,6 +439,7 @@ def login():
 
     return render_template("login.html")
 
+#==================================> Forget Password Route <=================================
 
 @app.route('/forgot_password', methods=['GET', 'POST'])
 def forgot_password():
@@ -460,6 +484,8 @@ def forgot_password():
 
     return render_template('forgot_password.html')
 
+#==================================> Explore Technology Route <=================================
+
 @app.route('/explore_technology')
 def explore_technology():
     # Login check
@@ -473,13 +499,14 @@ def explore_technology():
     
     return render_template('explore_technology.html')
 
+#==================================> Technology Route <=================================
 
 @app.route('/technology')
 def technology():
     return render_template('technology.html')
 
+#==================================> Web Development Route  <=================================
 
-    
 @app.route('/web_development/<int:qno>', methods=['GET', 'POST'])
 def web_development(qno):
 
@@ -570,6 +597,8 @@ def web_development(qno):
         start_time=session["start_time"]
     )
 
+#==================================> Artificial Intelligrnce Route  <=================================
+
 @app.route('/Artificial_Intelligence/<int:qno>', methods=['GET', 'POST'])
 def Artificial_Intelligence(qno):
 
@@ -647,6 +676,8 @@ def Artificial_Intelligence(qno):
         total=len(all_questions),
         start_time=session["start_time"]
     )
+
+#==================================> Data Science Route  <=================================
 
 @app.route('/data_science/<int:qno>', methods=['GET', 'POST'])
 def data_science(qno):
@@ -728,6 +759,8 @@ def data_science(qno):
         start_time=session["start_time"]
     )
 
+#==================================> Cloude Computing Route  <=================================
+
 @app.route('/cloud_computing/<int:qno>', methods=['GET', 'POST'])
 def cloud_computing(qno):
 
@@ -808,6 +841,8 @@ def cloud_computing(qno):
         start_time=session["start_time"]
     )
 
+#==================================> Cyber Security Route  <=================================
+
 @app.route('/cyber_security/<int:qno>', methods=['GET', 'POST'])
 def cyber_security(qno):
 
@@ -877,6 +912,8 @@ def cyber_security(qno):
         total=len(all_questions),
         start_time=session.get("start_time")
     )
+
+#==================================> Mobile App Development Route  <=================================
 
 @app.route('/mobile_app_development/<int:qno>', methods=['GET', 'POST'])
 def Mobile_App_Development(qno):
@@ -951,27 +988,23 @@ def Mobile_App_Development(qno):
         start_time=session.get("start_time")
     )
 
-
-
+#==================================> Explore Programming Language Route  <=================================
 
 @app.route('/explore_programing_lang')
 def explore_programing_lang():
 
     # Login check
-        if "Username" not in session:
-            flash("Please login first!", "warning")
-            return redirect(url_for("login"))
+    if "Username" not in session:
+        flash("Please login first!", "warning")
+        return redirect(url_for("login"))
     
-        if 'sr_no' in session:
-            return redirect(url_for('programing_lang'))
+    if 'sr_no' in session:
+        return redirect(url_for('programing_lang'))
     
         
-        return render_template('programing_lang.html')
-
-@app.route('/programing_lang')
-def programing_lang():
     return render_template('programing_lang.html')
 
+#==================================> C Language Route  <=================================
 
 @app.route('/c_lang/<int:qno>', methods=['GET', 'POST'])
 def c_lang(qno):
@@ -1042,6 +1075,7 @@ def c_lang(qno):
         start_time=session.get("start_time")
     )
 
+#==================================> CPP Language Route  <=================================
 
 @app.route('/cpp_lang/<int:qno>', methods=['GET', 'POST'])
 def cpp_lang(qno):
@@ -1113,6 +1147,8 @@ def cpp_lang(qno):
         start_time=session.get("start_time")
     )
 
+#==================================> Java Language Route  <=================================
+
 @app.route('/java_lang/<int:qno>', methods=['GET', 'POST'])
 def java_lang(qno):
 
@@ -1182,6 +1218,8 @@ def java_lang(qno):
         total=len(all_questions),
         start_time=session.get("start_time")
     )
+
+#==================================> Python Language Route  <=================================
 
 @app.route('/python_lang/<int:qno>', methods=['GET', 'POST'])
 def python_lang(qno):
@@ -1262,26 +1300,23 @@ def python_lang(qno):
         start_time=session.get("start_time")
     )
 
+#==================================> Explore Computer Science Route  <=================================
 
 @app.route('/explore_computer_science')
 def explore_computer_science():
 
-     # Login check
-            if "Username" not in session:
-                flash("Please login first!", "warning")
-                return redirect(url_for("login"))
+    # Login check
+    if "Username" not in session:
+        flash("Please login first!", "warning")
+        return redirect(url_for("login"))
         
-            if 'sr_no' in session:
-                return redirect(url_for('computer_science'))
+    if 'sr_no' in session:
+        return redirect(url_for('computer_science'))
         
             
-            return render_template('computer_science.html')
-    
-
-@app.route('/computer_science')
-def computer_science():
     return render_template('computer_science.html')
 
+#==================================> Operating System Route  <=================================
 
 @app.route('/operating_system/<int:qno>', methods=['GET', 'POST'])
 def operating_system(qno):
@@ -1351,6 +1386,7 @@ def operating_system(qno):
         start_time=session.get("start_time")
     )
 
+#==================================> DBMS Route  <=================================
 
 @app.route('/dbms_lang/<int:qno>', methods=['GET', 'POST'])
 def dbms_lang(qno):
@@ -1421,6 +1457,8 @@ def dbms_lang(qno):
         start_time=session.get("start_time")
     )
 
+#==================================> Computer Network Route  <=================================
+
 @app.route('/computer_network/<int:qno>', methods=['GET', 'POST'])
 def computer_network(qno):
     # Subject save
@@ -1488,6 +1526,8 @@ def computer_network(qno):
         total=len(all_questions),
         start_time=session.get("start_time")
     )
+
+#==================================> Data Structure Route  <=================================
 
 @app.route('/data_structure/<int:qno>', methods=['GET', 'POST'])
 def data_structure(qno):
@@ -1557,6 +1597,7 @@ def data_structure(qno):
         start_time=session.get("start_time")
     )
 
+#==================================> Logout Route  <=================================
 
 @app.route('/logout')
 def logout():
@@ -1568,7 +1609,7 @@ def logout():
 
     return redirect(url_for("Home"))
 
-
+#==================================> Subjects Route  <=================================
 
 @app.route('/subjects')
 def subjects():
@@ -1586,6 +1627,8 @@ def subjects():
 
     conn.close()
     return render_template("subjects.html", rows=rows)
+
+#==================================> Update Leaderboard function  <=================================
 
 def update_leaderboard(student_name, score, time):
 
@@ -1616,7 +1659,7 @@ def update_leaderboard(student_name, score, time):
     conn.commit()
     conn.close()
 
-
+#==================================> Rank Leaderboard function  <=================================
 
 def ranked_leaderboard():
 
@@ -1637,6 +1680,8 @@ def ranked_leaderboard():
     conn.close()
 
     return rows
+
+#==================================> Leaderboard Route  <=================================
 
 @app.route("/leaderboard")
 def leaderboard():
@@ -2355,8 +2400,17 @@ Rules:
             )
 
             answer = response.choices[0].message.content
+            
+            
+
             conn = sqlite3.connect("myproject.db")
+            print("Current Directory:", os.getcwd())
+            print("Database Used:", os.path.abspath("myproject.db"))
+
             cur = conn.cursor()
+
+            cur.execute("SELECT name FROM sqlite_master WHERE type='table'")
+            print("Tables:", cur.fetchall())
 
             cur.execute("""
             INSERT INTO ai_history(username, subject, question, answer, date)
