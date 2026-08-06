@@ -2403,7 +2403,7 @@ Rules:
             
             
 
-            conn = sqlite3.connect("myproject.db")
+            conn = sqlite3.connect("/home/kaveriwankhede/python-training/myproject.db")
             print("Current Directory:", os.getcwd())
             print("Database Used:", os.path.abspath("myproject.db"))
 
@@ -2428,7 +2428,7 @@ Rules:
 
         except Exception as e:
             answer = str(e)
-
+    
     return render_template(
         "ai_doubt_solver.html",
         answer=answer
