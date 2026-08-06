@@ -2255,18 +2255,18 @@ def delete_student(sr_no):
     return redirect(url_for("filter_result"))
 
 
-@app.route("/theory")
-def theory():
+@app.route("/Theory")
+def Theory():
     # Login check
     if "Username" not in session:
         flash("Please login first!", "warning")
         return redirect(url_for("login"))
         
     if 'sr_no' in session:
-        return redirect(url_for('theory'))
+        return redirect(url_for('Theory'))
 
     search = request.args.get("search", "")
-    return render_template("theory.html", search=search)
+    return render_template("Theory.html", search=search)
 
 
 
@@ -2688,8 +2688,8 @@ def add_interview_question():
 
     return render_template("add_interview_question.html")
 import json
-@app.route("/settings", methods=["GET", "POST"])
-def settings():
+@app.route("/Settings", methods=["GET", "POST"])
+def Settings():
 
     if "Username" not in session:
         return redirect(url_for("login"))
@@ -2722,11 +2722,11 @@ def settings():
         session["Student_name"] = student_name
         session["Email"] = email
 
-        return redirect(url_for("settings"))
+        return redirect(url_for("Settings"))
 
     conn.close()
     return render_template(
-        "settings.html"
+        "Settings.html"
     )
 
 
