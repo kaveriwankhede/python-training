@@ -4,7 +4,7 @@ from click import prompt
 from unicodedata import name
 from flask.cli import load_dotenv
 from flask import Flask, abort , render_template ,request ,flash ,redirect ,url_for ,session
-from Database import get_db, init_db
+from Database import DB_PATH, get_db, init_db
 from werkzeug.security import generate_password_hash, check_password_hash
 from groq import Groq
 from datetime import datetime
@@ -1926,19 +1926,19 @@ def add_student():
         conn.execute(
                 '''
                 INSERT INTO SCORE
-                (Student_name, username, email, password, subject, photo)
-                VALUES (?, ?, ?, ?, ?, ?)
+                (Student_name, username, email, password, subject, score, photo)
+                VALUES (?, ?, ?, ?, ?, ?, ?)
                 ''',
-                (Student_name, username, email, hashed_password, subject, filename)
+                (Student_name, username, email, hashed_password, subject, 0, filename)
                 )
         
         conn.execute(
         '''
         INSERT INTO USERS
-        (Student_name, username, email, password, subject, photo)
-        VALUES (?, ?, ?, ?, ?, ?)
+        (Student_name, username, email, password, subject, score, photo)
+        VALUES (?, ?, ?, ?, ?, ?, ?)
         ''',
-        (Student_name, username, email, hashed_password, subject, filename)
+        (Student_name, username, email, hashed_password, subject, 0, filename)
         )
 
         conn.commit()
@@ -2379,9 +2379,8 @@ Rules:
 @app.route("/ai_history")
 def ai_history():
 
-    conn = sqlite3.connect("myproject.db")
+    conn = sqlite3.connect(DB_PATH)
     conn.row_factory = sqlite3.Row
-
     cur = conn.cursor()
 
     cur.execute("""
@@ -2727,7 +2726,7 @@ def settings():
 
     conn.close()
     return render_template(
-        "settings.html",
+        "settings.html"
     )
 
 
