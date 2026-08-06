@@ -3026,6 +3026,8 @@ Format:
 @app.route("/ai_roadmap")
 def ai_roadmap():
 
+    username = session.get("Username")
+
     conn = get_db()
 
     wrong = conn.execute("""
@@ -3033,7 +3035,7 @@ def ai_roadmap():
     FROM QUIZ_HISTORY
     WHERE username = ?
     AND is_correct = 0
-    """, (session["Username"],)).fetchall()
+    """, (username,)).fetchall()
 
     conn.close()
 
