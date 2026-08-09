@@ -9,7 +9,7 @@ app.secret_key = "linkkiwi2026"
 
 # Absolute database path 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__)) 
-DB_PATH = os.path.join(BASE_DIR, "/home/kaveriwankhede/python-training/myproject.db") 
+DB_PATH = os.path.join(BASE_DIR, "myproject.db") 
 
 def get_db(): 
         conn = sqlite3.connect(DB_PATH) 
