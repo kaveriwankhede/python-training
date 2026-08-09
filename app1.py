@@ -399,7 +399,16 @@ stud = [
 
 @app.route('/')
 def Home():
-    return render_template('Home.html',students=stud)
+    conn = get_db()
+    total_students = conn.execute(
+            "SELECT COUNT(*) FROM USERS"
+    ).fetchone()[0]
+    
+    total_subjects = conn.execute(
+            "SELECT COUNT(DISTINCT subject) FROM notes"
+    ).fetchone()[0]
+    
+    return render_template('Home.html',students=stud,total_students=total_students,total_subjects=total_subjects)
     
 #==================================> Login Route <=================================
 
@@ -1704,6 +1713,8 @@ def leaderboard():
         students=students
     )
 
+#==================================> Registrasion Route  <=================================
+
 @app.route('/Register', methods=['GET', 'POST'])
 def Register():
     
@@ -1748,6 +1759,7 @@ def Register():
 
     return render_template('Register.html')
 
+#==================================> Search Route  <=================================
 
 @app.route('/search')
 def search():
@@ -1791,7 +1803,7 @@ def search():
         query=q
     )
 
-
+#==================================> About Route  <=================================
 
 @app.route('/about')
 def about():
@@ -1834,7 +1846,7 @@ def Add_Question():
 
     return render_template('Add_Question.html')
 
-
+#==================================> Students Route  <=================================
 
 @app.route("/students")
 def students():
@@ -1897,6 +1909,8 @@ def students():
         total_page=total_page
     )
 
+#==================================> Filter Route  <=================================
+
 @app.route('/filter_result')
 def filter_result():
 
@@ -1942,6 +1956,9 @@ def filter_result():
         students=students,
         query=q
     )
+
+#==================================> Add Student Route  <=================================
+
 @app.route("/add_student", methods=["GET", "POST"])
 def add_student():
     conn= get_db()
@@ -1996,6 +2013,7 @@ def add_student():
 
     return render_template("add_student.html", subjects=subjects)
     
+#==================================> View Student Route  <=================================
 
 @app.route('/view_student/<int:Sr_no>')
 def view_student(Sr_no):
@@ -2060,6 +2078,8 @@ WHERE Username=?
         performance=performance,
         average_score=average_score
         )
+
+#==================================> Edit Student Route  <=================================
 
 @app.route('/edit_student/<source>/<int:id>', methods=['GET','POST'])
 def edit_student(source, id):
@@ -2154,6 +2174,8 @@ def edit_student(source, id):
         student=student,
         source=source
     )
+
+#==================================> Result Route  <=================================
 
 @app.route('/Result')
 def Result():
@@ -2288,6 +2310,8 @@ VALUES (?, ?, ?, ?, ?, ?, ?)
         attempt_date=attempt_date
     )
 
+#==================================> delete Route  <=================================
+
 @app.route("/delete/<int:sr_no>")
 def delete_student(sr_no):
 
@@ -2303,6 +2327,7 @@ def delete_student(sr_no):
 
     return redirect(url_for("filter_result"))
 
+#==================================> Theory Notes Route  <=================================
 
 @app.route("/Theory")
 def Theory():
@@ -2317,7 +2342,7 @@ def Theory():
     search = request.args.get("search", "")
     return render_template("Theory.html", search=search)
 
-
+#==================================> Get AI Tip Route  <=================================
 
 @app.route("/students/<int:Sr_no>/tip")
 def get_ai_tip(Sr_no):
@@ -2361,6 +2386,8 @@ The response should not be more than 3 lines.
         tip=tip
     )
 
+#==================================> AI Doubt Solver Route  <=================================
+
 @app.route("/ai_doubt_solver", methods=["GET", "POST"])
 def ai_doubt_solver():
 
@@ -2403,7 +2430,7 @@ Rules:
             
             
 
-            conn = sqlite3.connect("/home/kaveriwankhede/python-training/myproject.db")
+            conn = sqlite3.connect("myproject.db")
             print("Current Directory:", os.getcwd())
             print("Database Used:", os.path.abspath("myproject.db"))
 
@@ -2434,6 +2461,8 @@ Rules:
         answer=answer
     )
 
+#==================================> AI History Route  <=================================
+
 @app.route("/ai_history")
 def ai_history():
 
@@ -2455,6 +2484,8 @@ def ai_history():
         "ai_history.html",
         history=history
     )
+
+#==================================> Website Guid  Route  <=================================
 
 @app.route("/website_guide")
 def website_guide():
@@ -2495,6 +2526,8 @@ Generate a detailed, professional response of about 700-1000 words.
         "website_guide.html",
         guide=guide
     )
+
+#==================================> Dashboard Route  <=================================
 
 @app.route("/dashboard")
 def dashboard():
@@ -2550,7 +2583,7 @@ LIMIT 5
         recent=recent
     )
 
-
+#==================================> Profile Route  <=================================
 
 @app.route("/profile")
 def profile():
@@ -2576,6 +2609,7 @@ def profile():
 
     return render_template("profile.html", student=user)
 
+#==================================> Certificate Route  <=================================
 
 @app.route("/certificate")
 def certificate():
@@ -2592,6 +2626,8 @@ def certificate():
     conn.close()
 
     return render_template("certificate.html", student=student)
+
+#==================================> Contact Route  <=================================
 
 @app.route("/contact", methods=["GET", "POST"])
 def contact():
@@ -2618,6 +2654,8 @@ def contact():
 
     return render_template("contact.html")
 
+#==================================> Contact Message Route  <=================================
+
 @app.route("/contact_messages")
 def contact_messages():
 
@@ -2638,6 +2676,8 @@ def contact_messages():
         messages=messages,
         feedbacks=feedbacks
     )
+
+#==================================> Feedback Route  <=================================
 
 @app.route("/feedback", methods=["GET", "POST"])
 def feedback():
@@ -2664,9 +2704,7 @@ def feedback():
 
     return render_template("feedback.html")
 
-@app.route("/admin")
-def admin():
-    return render_template("admin.html")
+#==================================> Interview Route  <=================================
 
 @app.route("/interview")
 def interview():
@@ -2713,37 +2751,8 @@ def interview():
         questions=questions
     )
 
-@app.route("/add_interview_question", methods=["GET", "POST"])
-def add_interview_question():
+#==================================> Settings Route  <=================================
 
-    if request.method == "POST":
-
-        category = request.form["category"]
-        subject = request.form["subject"]
-        difficulty = request.form["difficulty"]
-        question = request.form["question"]
-        answer = request.form["answer"]
-
-        conn = get_db()
-
-        conn.execute("""
-        INSERT INTO interview_questions
-        (category, subject, difficulty, question, answer)
-        VALUES (?, ?, ?, ?, ?)
-        """, (
-            category,
-            subject,
-            difficulty,
-            question,
-            answer
-        ))
-
-        conn.commit()
-        conn.close()
-
-        return redirect(url_for("interview"))
-
-    return render_template("add_interview_question.html")
 import json
 @app.route("/Settings", methods=["GET", "POST"])
 def Settings():
@@ -2786,8 +2795,7 @@ def Settings():
         "Settings.html"
     )
 
-
-
+#==================================> AI Quiz Route  <=================================
 
 @app.route("/ai_quiz/<subject>/<int:qno>", methods=["GET", "POST"])
 def ai_quiz(subject, qno):
@@ -2836,6 +2844,8 @@ def ai_quiz(subject, qno):
         subject=subject,
         start_time=session["start_time"]
     )
+
+#==================================> Generate AI Quiz Route  <=================================
 
 @app.route("/generate_ai_quiz/<subject>", methods=["GET", "POST"])
 def generate_ai_quiz(subject):
@@ -2901,6 +2911,8 @@ Return in this exact format:
 
     return redirect(url_for("ai_quiz", qno=0, subject=subject))
 
+#==================================> Quiz History Route  <=================================
+
 @app.route("/quiz_history")
 def quiz_history():
 
@@ -2912,12 +2924,12 @@ def quiz_history():
 
     history = conn.execute("""
         SELECT username,
-               subject,
-               topic,
-               question,
-               user_answer,
-               correct_answer,
-               is_correct
+            subject,
+            topic,
+            question,
+            user_answer,
+            correct_answer,
+            is_correct
         FROM QUIZ_HISTORY
         ORDER BY id DESC
     """).fetchall()
@@ -2936,6 +2948,7 @@ def quiz_history():
         wrong=wrong
     )
 
+#==================================> Wrong Question Analyser Route  <=================================
 @app.route("/wrong_questions/<attempt_date>")
 def wrong_questions(attempt_date):
 
@@ -2945,14 +2958,14 @@ def wrong_questions(attempt_date):
 
     wrong_questions = conn.execute("""
         SELECT question,
-               user_answer,
-               correct_answer,
-               attempt_date
+            user_answer,
+            correct_answer,
+            attempt_date
         FROM QUIZ_HISTORY
-        WHERE username=?
-        AND attempt_date=?
-        AND is_correct=0
-    """,(Username,attempt_date)).fetchall()
+        WHERE username = ?
+        AND attempt_date = ?
+        AND is_correct = 0
+    """, (Username, attempt_date)).fetchall()
 
     conn.close()
 
@@ -2961,10 +2974,9 @@ def wrong_questions(attempt_date):
         wrong_questions=wrong_questions
     )
 
+#==================================> Personalized Quiz Route  <=================================
 @app.route("/personalized_quiz")
 def personalized_quiz():
-
-    
 
     if "Username" not in session:
         flash("Please login first.", "warning")
@@ -3023,6 +3035,8 @@ Format:
         quiz=ai_response
     )
 
+#==================================> AI Roadmap Route  <=================================
+
 @app.route("/ai_roadmap")
 def ai_roadmap():
 
@@ -3039,9 +3053,8 @@ def ai_roadmap():
 
     conn.close()
 
-    # -----------------------------
     # AI Prompt
-    # -----------------------------
+   
     if not wrong:
 
         prompt = """
@@ -3089,9 +3102,8 @@ At the end give motivational tips.
 Return in simple text.
 """
 
-    # -----------------------------
     # AI Response
-    # -----------------------------
+    
     client = Groq(api_key=os.environ.get("GROQ_API_KEY"))
     response = client.chat.completions.create(
             model="llama-3.1-8b-instant",
@@ -3108,144 +3120,8 @@ Return in simple text.
         roadmap=ai_response
     )
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-@app.route('/quiz_race')
-def quiz_race():
-    
-
-    return render_template(
-        "quiz_race_home.html",
-        Username=session["Username"]
-    )
-@app.route("/save_race_score", methods=["POST"])
-def save_race_score():
-
-    if "username" not in session:
-        return {"status": "error"}
-
-    from flask import request
-
-    score = request.json["score"]
-
-    conn = get_db()
-
-    conn.execute("""
-        INSERT INTO GAME_SCORE
-        (
-            username,
-            subject,
-            score,
-            created_at
-        )
-        VALUES
-        (
-            ?,
-            'Quiz Race',
-            ?,
-            datetime('now')
-        )
-    """,
-    (
-        session["username"],
-        score
-    ))
-
-    conn.commit()
-
-    conn.close()
-
-    return {"status":"success"}
-
-@app.route("/start_race")
-def start_race():
-
-
-    conn = get_db()
-
-    cur = conn.cursor()
-
-    cur.execute("""
-        SELECT *
-        FROM quiz_race_questions
-        ORDER BY RANDOM()
-        LIMIT 10
-    """)
-
-    questions = [dict(row) for row in cur.fetchall()]
-
-    conn.close()
-
-    return render_template(
-        "quiz_race.html",
-        questions=questions
-    )
-
 init_db()
 
 if __name__ == '__main__':
     
     app.run(debug=True)
-
-
-
-
-
-
-
-
-    #python deployement
-    #pip freeze > requirements.txt
-    #
-    #for deployement
-    #http://www.pythonanywhere.com
-    #command to use in python any where
-    #
-
-
-
-
-
-
-
-#python
-#import sqlite3
-#conn = sqlite3.connect('myproject.db')
-#conn.execute("UPDATE USERS SET role='admin' WHERE username='Kaveri'")
-#conn.commit()
-#conn.close()
-#exit(0)

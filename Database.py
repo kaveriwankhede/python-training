@@ -2,11 +2,15 @@ from datetime import datetime
 import os
 import sqlite3
 from flask import Flask , session
+
 app = Flask(__name__) 
+
 app.secret_key = "linkkiwi2026" 
+
 # Absolute database path 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__)) 
 DB_PATH = os.path.join(BASE_DIR, "myproject.db") 
+
 def get_db(): 
         conn = sqlite3.connect(DB_PATH) 
         conn.row_factory = sqlite3.Row 
@@ -14,6 +18,8 @@ def get_db():
 
 def init_db():
     conn = get_db()
+
+#=================================> Contact Table <=================================    
 
     conn.execute("""
     CREATE TABLE IF NOT EXISTS contact(
@@ -24,6 +30,8 @@ def init_db():
     message TEXT NOT NULL
     )
     """)
+
+#=================================> Score Table <=================================   
 
     conn.execute("""
     CREATE TABLE IF NOT EXISTS SCORE(
@@ -41,6 +49,8 @@ def init_db():
     )
     """)
 
+#=================================> USERS Table <=================================   
+
     conn.execute("""
     CREATE TABLE IF NOT EXISTS USERS(
         id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -53,6 +63,8 @@ def init_db():
         role TEXT DEFAULT 'student'
     )
     """)
+
+#=================================> Students Table <=================================   
 
     conn.execute("""
     CREATE TABLE IF NOT EXISTS students (
@@ -69,6 +81,8 @@ def init_db():
 );
 """)
 
+#=================================> Feedback Table <=================================   
+
     conn.execute("""
     CREATE TABLE IF NOT EXISTS feedback (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -77,6 +91,9 @@ def init_db():
     message TEXT NOT NULL
 );
 """)
+    
+#=================================> Notes Table <=================================   
+
     conn.execute("""
     CREATE TABLE IF NOT EXISTS notes (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -86,6 +103,8 @@ def init_db():
     pdf_link TEXT
 );
 """)
+
+#=================================> Quiz History Table <=================================   
 
     conn.execute("""
     CREATE TABLE IF NOT EXISTS QUIZ_HISTORY (
@@ -100,34 +119,8 @@ def init_db():
         attempt_date TEXT
     )
     """)
-    
-    conn.execute("""
-    CREATE TABLE IF NOT EXISTS interview_questions (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    category TEXT NOT NULL,
-    subject TEXT NOT NULL,
-    difficulty TEXT NOT NULL,
-    question TEXT NOT NULL,
-    answer TEXT NOT NULL
-    )
-    """)
 
-    conn.execute("""
-    CREATE TABLE IF NOT EXISTS QUIZ_HISTORY (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    username TEXT,
-    subject TEXT,
-    topic TEXT,
-    question TEXT,
-    correct_answer TEXT,
-    user_answer TEXT,
-    is_correct INTEGER
-    )
-    """)
-
- 
-    
-
+#=================================> Ai History Table <=================================   
 
     conn.execute("""
     CREATE TABLE IF NOT EXISTS ai_history (
@@ -139,58 +132,6 @@ def init_db():
     date TEXT
 );
 """)
-
-    conn.execute("""
-    INSERT INTO quiz_race_questions
-    (subject, level, question, option1, option2, option3, option4, correct_answer)
-    VALUES
-
-    ('HTML',
-    'Easy',
-    'What does HTML stand for?',
-    'Hyper Text Markup Language',
-    'High Text Machine Language',
-    'Hyper Transfer Markup Language',
-    'Home Tool Markup Language',
-    'Hyper Text Markup Language'),
-
-    ('CSS',
-    'Easy',
-    'Which property changes text color?',
-    'background',
-    'font-size',
-    'color',
-    'margin',
-    'color'),
-
-    ('Python',
-    'Medium',
-    'Who developed Python?',
-    'James Gosling',
-    'Guido van Rossum',
-    'Dennis Ritchie',
-    'Bjarne Stroustrup',
-    'Guido van Rossum'),
-
-    ('Java',
-    'Medium',
-    'Java was developed by?',
-    'Microsoft',
-    'Sun Microsystems',
-    'Google',
-    'IBM',
-    'Sun Microsystems'),
-
-    ('DBMS',
-    'Easy',
-    'SQL stands for?',
-    'Structured Query Language',
-    'Simple Query Language',
-    'Sequential Query Language',
-    'System Query Language',
-    'Structured Query Language');
-    """)
-  
 
     cur = conn.cursor()
     cur.execute("SELECT COUNT(*) FROM notes")
@@ -216,12 +157,8 @@ def init_db():
     ('Cyber Security', 'Cyber Security Complete Notes', 'Complete Cyber Security theory notes...', ''),
     ('Cloud Computing', 'Cloud Computing Complete Notes', 'Complete Cloud Computing theory notes...', ''),
     ('Mobile App Development', 'Mobile App Development Complete Notes', 'Complete Mobile App Development theory notes...', '');
-
     """)
             
-
-    
-
     try:
         conn.execute(
             "ALTER TABLE SCORE ADD COLUMN role TEXT DEFAULT 'student'"
@@ -262,6 +199,7 @@ def init_db():
     WHERE photo IS NULL OR photo='';
 """)
 
+#=================================> Questions Table <=================================   
 
     conn.execute("""
     CREATE TABLE IF NOT EXISTS QUESTIONS(
