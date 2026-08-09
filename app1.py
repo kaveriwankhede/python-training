@@ -2387,6 +2387,19 @@ The response should not be more than 3 lines.
     )
 
 #==================================> AI Doubt Solver Route  <=================================
+if os.name == "nt":
+    # Local Windows
+    DB_PATH = os.path.join(
+        os.path.dirname(os.path.abspath(__file__)),
+        "myproject.db"
+    )
+else:
+    # PythonAnywhere / Linux
+    DB_PATH = "/home/kaveriwankhede/python-training/myproject.db"
+
+
+def get_db():
+    return sqlite3.connect(DB_PATH)
 
 @app.route("/ai_doubt_solver", methods=["GET", "POST"])
 def ai_doubt_solver():
@@ -2430,7 +2443,7 @@ Rules:
             
             
 
-            conn = sqlite3.connect("/home/kaveriwankhede/python-training/myproject.db")
+            conn = get_db()
             print("Current Directory:", os.getcwd())
             print("Database Used:", os.path.abspath("myproject.db"))
 
@@ -2460,6 +2473,8 @@ Rules:
         "ai_doubt_solver.html",
         answer=answer
     )
+
+
 
 #==================================> AI History Route  <=================================
 
