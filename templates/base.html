@@ -250,6 +250,7 @@ body.dark-mode footer{
                         ⋮<br> More
                     </a>
             <ul class="dropdown-menu">
+                {% if session.role == 'admin' %}
                 <li class="nav-item">
             <a class="nav-link" href="{{ url_for('students') }}">🧑‍🎓 SR</a>
             </li>
@@ -262,7 +263,7 @@ body.dark-mode footer{
             <li class="nav-item">
             <a class="nav-link" href="{{ url_for('dashboard') }}">📊 dashboard</a>
             </li>
-            
+             {% endif %}
             </ul>
             
             <li class="nav-item">

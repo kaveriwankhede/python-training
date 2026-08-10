@@ -174,30 +174,39 @@ def init_db():
     except sqlite3.OperationalError:
         pass
 
+    # Add photo column to USERS table
     try:
-            conn.execute(
-                "ALTER TABLE SCORE ADD COLUMN photo TEXT DEFAULT 'default.png'"
-            )
+        conn.execute(
+            "ALTER TABLE USERS ADD COLUMN photo TEXT DEFAULT 'default.png'"
+        )
     except sqlite3.OperationalError:
-            pass
-
-    conn.execute("""
-    UPDATE USERS
-    SET photo='default.png'
-    WHERE photo IS NULL OR photo='';
-""")
-
-    try:
-       conn.execute("ALTER TABLE USERS ADD COLUMN photo TEXT DEFAULT 'default.png'")
-    except Exception:
         # Column already exists
         pass
 
+    # Add photo column to SCORE table
+    try:
+        conn.execute(
+            "ALTER TABLE SCORE ADD COLUMN photo TEXT DEFAULT 'default.png'"
+        )
+    except sqlite3.OperationalError:
+        # Column already exists
+        pass
+
+    # Set default photo for existing users
     conn.execute("""
-    UPDATE SCORE
-    SET photo='default.png'
-    WHERE photo IS NULL OR photo='';
-""")
+        UPDATE USERS
+        SET photo = 'default.png'
+        WHERE photo IS NULL OR photo = ''
+    """)
+
+    # Set default photo for existing scores
+    conn.execute("""
+        UPDATE SCORE
+        SET photo = 'default.png'
+        WHERE photo IS NULL OR photo = ''
+    """)
+
+    conn.commit()
 
 #=================================> Questions Table <=================================   
 

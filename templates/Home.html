@@ -887,6 +887,375 @@ font-size:22px;
 }
 
 }
+```css
+/* ==========================================
+   FUTURE IMPROVEMENTS - STUDY QUIZ HUB
+========================================== */
+
+.future-section {
+    padding: 90px 20px;
+    background: linear-gradient(
+        135deg,
+        #f8f7ff 0%,
+        #ffffff 50%,
+        #f5f7ff 100%
+    );
+}
+
+.future-container {
+    max-width: 1200px;
+    margin: auto;
+}
+
+
+/* ================= HEADING ================= */
+
+.future-heading {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.future-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+
+    padding: 7px 16px;
+
+    border-radius: 50px;
+
+    background: linear-gradient(
+        135deg,
+        #ede9fe,
+        #e0e7ff
+    );
+
+    color: #6d28d9;
+
+    font-size: 11px;
+    font-weight: 700;
+
+    letter-spacing: 1.2px;
+
+    margin-bottom: 15px;
+
+    border: 1px solid #ddd6fe;
+}
+
+.future-heading h2 {
+    margin: 0;
+
+    font-size: 38px;
+    font-weight: 750;
+
+    letter-spacing: -0.8px;
+
+    background: linear-gradient(
+        90deg,
+        #7c3aed,
+        #4f46e5
+    );
+
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.future-heading p {
+    max-width: 650px;
+
+    margin: 14px auto 0;
+
+    color: #64748b;
+
+    font-size: 15px;
+
+    line-height: 1.7;
+}
+
+
+/* ================= GRID ================= */
+
+.future-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 22px;
+}
+
+
+/* ================= CARD ================= */
+
+.future-card {
+    position: relative;
+
+    padding: 28px 25px;
+
+    border-radius: 22px;
+
+    background: rgba(255, 255, 255, 0.85);
+
+    border: 1px solid rgba(139, 92, 246, 0.12);
+
+    box-shadow:
+        0 8px 30px rgba(30, 41, 59, 0.06);
+
+    backdrop-filter: blur(12px);
+
+    transition:
+        transform 0.35s ease,
+        box-shadow 0.35s ease,
+        border-color 0.35s ease;
+
+    overflow: hidden;
+}
+
+
+/* Gradient glow */
+
+.future-card::after {
+    content: "";
+
+    position: absolute;
+
+    width: 120px;
+    height: 120px;
+
+    right: -55px;
+    top: -55px;
+
+    border-radius: 50%;
+
+    background: linear-gradient(
+        135deg,
+        #8b5cf6,
+        #6366f1
+    );
+
+    opacity: 0.08;
+
+    transition: 0.4s ease;
+}
+
+
+/* Hover */
+
+.future-card:hover {
+    transform: translateY(-8px);
+
+    border-color: rgba(124, 58, 237, 0.3);
+
+    box-shadow:
+        0 18px 45px rgba(99, 102, 241, 0.13);
+}
+
+.future-card:hover::after {
+    transform: scale(1.5);
+
+    opacity: 0.12;
+}
+
+
+/* ================= ICON ================= */
+
+.future-card-icon {
+    width: 58px;
+    height: 58px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 17px;
+
+    font-size: 22px;
+
+    margin-bottom: 20px;
+
+    transition:
+        transform 0.35s ease,
+        box-shadow 0.35s ease;
+}
+
+.future-card:hover .future-card-icon {
+    transform: translateY(-4px) scale(1.05);
+}
+
+
+/* Icon Colors */
+
+.coding-icon {
+    color: #7c3aed;
+    background: linear-gradient(
+        135deg,
+        #ede9fe,
+        #ddd6fe
+    );
+}
+
+.email-icon {
+    color: #0284c7;
+    background: linear-gradient(
+        135deg,
+        #e0f2fe,
+        #bae6fd
+    );
+}
+
+.notification-icon {
+    color: #d97706;
+    background: linear-gradient(
+        135deg,
+        #fef3c7,
+        #fde68a
+    );
+}
+
+.interview-icon {
+    color: #059669;
+    background: linear-gradient(
+        135deg,
+        #d1fae5,
+        #a7f3d0
+    );
+}
+
+.badge-icon {
+    color: #db2777;
+    background: linear-gradient(
+        135deg,
+        #fce7f3,
+        #fbcfe8
+    );
+}
+
+.language-icon {
+    color: #4f46e5;
+    background: linear-gradient(
+        135deg,
+        #e0e7ff,
+        #c7d2fe
+    );
+}
+
+
+/* ================= CONTENT ================= */
+
+.future-card-content h3 {
+    margin: 0 0 9px;
+
+    color: #1e293b;
+
+    font-size: 18px;
+
+    font-weight: 700;
+}
+
+.future-card-content p {
+    margin: 0;
+
+    color: #64748b;
+
+    font-size: 13.5px;
+
+    line-height: 1.7;
+}
+
+
+/* ================= ARROW ================= */
+
+.future-arrow {
+    position: absolute;
+
+    right: 22px;
+    bottom: 22px;
+
+    width: 34px;
+    height: 34px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: #f5f3ff;
+
+    color: #7c3aed;
+
+    font-size: 12px;
+
+    opacity: 0;
+
+    transform: translateX(-8px);
+
+    transition: 0.3s ease;
+}
+
+.future-card:hover .future-arrow {
+    opacity: 1;
+
+    transform: translateX(0);
+}
+
+
+/* ================= RESPONSIVE ================= */
+
+@media (max-width: 992px) {
+
+    .future-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+
+@media (max-width: 650px) {
+
+    .future-section {
+        padding: 65px 15px;
+    }
+
+    .future-heading h2 {
+        font-size: 30px;
+    }
+
+    .future-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .future-card {
+        padding: 24px;
+    }
+}
+
+
+@media (max-width: 400px) {
+
+    .future-heading h2 {
+        font-size: 26px;
+    }
+
+    .future-heading p {
+        font-size: 13px;
+    }
+
+    .future-card-icon {
+        width: 52px;
+        height: 52px;
+        font-size: 20px;
+    }
+
+    .future-card-content h3 {
+        font-size: 16px;
+    }
+
+    .future-card-content p {
+        font-size: 13px;
+    }
+}
 
 </style>
  
@@ -1185,6 +1554,148 @@ style="max-width:100%;">
 </div>
 
 </section>
+```html
+<!-- Future Improvements -->
+<section class="future-section">
+
+    <div class="future-container">
+
+        <div class="future-heading">
+            <span class="future-badge">COMING SOON</span>
+            <h2>Future Improvements</h2>
+            <p>
+                New features planned to make Study Quiz Hub smarter,
+                more secure, and more engaging.
+            </p>
+        </div>
+
+        <div class="future-grid">
+
+            <!-- Coding Practice -->
+            <div class="future-card">
+                <div class="future-card-icon coding-icon">
+                    <i class="fas fa-code"></i>
+                </div>
+
+                <div class="future-card-content">
+                    <h3>Coding Practice</h3>
+                    <p>
+                        Solve coding problems and improve your
+                        programming and problem-solving skills.
+                    </p>
+                </div>
+
+                <span class="future-arrow">
+                    <i class="fas fa-arrow-right"></i>
+                </span>
+            </div>
+
+
+            <!-- Email Verification -->
+            <div class="future-card">
+                <div class="future-card-icon email-icon">
+                    <i class="fas fa-envelope-circle-check"></i>
+                </div>
+
+                <div class="future-card-content">
+                    <h3>Email Verification</h3>
+                    <p>
+                        Verify student accounts through email
+                        for better security and account protection.
+                    </p>
+                </div>
+
+                <span class="future-arrow">
+                    <i class="fas fa-arrow-right"></i>
+                </span>
+            </div>
+
+
+            <!-- Email Notifications -->
+            <div class="future-card">
+                <div class="future-card-icon notification-icon">
+                    <i class="fas fa-bell"></i>
+                </div>
+
+                <div class="future-card-content">
+                    <h3>Email Notifications</h3>
+                    <p>
+                        Get important updates about quizzes,
+                        results, reminders, and learning activities.
+                    </p>
+                </div>
+
+                <span class="future-arrow">
+                    <i class="fas fa-arrow-right"></i>
+                </span>
+            </div>
+
+
+            <!-- AI Interview Simulator -->
+            <div class="future-card">
+                <div class="future-card-icon interview-icon">
+                    <i class="fas fa-user-tie"></i>
+                </div>
+
+                <div class="future-card-content">
+                    <h3>AI Interview Simulator</h3>
+                    <p>
+                        Practice technical and HR interviews
+                        with an AI-powered virtual interviewer.
+                    </p>
+                </div>
+
+                <span class="future-arrow">
+                    <i class="fas fa-arrow-right"></i>
+                </span>
+            </div>
+
+
+            <!-- Achievement & Badges -->
+            <div class="future-card">
+                <div class="future-card-icon badge-icon">
+                    <i class="fas fa-medal"></i>
+                </div>
+
+                <div class="future-card-content">
+                    <h3>Achievements & Badges</h3>
+                    <p>
+                        Earn badges and achievements by completing
+                        quizzes, goals, and learning milestones.
+                    </p>
+                </div>
+
+                <span class="future-arrow">
+                    <i class="fas fa-arrow-right"></i>
+                </span>
+            </div>
+
+
+            <!-- Multi Language -->
+            <div class="future-card">
+                <div class="future-card-icon language-icon">
+                    <i class="fas fa-language"></i>
+                </div>
+
+                <div class="future-card-content">
+                    <h3>Multi-Language Learning</h3>
+                    <p>
+                        Access learning content in multiple languages
+                        for a more inclusive learning experience.
+                    </p>
+                </div>
+
+                <span class="future-arrow">
+                    <i class="fas fa-arrow-right"></i>
+                </span>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
 </body>
 
 {% endblock %}

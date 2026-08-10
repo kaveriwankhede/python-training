@@ -2386,21 +2386,33 @@ The response should not be more than 3 lines.
         tip=tip
     )
 
-#==================================> AI Doubt Solver Route  <=================================
-if os.name == "nt":
-    # Local Windows
-    DB_PATH = os.path.join(
-        os.path.dirname(os.path.abspath(__file__)),
-        "myproject.db"
+
+
+#==================================> AI History Route  <=================================
+
+@app.route("/ai_history")
+def ai_history():
+
+    conn = get_db()
+    cur = conn.cursor()
+
+    cur.execute("""
+        SELECT *
+        FROM ai_history
+        WHERE username=?
+        ORDER BY id DESC
+    """, (session.get("username", "Guest"),))
+
+    history = cur.fetchall()
+
+    conn.close()
+
+    return render_template(
+        "ai_history.html",
+        history=history
     )
-else:
-    # PythonAnywhere / Linux
-    DB_PATH = "/home/kaveriwankhede/python-training/myproject.db"
 
-
-def get_db():
-    return sqlite3.connect(DB_PATH)
-
+#==================================> AI Doubt Solver Route  <=================================
 @app.route("/ai_doubt_solver", methods=["GET", "POST"])
 def ai_doubt_solver():
 
@@ -2474,31 +2486,6 @@ Rules:
         answer=answer
     )
 
-
-
-#==================================> AI History Route  <=================================
-
-@app.route("/ai_history")
-def ai_history():
-
-    conn = get_db()
-    cur = conn.cursor()
-
-    cur.execute("""
-        SELECT *
-        FROM ai_history
-        WHERE username=?
-        ORDER BY id DESC
-    """, (session.get("username", "Guest"),))
-
-    history = cur.fetchall()
-
-    conn.close()
-
-    return render_template(
-        "ai_history.html",
-        history=history
-    )
 
 #==================================> Website Guid  Route  <=================================
 
@@ -2608,7 +2595,9 @@ def profile():
         flash("Please login first!", "warning")
         return redirect(url_for("login"))
 
+    score = session.get("score", 0)
     conn = get_db()
+
 
     user = conn.execute("""
         SELECT *
@@ -2616,13 +2605,15 @@ def profile():
         WHERE Username = ?
     """, (session["Username"],)).fetchone()
 
+    
+    
     conn.close()
 
     if user is None:
         flash("User not found!", "danger")
         return redirect(url_for("login"))
 
-    return render_template("profile.html", student=user)
+    return render_template("profile.html", student=user, score=score)
 
 #==================================> Certificate Route  <=================================
 
@@ -2993,10 +2984,6 @@ def wrong_questions(attempt_date):
 @app.route("/personalized_quiz")
 def personalized_quiz():
 
-    if "Username" not in session:
-        flash("Please login first.", "warning")
-        return redirect(url_for("login"))
-
     conn = get_db()
 
     wrong = conn.execute("""
@@ -3008,41 +2995,93 @@ def personalized_quiz():
 
     conn.close()
 
-    if not wrong:
-        return "<h2>No Wrong Questions Found!</h2>"
+    # Wrong questions available hain
+    if wrong:
 
-    questions = "\n".join([row["question"] for row in wrong])
+        questions = "\n".join([
+            row["question"] for row in wrong
+        ])
 
-    prompt = f"""
+        prompt = f"""
 Student answered these questions incorrectly:
 
 {questions}
 
 Generate 10 NEW MCQs related to these questions.
 
+Focus on the concepts and topics where the student made mistakes.
+
 Return only JSON.
 
 Format:
 
 [
-  {{
+{{
     "question":"",
     "options":["","","",""],
     "answer":""
-  }}
+}}
 ]
 """
 
-    client = Groq(api_key=os.environ.get("GROQ_API_KEY"))
+    # Wrong questions nahi hain
+    else:
+
+       prompt = """
+You are an AI personalized learning assistant.
+
+The student has not answered any questions incorrectly yet.
+
+Generate 10 useful practice MCQs to help the student
+continue improving their programming knowledge.
+
+Cover important programming concepts from topics such as
+Python, Java, C, C++, HTML, CSS, JavaScript, SQL, and Flask.
+
+The questions should include a balanced combination of
+easy, medium, and difficult questions.
+
+Each question must:
+- Be completely new.
+- Have exactly 4 options.
+- Have only one correct answer.
+- Have the correct answer among the four options.
+- Be clear, accurate, and educational.
+- Not contain question numbers.
+- Not contain explanations.
+
+Return ONLY valid JSON.
+Do not add markdown, ```json, or any text outside the JSON.
+
+Use exactly this format:
+
+[
+  {{
+    "question": "Question text",
+    "options": [
+      "Option A",
+      "Option B",
+      "Option C",
+      "Option D"
+    ],
+    "answer": "Correct option text"
+  }}
+]
+"""
+    client = Groq(
+        api_key=os.environ.get("GROQ_API_KEY")
+    )
+
     response = client.chat.completions.create(
-                model="llama-3.1-8b-instant",
-                messages=[
-                    {
-                        "role": "user",
-                        "content": prompt
-                    }
-                ]
-            )
+        model="llama-3.1-8b-instant",
+        messages=[
+            {
+                "role": "user",
+                "content": prompt
+            }
+        ]
+    )
+
     ai_response = response.choices[0].message.content.strip()
 
     return render_template(

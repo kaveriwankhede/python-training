@@ -254,7 +254,7 @@ Learn • Practice • Improve with AI
 
 
 <form action="{{url_for('Register')}}"
-method="POST">
+method="POST" enctype="multipart/form-data">
 
 
 
@@ -448,7 +448,8 @@ Choose Subject
 
 <div class="mb-3">
                         <label class="form-label">Student Photo</label>
-                        <input name="photo" class ="form-control" type="file" accept="image/*">
+                        
+                        <input type="file" name="photo" accept=".png,.jpg,.jpeg" class="form-control">
                     </div>
 
 
