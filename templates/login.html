@@ -1,324 +1,1170 @@
+
 {% extends "base.html" %}
 
 {% block title %}
-Login - Study Quiz Hub
+Login | Study Quiz Hub
 {% endblock %}
-
 
 {% block content %}
 
-
 <style>
 
-body{
+/* =====================================================
+   PAGE
+===================================================== */
 
-    background:linear-gradient(135deg,#1e1036,#4b0082,#001f3f);
+.login-page {
 
-    font-family:'Poppins',sans-serif;
+    min-height: calc(100vh - 70px);
 
+    padding: 35px 20px;
+
+    background: #f5f7fb;
+
+    font-family: "Poppins", sans-serif;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
 }
 
 
-/* Login Card */
+/* =====================================================
+   MAIN CONTAINER
+===================================================== */
 
-.login-card{
+.login-box {
 
-    width:420px;
+    width: 100%;
 
-    border:none;
+    max-width: 1080px;
 
-    border-radius:30px;
+    background: white;
 
-    overflow:hidden;
+    border-radius: 24px;
 
-    background:white;
+    overflow: hidden;
 
-    box-shadow:0 20px 50px rgba(0,0,0,.4);
+    border: 1px solid #e5e7eb;
 
+    box-shadow:
+        0 25px 70px rgba(15,23,42,.12);
 }
 
 
-/* Header */
+/* =====================================================
+   LEFT LOGIN SECTION
+===================================================== */
 
-.login-header{
+.login-form-section {
 
-    background:linear-gradient(135deg,#667eea,#764ba2);
-
-    color:white;
-
-    padding:30px;
-
-    text-align:center;
-
+    padding: 48px 55px;
 }
 
 
+/* =====================================================
+   BRAND
+===================================================== */
 
-.login-icon{
+.brand {
 
-    font-size:55px;
+    display: flex;
 
+    align-items: center;
+
+    gap: 10px;
+
+    margin-bottom: 42px;
+}
+
+.brand-logo {
+
+    width: 43px;
+
+    height: 43px;
+
+    border-radius: 12px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    color: white;
+
+    font-size: 20px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #6d28d9,
+            #4f46e5
+        );
+
+    box-shadow:
+        0 8px 20px rgba(79,70,229,.20);
+}
+
+.brand-name {
+
+    font-size: 18px;
+
+    font-weight: 700;
+
+    color: #111827;
 }
 
 
+/* =====================================================
+   HEADING
+===================================================== */
 
+.login-heading {
 
-/* Form */
+    margin-bottom: 30px;
+}
 
-.form-control{
+.login-heading h1 {
 
-    border-radius:15px;
+    font-size: 31px;
 
-    padding:13px;
+    font-weight: 800;
 
+    color: #111827;
+
+    letter-spacing: -.8px;
+
+    margin-bottom: 8px;
+}
+
+.login-heading p {
+
+    font-size: 13px;
+
+    line-height: 1.6;
+
+    color: #6b7280;
+
+    margin: 0;
 }
 
 
+/* =====================================================
+   FORM
+===================================================== */
 
-.form-control:focus{
+.form-label {
 
-    box-shadow:0 0 10px rgba(102,126,234,.5);
+    font-size: 12px;
 
+    font-weight: 600;
+
+    color: #374151;
+
+    margin-bottom: 7px;
+}
+
+.form-control {
+
+    height: 50px;
+
+    border-radius: 10px;
+
+    border: 1px solid #dfe3eb;
+
+    background: #fafbfc;
+
+    font-size: 13px;
+
+    padding: 0 14px;
+
+    transition: .25s;
+}
+
+.form-control:hover {
+
+    border-color: #c4b5fd;
+}
+
+.form-control:focus {
+
+    background: white;
+
+    border-color: #6d28d9;
+
+    box-shadow:
+        0 0 0 4px rgba(109,40,217,.08);
 }
 
 
+/* =====================================================
+   PASSWORD AREA
+===================================================== */
 
-/* Button */
+.password-row {
 
-.login-btn{
+    display: flex;
 
-    background:linear-gradient(135deg,#667eea,#764ba2);
+    justify-content: space-between;
 
-    color:white;
+    align-items: center;
 
-    border:none;
+    margin-bottom: 8px;
+}
 
-    border-radius:25px;
+.forgot-link {
 
-    padding:12px;
+    font-size: 11px;
 
-    font-weight:bold;
+    font-weight: 600;
 
+    color: #6d28d9;
+
+    text-decoration: none;
+}
+
+.forgot-link:hover {
+
+    text-decoration: underline;
 }
 
 
+/* =====================================================
+   LOGIN BUTTON
+===================================================== */
 
-.login-btn:hover{
+.login-btn {
 
-    color:white;
+    height: 50px;
 
-    transform:translateY(-3px);
+    border: none;
 
+    border-radius: 10px;
+
+    color: white;
+
+    font-size: 14px;
+
+    font-weight: 700;
+
+    background:
+        linear-gradient(
+            135deg,
+            #6d28d9,
+            #4f46e5
+        );
+
+    box-shadow:
+        0 9px 22px rgba(79,70,229,.20);
+
+    transition: .25s;
+}
+
+.login-btn:hover {
+
+    color: white;
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 14px 28px rgba(79,70,229,.30);
 }
 
 
+/* =====================================================
+   DIVIDER
+===================================================== */
 
+.divider {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    margin: 27px 0;
+
+    color: #94a3b8;
+
+    font-size: 10px;
+}
+
+.divider::before,
+.divider::after {
+
+    content: "";
+
+    height: 1px;
+
+    flex: 1;
+
+    background: #e5e7eb;
+}
+
+
+/* =====================================================
+   REGISTER
+===================================================== */
+
+.register-text {
+
+    text-align: center;
+
+    color: #6b7280;
+
+    font-size: 13px;
+}
+
+.register-text a {
+
+    color: #6d28d9;
+
+    font-weight: 700;
+
+    text-decoration: none;
+}
+
+.register-text a:hover {
+
+    text-decoration: underline;
+}
+
+
+/* =====================================================
+   RIGHT VISUAL SECTION
+===================================================== */
+
+.login-visual {
+
+    min-height: 650px;
+
+    padding: 45px;
+
+    position: relative;
+
+    overflow: hidden;
+
+    color: white;
+
+    background:
+        linear-gradient(
+            150deg,
+            #111827 0%,
+            #1e1b4b 45%,
+            #4c1d95 100%
+        );
+}
+
+
+/* Background effects */
+
+.login-visual::before {
+
+    content: "";
+
+    position: absolute;
+
+    width: 340px;
+
+    height: 340px;
+
+    border-radius: 50%;
+
+    background:
+        rgba(124,58,237,.24);
+
+    top: -170px;
+
+    right: -120px;
+
+    filter: blur(5px);
+}
+
+.login-visual::after {
+
+    content: "";
+
+    position: absolute;
+
+    width: 230px;
+
+    height: 230px;
+
+    border-radius: 50%;
+
+    background:
+        rgba(59,130,246,.18);
+
+    bottom: -120px;
+
+    left: -100px;
+
+    filter: blur(5px);
+}
+
+
+/* =====================================================
+   VISUAL CONTENT
+===================================================== */
+
+.visual-content {
+
+    position: relative;
+
+    z-index: 2;
+}
+
+
+/* Badge */
+
+.platform-badge {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 6px;
+
+    padding: 7px 12px;
+
+    border-radius: 20px;
+
+    font-size: 10px;
+
+    font-weight: 600;
+
+    color: #ddd6fe;
+
+    background:
+        rgba(255,255,255,.08);
+
+    border:
+        1px solid rgba(255,255,255,.12);
+
+    margin-bottom: 22px;
+}
+
+
+/* Heading */
+
+.visual-content h2 {
+
+    font-size: 34px;
+
+    line-height: 1.2;
+
+    font-weight: 800;
+
+    letter-spacing: -.8px;
+
+    margin-bottom: 13px;
+}
+
+.visual-content h2 span {
+
+    color: #a78bfa;
+}
+
+.visual-description {
+
+    color: #cbd5e1;
+
+    font-size: 13px;
+
+    line-height: 1.7;
+
+    max-width: 390px;
+
+    margin-bottom: 30px;
+}
+
+
+/* =====================================================
+   DASHBOARD PREVIEW
+===================================================== */
+
+.dashboard {
+
+    padding: 20px;
+
+    border-radius: 18px;
+
+    background:
+        rgba(255,255,255,.09);
+
+    border:
+        1px solid rgba(255,255,255,.14);
+
+    backdrop-filter: blur(15px);
+
+    box-shadow:
+        0 25px 50px rgba(0,0,0,.20);
+
+    margin-bottom: 22px;
+}
+
+
+/* Dashboard header */
+
+.dashboard-header {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    margin-bottom: 18px;
+}
+
+.dashboard-header strong {
+
+    font-size: 12px;
+}
+
+.status {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 5px;
+
+    color: #86efac;
+
+    font-size: 9px;
+}
+
+.status-dot {
+
+    width: 6px;
+
+    height: 6px;
+
+    border-radius: 50%;
+
+    background: #4ade80;
+}
+
+
+/* Stats */
+
+.stats {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(3,1fr);
+
+    gap: 10px;
+}
+
+.stat {
+
+    padding: 13px;
+
+    border-radius: 11px;
+
+    background:
+        rgba(255,255,255,.07);
+}
+
+.stat small {
+
+    display: block;
+
+    color: #94a3b8;
+
+    font-size: 8px;
+
+    margin-bottom: 5px;
+}
+
+.stat strong {
+
+    font-size: 20px;
+}
+
+
+/* Progress */
+
+.progress-label {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    margin-top: 18px;
+
+    margin-bottom: 7px;
+
+    font-size: 9px;
+
+    color: #cbd5e1;
+}
+
+.progress-track {
+
+    height: 6px;
+
+    border-radius: 10px;
+
+    overflow: hidden;
+
+    background:
+        rgba(255,255,255,.10);
+}
+
+.progress-value {
+
+    width: 82%;
+
+    height: 100%;
+
+    border-radius: 10px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #8b5cf6,
+            #60a5fa
+        );
+}
+
+
+/* =====================================================
+   FEATURES
+===================================================== */
+
+.features {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(2,1fr);
+
+    gap: 10px;
+}
+
+.feature {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 9px;
+
+    padding: 11px;
+
+    border-radius: 11px;
+
+    background:
+        rgba(255,255,255,.06);
+
+    border:
+        1px solid rgba(255,255,255,.07);
+}
+
+.feature-icon {
+
+    width: 32px;
+
+    height: 32px;
+
+    border-radius: 9px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    background:
+        rgba(255,255,255,.10);
+
+    font-size: 15px;
+}
+
+.feature strong {
+
+    display: block;
+
+    font-size: 10px;
+}
+
+.feature small {
+
+    color: #94a3b8;
+
+    font-size: 8px;
+}
+
+
+/* =====================================================
+   SECURITY
+===================================================== */
+
+.security-note {
+
+    margin-top: 22px;
+
+    text-align: center;
+
+    font-size: 9px;
+
+    color: #94a3b8;
+}
+
+
+/* =====================================================
+   RESPONSIVE
+===================================================== */
+
+@media(max-width: 991px) {
+
+    .login-visual {
+
+        min-height: auto;
+
+        padding: 40px 30px;
+    }
+
+    .login-form-section {
+
+        padding: 40px 30px;
+    }
+}
+
+
+@media(max-width: 575px) {
+
+    .login-page {
+
+        padding: 15px 8px;
+    }
+
+    .login-form-section {
+
+        padding: 30px 20px;
+    }
+
+    .login-visual {
+
+        padding: 35px 20px;
+    }
+
+    .visual-content h2 {
+
+        font-size: 28px;
+    }
+
+    .features {
+
+        grid-template-columns: 1fr;
+    }
+}
+
+
+/* =====================================================
+   LEARNER IMAGE
+===================================================== */
+
+.learner-image {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 5px 0 20px;
+}
+
+.learner-image img {
+    width: 100%;
+    max-width: 390px;
+    height: 270px;
+    object-fit: contain;
+
+    filter:
+        drop-shadow(0 20px 35px rgba(0,0,0,.25));
+
+    transition: .3s;
+}
+
+.learner-image img:hover {
+    transform: translateY(-5px);
+}
+
+
+/* =====================================================
+   LOGIN FEATURES
+===================================================== */
+
+.login-features {
+
+    display: grid;
+
+    grid-template-columns: repeat(2, 1fr);
+
+    gap: 10px;
+
+    margin-top: 10px;
+}
+
+.login-feature {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    padding: 11px;
+
+    border-radius: 12px;
+
+    background:
+        rgba(255,255,255,.07);
+
+    border:
+        1px solid rgba(255,255,255,.09);
+
+    transition: .25s;
+}
+
+.login-feature:hover {
+
+    background:
+        rgba(255,255,255,.13);
+
+    transform: translateY(-2px);
+}
+
+
+/* FEATURE ICON */
+
+.login-feature .feature-icon {
+
+    width: 34px;
+    height: 34px;
+
+    flex-shrink: 0;
+
+    border-radius: 10px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    background:
+        rgba(255,255,255,.12);
+
+    font-size: 16px;
+}
+
+
+/* FEATURE TEXT */
+
+.login-feature strong {
+
+    display: block;
+
+    color: white;
+
+    font-size: 10px;
+
+    margin-bottom: 2px;
+}
+
+.login-feature small {
+
+    display: block;
+
+    color: #aeb8ca;
+
+    font-size: 8px;
+}
+
+
+/* =====================================================
+   RESPONSIVE
+===================================================== */
+
+@media(max-width:575px) {
+
+    .login-features {
+        grid-template-columns: 1fr;
+    }
+
+    .learner-image img {
+        max-width: 300px;
+        height: 220px;
+    }
+}
 </style>
 
+<body style="background-color: #1e1036;">
+    <div class="login-page">
+
+    <div class="login-box">
+
+        <div class="row g-0">
+
+
+            <!-- =================================================
+                 LEFT — LOGIN
+            ================================================== -->
+
+            <div class="col-lg-6">
+
+                <div class="login-form-section">
+
+
+                    <!-- BRAND -->
+
+                    <div class="brand">
+
+                        <div class="brand-logo">
+                            🎓
+                        </div>
+
+                        <div class="brand-name">
+                            Study Quiz Hub
+                        </div>
+
+                    </div>
+
+
+                    <!-- HEADING -->
+
+                    <div class="login-heading">
+
+                        <h1>
+                            Welcome back
+                        </h1>
+
+                        <p>
+                            Sign in to continue your personalized
+                            learning journey.
+                        </p>
+
+                    </div>
+
+
+                    <!-- LOGIN FORM -->
+
+                    <form method="POST">
+
+
+                        <!-- USERNAME -->
+
+                        <div class="mb-4">
+
+                            <label class="form-label">
+                                Username
+                            </label>
+
+                            <input
+                                name="username"
+                                class="form-control"
+                                type="text"
+                                placeholder="Enter your username"
+                                autocomplete="username"
+                                required>
+
+                        </div>
+
+
+                        <!-- PASSWORD -->
+
+                        <div class="mb-3">
+
+                            <div class="password-row">
+
+                                <label class="form-label mb-0">
+                                    Password
+                                </label>
+
+                                <a
+                                    href="{{ url_for('forgot_password') }}"
+                                    class="forgot-link">
+
+                                    Forgot password?
+
+                                </a>
+
+                            </div>
+
+
+                            <input
+                                name="password"
+                                class="form-control"
+                                type="password"
+                                placeholder="Enter your password"
+                                autocomplete="current-password"
+                                required>
+
+                        </div>
+
+
+                        <!-- LOGIN BUTTON -->
+
+                        <div class="d-grid mt-4">
+
+                            <button
+                                type="submit"
+                                class="btn login-btn">
+
+                                Sign In
+                                <span class="ms-1">→</span>
+
+                            </button>
+
+                        </div>
+
+
+                    </form>
+
+
+                    <!-- DIVIDER -->
+
+                    <div class="divider">
+
+                        <span>
+                            NEW TO STUDY QUIZ HUB?
+                        </span>
+
+                    </div>
+
+
+                    <!-- REGISTER -->
+
+                    <div class="register-text">
+
+                        Don't have an account?
+
+                        <a href="{{ url_for('Register') }}">
+
+                            Create an account
+
+                        </a>
+
+                    </div>
+
+
+                </div>
+
+            </div>
 
 
 
-<div class="container d-flex justify-content-center align-items-center"
-style="min-height:90vh;">
+           <!-- =================================================
+     RIGHT — WELCOME BACK VISUAL
+================================================== -->
+
+<div class="col-lg-6">
+
+    <div class="login-visual">
+
+        <div class="visual-content">
+
+            <!-- BADGE -->
+
+            <div class="platform-badge">
+                ✦ AI-POWERED LEARNING PLATFORM
+            </div>
 
 
+            <!-- TITLE -->
 
-<div class="card login-card">
+            <h2>
+                Learn smarter.
+                <span>Achieve more.</span>
+            </h2>
 
 
+            <p class="visual-description">
+                Continue your learning journey with interactive
+                quizzes, AI assistance, performance analysis and
+                personalized learning tools.
+            </p>
 
-<div class="login-header">
+
+            <!-- LEARNER IMAGE -->
+
+            <div class="learner-image">
+
+                <img
+                    src="{{ url_for('static', filename='images/ChatGPT Image Aug 16, 2026, 09_24_16 PM.png') }}"
+                    alt="Student learning with Study Quiz Hub">
+
+            </div>
 
 
-<div class="login-icon">
+            <!-- FEATURES -->
 
-👋
+            <div class="login-features">
+
+                <div class="login-feature">
+                    <div class="feature-icon">🤖</div>
+
+                    <div>
+                        <strong>AI Assistant</strong>
+                        <small>Get instant guidance</small>
+                    </div>
+                </div>
+
+
+                <div class="login-feature">
+                    <div class="feature-icon">📝</div>
+
+                    <div>
+                        <strong>Smart Quizzes</strong>
+                        <small>Practice your skills</small>
+                    </div>
+                </div>
+
+
+                <div class="login-feature">
+                    <div class="feature-icon">📊</div>
+
+                    <div>
+                        <strong>Analytics</strong>
+                        <small>Monitor your progress</small>
+                    </div>
+                </div>
+
+
+                <div class="login-feature">
+                    <div class="feature-icon">🏆</div>
+
+                    <div>
+                        <strong>Achievements</strong>
+                        <small>Ranks & certificates</small>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <!-- BOTTOM MESSAGE -->
+
+            <div class="security-note">
+                🔒 Your learning journey is secure and personalized.
+            </div>
+
+        </div>
+
+    </div>
 
 </div>
 
+        </div>
 
-<h2>
-
-Welcome Back!
-
-</h2>
-
-
-<p class="mb-0">
-
-Login to continue your learning journey 🚀
-
-</p>
-
+    </div>
 
 </div>
-
-
-
-
-
-<div class="card-body p-4">
-
-
-
-
-
-<h5 class="text-center fw-bold mb-3">
-
-📚 Study Quiz Hub
-
-</h5>
-
-
-<p class="text-center text-muted">
-
-Test your skills • Improve knowledge • Learn with AI
-
-</p>
-
-
-
-
-
-
-<form method="POST">
-
-
-
-
-
-<div class="mb-3">
-
-
-<label class="fw-bold">
-
-👤 Username
-
-</label>
-
-
-<input name="username"
-
-class="form-control"
-
-type="text"
-
-placeholder="Enter username"
-
-required>
-
-
-</div>
-
-
-
-
-
-
-
-<div class="mb-3">
-
-
-<label class="fw-bold">
-
-🔑 Password
-
-</label>
-
-
-<input name="password"
-
-class="form-control"
-
-type="password"
-
-placeholder="Enter password"
-
-required>
-
-
-</div>
-
-
-
-
-
-<div class="text-end mb-3">
-
-
-<a href="{{url_for('forgot_password')}}"
-
-class="text-decoration-none">
-
-Forgot Password?
-
-</a>
-
-
-</div>
-
-
-
-
-
-
-<div class="d-grid">
-
-
-<button type="submit"
-
-class="btn login-btn">
-
-🚀 Login
-
-</button>
-
-
-</div>
-
-
-
-
-
-</form>
-
-
-
-
-
-<hr>
-
-
-
-<p class="text-center mb-0">
-
-
-Don't have an account?
-
-
-<a href="{{url_for('Register')}}"
-
-class="fw-bold text-decoration-none">
-
-Register Now
-
-</a>
-
-
-</p>
-
-
-
-
-
-</div>
-
-
-</div>
-
-
-</div>
-
-
 
 {% endblock %}

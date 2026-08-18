@@ -1,3 +1,4 @@
+
 {% extends "base.html" %}
 
 {% block content %}
@@ -3327,5 +3328,1374 @@ int arr[5] = {10,20,30,40,50};
 {% endif %}
 
 </div>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    /* =====================================================
+       STUDY QUIZ HUB
+       PREMIUM INTERACTIVE ENGINE V3
+    ===================================================== */
+
+    "use strict";
+
+
+    /* =====================================================
+       1. PAGE ENTRY ANIMATION
+    ===================================================== */
+
+    document.body.classList.add("sqh-ready");
+
+
+    /* =====================================================
+       2. SELECT ACTUAL EXISTING CARDS
+    ===================================================== */
+
+    const statCards =
+        document.querySelectorAll(".stat-card");
+
+    const journeyCards =
+        document.querySelectorAll(".journey-card");
+
+    const futureCards =
+        document.querySelectorAll(".future-card");
+
+    const heroCard =
+        document.querySelector(".rainbow-card");
+
+
+    /* =====================================================
+       3. SCROLL REVEAL
+    ===================================================== */
+
+    const revealElements = [
+        ...statCards,
+        ...journeyCards,
+        ...futureCards
+    ];
+
+
+    revealElements.forEach((element, index) => {
+
+        element.style.opacity = "0";
+
+        element.style.transform =
+            "translateY(45px) scale(.97)";
+
+        element.style.transition =
+            "opacity .8s cubic-bezier(.22,1,.36,1)," +
+            "transform .8s cubic-bezier(.22,1,.36,1)";
+
+        element.dataset.delay =
+            (index % 5) * 100;
+
+    });
+
+
+    const revealObserver =
+        new IntersectionObserver(
+            function (entries, observer) {
+
+                entries.forEach(entry => {
+
+                    if (!entry.isIntersecting)
+                        return;
+
+                    const element =
+                        entry.target;
+
+                    setTimeout(() => {
+
+                        element.style.opacity = "1";
+
+                        element.style.transform =
+                            "translateY(0) scale(1)";
+
+                    }, Number(element.dataset.delay));
+
+                    observer.unobserve(element);
+
+                });
+
+            },
+            {
+                threshold: 0.12
+            }
+        );
+
+
+    revealElements.forEach(element => {
+
+        revealObserver.observe(element);
+
+    });
+
+
+
+    /* =====================================================
+       4. STATISTICS COUNTER
+    ===================================================== */
+
+    const statNumbers =
+        document.querySelectorAll(
+            ".stat-card h2"
+        );
+
+
+    function animateNumber(element) {
+
+        const original =
+            element.textContent.trim();
+
+
+        const target =
+            parseInt(
+                original.replace(/,/g, ""),
+                10
+            );
+
+
+        if (isNaN(target))
+            return;
+
+
+        let start = 0;
+
+        const duration = 1800;
+
+        const startTime =
+            performance.now();
+
+
+        function update(time) {
+
+            const progress =
+                Math.min(
+                    (time - startTime) /
+                    duration,
+                    1
+                );
+
+
+            const easing =
+                1 -
+                Math.pow(
+                    1 - progress,
+                    3
+                );
+
+
+            start =
+                Math.floor(
+                    target * easing
+                );
+
+
+            element.textContent =
+                start.toLocaleString();
+
+
+            if (progress < 1) {
+
+                requestAnimationFrame(
+                    update
+                );
+
+            } else {
+
+                element.textContent =
+                    target.toLocaleString();
+
+            }
+
+        }
+
+
+        requestAnimationFrame(update);
+
+    }
+
+
+    const numberObserver =
+        new IntersectionObserver(
+            function (entries, observer) {
+
+                entries.forEach(entry => {
+
+                    if (!entry.isIntersecting)
+                        return;
+
+                    animateNumber(
+                        entry.target
+                    );
+
+                    observer.unobserve(
+                        entry.target
+                    );
+
+                });
+
+            },
+            {
+                threshold: .65
+            }
+        );
+
+
+    statNumbers.forEach(number => {
+
+        numberObserver.observe(number);
+
+    });
+
+
+
+    /* =====================================================
+       5. PREMIUM 3D CARD TILT
+    ===================================================== */
+
+    const interactiveCards = [
+        ...statCards,
+        ...journeyCards,
+        ...futureCards
+    ];
+
+
+    interactiveCards.forEach(card => {
+
+        card.addEventListener(
+            "mousemove",
+            function (event) {
+
+                const rect =
+                    card.getBoundingClientRect();
+
+
+                const x =
+                    event.clientX -
+                    rect.left;
+
+
+                const y =
+                    event.clientY -
+                    rect.top;
+
+
+                const centerX =
+                    rect.width / 2;
+
+
+                const centerY =
+                    rect.height / 2;
+
+
+                const rotateX =
+                    ((y - centerY) /
+                    centerY) * -3;
+
+
+                const rotateY =
+                    ((x - centerX) /
+                    centerX) * 3;
+
+
+                card.style.transform =
+                    `
+                    perspective(1000px)
+                    rotateX(${rotateX}deg)
+                    rotateY(${rotateY}deg)
+                    translateY(-10px)
+                    scale(1.015)
+                    `;
+
+
+                /* Dynamic shine */
+
+                const px =
+                    (x / rect.width) * 100;
+
+
+                const py =
+                    (y / rect.height) * 100;
+
+
+                card.style.setProperty(
+                    "--mouse-x",
+                    px + "%"
+                );
+
+
+                card.style.setProperty(
+                    "--mouse-y",
+                    py + "%"
+                );
+
+            }
+        );
+
+
+        card.addEventListener(
+            "mouseleave",
+            function () {
+
+                card.style.transform = "";
+
+            }
+        );
+
+    });
+
+
+
+    /* =====================================================
+       6. HERO MOUSE LIGHT
+    ===================================================== */
+
+    if (heroCard) {
+
+        heroCard.addEventListener(
+            "mousemove",
+            function (event) {
+
+                const rect =
+                    heroCard.getBoundingClientRect();
+
+
+                const x =
+                    event.clientX -
+                    rect.left;
+
+
+                const y =
+                    event.clientY -
+                    rect.top;
+
+
+                heroCard.style.setProperty(
+                    "--hero-x",
+                    x + "px"
+                );
+
+
+                heroCard.style.setProperty(
+                    "--hero-y",
+                    y + "px"
+                );
+
+            }
+        );
+
+    }
+
+
+
+    /* =====================================================
+       7. HERO IMAGE PARALLAX
+    ===================================================== */
+
+    const heroImage =
+        document.querySelector(
+            ".col-lg-6 img"
+        );
+
+
+    if (heroCard && heroImage) {
+
+        heroCard.addEventListener(
+            "mousemove",
+            function (event) {
+
+                const rect =
+                    heroCard.getBoundingClientRect();
+
+
+                const x =
+                    (event.clientX -
+                    rect.left) /
+                    rect.width;
+
+
+                const y =
+                    (event.clientY -
+                    rect.top) /
+                    rect.height;
+
+
+                const moveX =
+                    (x - .5) * 12;
+
+
+                const moveY =
+                    (y - .5) * 10;
+
+
+                heroImage.style.transform =
+                    `
+                    translate(
+                        ${moveX}px,
+                        ${moveY}px
+                    )
+                    `;
+
+            }
+        );
+
+
+        heroCard.addEventListener(
+            "mouseleave",
+            function () {
+
+                heroImage.style.transform =
+                    "";
+
+            }
+        );
+
+    }
+
+
+
+    /* =====================================================
+       8. HERO BUTTON RIPPLE
+    ===================================================== */
+
+    const heroButtons =
+        document.querySelectorAll(
+            ".hero-btn"
+        );
+
+
+    heroButtons.forEach(button => {
+
+        button.style.position =
+            "relative";
+
+        button.style.overflow =
+            "hidden";
+
+
+        button.addEventListener(
+            "click",
+            function (event) {
+
+                const ripple =
+                    document.createElement(
+                        "span"
+                    );
+
+
+                const rect =
+                    button.getBoundingClientRect();
+
+
+                const size =
+                    Math.max(
+                        rect.width,
+                        rect.height
+                    );
+
+
+                const x =
+                    event.clientX -
+                    rect.left -
+                    size / 2;
+
+
+                const y =
+                    event.clientY -
+                    rect.top -
+                    size / 2;
+
+
+                ripple.style.cssText =
+                    `
+                    position:absolute;
+                    width:${size}px;
+                    height:${size}px;
+                    left:${x}px;
+                    top:${y}px;
+                    border-radius:50%;
+                    background:
+                    rgba(255,255,255,.30);
+                    transform:scale(0);
+                    pointer-events:none;
+                    animation:
+                    sqhRipple .65s ease-out;
+                    `;
+
+
+                button.appendChild(
+                    ripple
+                );
+
+
+                setTimeout(
+                    () => ripple.remove(),
+                    700
+                );
+
+            }
+        );
+
+    });
+
+
+
+    /* =====================================================
+       9. LEARNING JOURNEY ACTIVE FLOW
+    ===================================================== */
+
+    const journey =
+        [...journeyCards];
+
+
+    let activeJourney = 0;
+
+
+    function updateJourney() {
+
+        journey.forEach(
+            (card, index) => {
+
+                const circle =
+                    card.querySelector(
+                        ".circle"
+                    );
+
+
+                if (!circle)
+                    return;
+
+
+                if (index === activeJourney) {
+
+                    card.classList.add(
+                        "journey-active"
+                    );
+
+                } else {
+
+                    card.classList.remove(
+                        "journey-active"
+                    );
+
+                }
+
+            }
+        );
+
+    }
+
+
+    if (journey.length) {
+
+        updateJourney();
+
+
+        setInterval(
+            function () {
+
+                activeJourney++;
+
+                if (
+                    activeJourney >=
+                    journey.length
+                ) {
+
+                    activeJourney = 0;
+
+                }
+
+
+                updateJourney();
+
+            },
+            2200
+        );
+
+    }
+
+
+
+    /* =====================================================
+       10. JOURNEY CARD CLICK INTERACTION
+    ===================================================== */
+
+    journeyCards.forEach(
+        (card, index) => {
+
+            card.addEventListener(
+                "click",
+                function () {
+
+                    activeJourney =
+                        index;
+
+                    updateJourney();
+
+                }
+            );
+
+        }
+    );
+
+
+
+    /* =====================================================
+       11. FUTURE CARD HOVER
+    ===================================================== */
+
+    futureCards.forEach(card => {
+
+        card.addEventListener(
+            "mouseenter",
+            function () {
+
+                card.style.zIndex = "10";
+
+            }
+        );
+
+
+        card.addEventListener(
+            "mouseleave",
+            function () {
+
+                card.style.zIndex = "";
+
+            }
+        );
+
+    });
+
+
+
+    /* =====================================================
+       12. ICON MICRO ANIMATION
+    ===================================================== */
+
+    const icons =
+        document.querySelectorAll(
+            ".icon-circle"
+        );
+
+
+    icons.forEach(icon => {
+
+        icon.addEventListener(
+            "mouseenter",
+            function () {
+
+                icon.style.transform =
+                    "scale(1.12) rotate(8deg)";
+
+            }
+        );
+
+
+        icon.addEventListener(
+            "mouseleave",
+            function () {
+
+                icon.style.transform =
+                    "";
+
+            }
+        );
+
+    });
+
+
+
+    /* =====================================================
+       13. SMART SCROLL PROGRESS
+    ===================================================== */
+
+    const progressBar =
+        document.createElement(
+            "div"
+        );
+
+
+    progressBar.className =
+        "sqh-scroll-progress";
+
+
+    document.body.appendChild(
+        progressBar
+    );
+
+
+    window.addEventListener(
+        "scroll",
+        function () {
+
+            const scrollTop =
+                window.scrollY;
+
+
+            const documentHeight =
+                document.documentElement
+                .scrollHeight -
+                window.innerHeight;
+
+
+            const percentage =
+                documentHeight > 0
+                ? (scrollTop /
+                   documentHeight) * 100
+                : 0;
+
+
+            progressBar.style.width =
+                percentage + "%";
+
+        }
+    );
+
+
+
+    /* =====================================================
+       14. BACK TO TOP
+    ===================================================== */
+
+    const topButton =
+        document.createElement(
+            "button"
+        );
+
+
+    topButton.className =
+        "sqh-top-button";
+
+
+    topButton.innerHTML =
+        `<i class="bi bi-arrow-up"></i>`;
+
+
+    document.body.appendChild(
+        topButton
+    );
+
+
+    window.addEventListener(
+        "scroll",
+        function () {
+
+            if (window.scrollY > 500) {
+
+                topButton.classList.add(
+                    "show"
+                );
+
+            } else {
+
+                topButton.classList.remove(
+                    "show"
+                );
+
+            }
+
+        }
+    );
+
+
+    topButton.addEventListener(
+        "click",
+        function () {
+
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth"
+            });
+
+        }
+    );
+
+
+
+    /* =====================================================
+       15. CURSOR GLOW
+    ===================================================== */
+
+    const cursorGlow =
+        document.createElement(
+            "div"
+        );
+
+
+    cursorGlow.className =
+        "sqh-cursor-glow";
+
+
+    document.body.appendChild(
+        cursorGlow
+    );
+
+
+    document.addEventListener(
+        "mousemove",
+        function (event) {
+
+            cursorGlow.style.left =
+                event.clientX + "px";
+
+
+            cursorGlow.style.top =
+                event.clientY + "px";
+
+        }
+    );
+
+
+
+    /* =====================================================
+       16. HERO TEXT REVEAL
+    ===================================================== */
+
+    const heroText =
+        document.querySelectorAll(
+            ".rainbow-card h1, " +
+            ".rainbow-card h2, " +
+            ".rainbow-card p, " +
+            ".hero-buttons"
+        );
+
+
+    heroText.forEach(
+        (element, index) => {
+
+            element.style.opacity = "0";
+
+            element.style.transform =
+                "translateY(25px)";
+
+
+            setTimeout(
+                function () {
+
+                    element.style.opacity =
+                        "1";
+
+                    element.style.transform =
+                        "translateY(0)";
+
+                },
+                200 + index * 160
+            );
+
+        }
+    );
+
+
+
+    /* =====================================================
+       17. STAT CARD NUMBER GLOW
+    ===================================================== */
+
+    statCards.forEach(card => {
+
+        card.addEventListener(
+            "mouseenter",
+            function () {
+
+                const number =
+                    card.querySelector(
+                        "h2"
+                    );
+
+
+                if (number) {
+
+                    number.style.textShadow =
+                        `
+                        0 0 18px
+                        rgba(139,92,246,.55)
+                        `;
+
+                }
+
+            }
+        );
+
+
+        card.addEventListener(
+            "mouseleave",
+            function () {
+
+                const number =
+                    card.querySelector(
+                        "h2"
+                    );
+
+
+                if (number) {
+
+                    number.style.textShadow =
+                        "";
+
+                }
+
+            }
+        );
+
+    });
+
+
+
+    /* =====================================================
+       18. PARALLAX ON SCROLL
+    ===================================================== */
+
+    window.addEventListener(
+        "scroll",
+        function () {
+
+            if (!heroCard)
+                return;
+
+
+            const scroll =
+                window.scrollY;
+
+
+            const glow =
+                heroCard.querySelector(
+                    "::before"
+                );
+
+
+            /* subtle movement */
+
+            heroCard.style.backgroundPosition =
+                `center ${scroll * .08}px`;
+
+        }
+    );
+
+
+
+    /* =====================================================
+       19. REDUCE MOTION SUPPORT
+    ===================================================== */
+
+    const reduceMotion =
+        window.matchMedia(
+            "(prefers-reduced-motion: reduce)"
+        );
+
+
+    if (reduceMotion.matches) {
+
+        document
+            .querySelectorAll("*")
+            .forEach(element => {
+
+                element.style.animation =
+                    "none";
+
+                element.style.transition =
+                    "none";
+
+            });
+
+    }
+
+});
+
+
+
+/* =========================================================
+   PREMIUM ANIMATION CSS
+========================================================= */
+
+const premiumStyle =
+document.createElement("style");
+
+
+premiumStyle.innerHTML = `
+
+
+/* =========================================
+   PAGE ENTRY
+========================================= */
+
+body {
+
+    transition:
+        opacity .5s ease;
+
+}
+
+
+.sqh-ready {
+
+    animation:
+        sqhPageEnter .8s ease;
+
+}
+
+
+@keyframes sqhPageEnter {
+
+    from {
+
+        opacity:0;
+
+    }
+
+    to {
+
+        opacity:1;
+
+    }
+
+}
+
+
+
+/* =========================================
+   HERO MOUSE LIGHT
+========================================= */
+
+.rainbow-card::after {
+
+    content:"";
+
+    position:absolute;
+
+    width:420px;
+
+    height:420px;
+
+    left:
+        var(--hero-x, 50%);
+
+    top:
+        var(--hero-y, 50%);
+
+    transform:
+        translate(-50%,-50%);
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(139,92,246,.16),
+            transparent 68%
+        );
+
+    pointer-events:none;
+
+    transition:
+        left .08s linear,
+        top .08s linear;
+
+}
+
+
+
+/* =========================================
+   CARD PREMIUM SHINE
+========================================= */
+
+.stat-card::before,
+.journey-card::before,
+.future-card::before {
+
+    background:
+        radial-gradient(
+            circle at
+            var(--mouse-x,50%)
+            var(--mouse-y,50%),
+            rgba(255,255,255,.18),
+            transparent 40%
+        ) !important;
+
+    opacity:0;
+
+    transition:
+        opacity .3s ease;
+
+}
+
+
+.stat-card:hover::before,
+.journey-card:hover::before,
+.future-card:hover::before {
+
+    opacity:1;
+
+}
+
+
+
+/* =========================================
+   JOURNEY ACTIVE
+========================================= */
+
+.journey-active {
+
+    transform:
+        translateY(-12px)
+        scale(1.03) !important;
+
+    box-shadow:
+        0 30px 65px
+        rgba(124,58,237,.32) !important;
+
+}
+
+
+.journey-active .circle {
+
+    box-shadow:
+        0 0 0 7px
+        rgba(139,92,246,.16),
+        0 15px 35px
+        rgba(139,92,246,.45) !important;
+
+    transform:
+        scale(1.12);
+
+}
+
+
+
+/* =========================================
+   FUTURE CARD
+========================================= */
+
+.future-card {
+
+    cursor:pointer;
+
+}
+
+
+.future-card:hover {
+
+    transform:
+        translateY(-10px)
+        scale(1.02);
+
+}
+
+
+
+/* =========================================
+   SCROLL PROGRESS
+========================================= */
+
+.sqh-scroll-progress {
+
+    position:fixed;
+
+    top:0;
+
+    left:0;
+
+    height:4px;
+
+    width:0;
+
+    z-index:99999;
+
+    background:
+        linear-gradient(
+            90deg,
+            #8b5cf6,
+            #6366f1,
+            #ec4899
+        );
+
+    box-shadow:
+        0 0 12px
+        rgba(139,92,246,.7);
+
+}
+
+
+
+/* =========================================
+   BACK TO TOP
+========================================= */
+
+.sqh-top-button {
+
+    position:fixed;
+
+    right:25px;
+
+    bottom:25px;
+
+    width:48px;
+
+    height:48px;
+
+    border:none;
+
+    border-radius:50%;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    background:
+        linear-gradient(
+            135deg,
+            #7c3aed,
+            #4f46e5
+        );
+
+    color:white;
+
+    font-size:18px;
+
+    cursor:pointer;
+
+    opacity:0;
+
+    visibility:hidden;
+
+    transform:
+        translateY(20px);
+
+    transition:
+        .35s ease;
+
+    z-index:9999;
+
+    box-shadow:
+        0 12px 30px
+        rgba(79,70,229,.35);
+
+}
+
+
+.sqh-top-button.show {
+
+    opacity:1;
+
+    visibility:visible;
+
+    transform:
+        translateY(0);
+
+}
+
+
+.sqh-top-button:hover {
+
+    transform:
+        translateY(-5px)
+        scale(1.08);
+
+}
+
+
+
+/* =========================================
+   CURSOR GLOW
+========================================= */
+
+.sqh-cursor-glow {
+
+    position:fixed;
+
+    width:180px;
+
+    height:180px;
+
+    border-radius:50%;
+
+    pointer-events:none;
+
+    z-index:9998;
+
+    transform:
+        translate(-50%,-50%);
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(139,92,246,.07),
+            transparent 68%
+        );
+
+    filter:
+        blur(5px);
+
+    transition:
+        left .08s linear,
+        top .08s linear;
+
+}
+
+
+
+/* =========================================
+   RIPPLE
+========================================= */
+
+@keyframes sqhRipple {
+
+    0% {
+
+        transform:
+            scale(0);
+
+        opacity:1;
+
+    }
+
+    100% {
+
+        transform:
+            scale(2);
+
+        opacity:0;
+
+    }
+
+}
+
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media(max-width:768px) {
+
+    .sqh-cursor-glow {
+
+        display:none;
+
+    }
+
+    .sqh-top-button {
+
+        width:44px;
+
+        height:44px;
+
+        right:18px;
+
+        bottom:18px;
+
+    }
+
+}
+
+
+`;
+
+
+document.head.appendChild(
+    premiumStyle
+);
+
+</script>
 
 {% endblock %}

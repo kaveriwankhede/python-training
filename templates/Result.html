@@ -1,331 +1,1002 @@
 {% extends "base.html" %}
 
-{% block title %} About - Study Quiz Hub Portal {% endblock %}
+{% block title %}Result | Study Quiz Hub{% endblock %}
 
 {% block content %}
 
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Quiz Result</title>
+<style>
+/* =========================================================
+   PREMIUM RESULT DASHBOARD
+========================================================= */
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+.result-page{
+    min-height:100vh;
+    padding:35px 15px 70px;
+    background:
+        radial-gradient(circle at 0% 0%,rgba(124,58,237,.25),transparent 28%),
+        radial-gradient(circle at 100% 0%,rgba(6,182,212,.18),transparent 25%),
+        radial-gradient(circle at 50% 100%,rgba(79,70,229,.15),transparent 35%),
+        #070b16;
+    color:#fff;
+}
 
-    <style>
-        body{
-            background: linear-gradient(135deg,#0f172a,#1e293b);
-            min-height:100vh;
-        }
+.result-container{
+    max-width:1180px;
+    margin:auto;
+}
+
+/* TOP HEADER */
+
+.result-top{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:22px;
+}
+
+.brand-mini{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    color:#cbd5e1;
+    font-weight:700;
+}
+
+.brand-mini span{
+    width:38px;
+    height:38px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border-radius:12px;
+    background:linear-gradient(135deg,#7c3aed,#06b6d4);
+}
+
+.result-status{
+    padding:8px 15px;
+    border-radius:30px;
+    background:rgba(34,197,94,.1);
+    border:1px solid rgba(34,197,94,.25);
+    color:#86efac;
+    font-size:13px;
+    font-weight:700;
+}
 
 
+/* MAIN HERO */
 
-        .score-circle{
-            width:140px;
-            height:140px;
-            border-radius:50%;
-            background:linear-gradient(45deg,#0dcaf0,#198754);
-            color:white;
-            display:flex;
-            justify-content:center;
-            align-items:center;
-            margin:auto;
-            font-size:35px;
-            font-weight:bold;
-            box-shadow:0 0 20px rgba(13,202,240,.5);
-        }
+.hero{
+    position:relative;
+    overflow:hidden;
+    border-radius:32px;
+    padding:42px;
+    background:rgba(15,23,42,.82);
+    border:1px solid rgba(255,255,255,.08);
+    box-shadow:0 30px 90px rgba(0,0,0,.45);
+    backdrop-filter:blur(20px);
+}
 
-        .btn-custom{
-            border-radius:30px;
-            padding:10px 25px;
-            font-weight:bold;
-        }
-    </style>
-</head>
+.hero::before{
+    content:"";
+    position:absolute;
+    width:350px;
+    height:350px;
+    border-radius:50%;
+    background:rgba(124,58,237,.15);
+    filter:blur(90px);
+    top:-180px;
+    left:-130px;
+}
+
+.hero::after{
+    content:"";
+    position:absolute;
+    width:300px;
+    height:300px;
+    border-radius:50%;
+    background:rgba(6,182,212,.10);
+    filter:blur(90px);
+    right:-130px;
+    bottom:-150px;
+}
+
+
+/* HERO CONTENT */
+
+.hero-content{
+    position:relative;
+    z-index:2;
+    display:grid;
+    grid-template-columns:1fr 1.2fr;
+    gap:50px;
+    align-items:center;
+}
+
+
+/* SCORE */
+
+.score-area{
+    text-align:center;
+}
+
+.score-ring{
+    width:220px;
+    height:220px;
+    margin:auto;
+    padding:9px;
+    border-radius:50%;
+    background:
+        conic-gradient(
+            #8b5cf6 {{ percentage }}%,
+            #1e293b {{ percentage }}%
+        );
+    box-shadow:
+        0 0 0 1px rgba(255,255,255,.05),
+        0 0 55px rgba(139,92,246,.25);
+}
+
+.score-inner{
+    width:100%;
+    height:100%;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-direction:column;
+    background:#090f1e;
+}
+
+.score-number{
+    font-size:55px;
+    font-weight:900;
+    line-height:1;
+}
+
+.score-total{
+    margin-top:7px;
+    color:#64748b;
+    font-size:13px;
+    letter-spacing:1px;
+}
+
+.score-percent{
+    margin-top:15px;
+    padding:7px 14px;
+    border-radius:30px;
+    display:inline-block;
+    background:rgba(139,92,246,.12);
+    color:#c4b5fd;
+    font-weight:800;
+}
+
+
+/* PERFORMANCE */
+
+.performance h1{
+    font-size:42px;
+    font-weight:900;
+    letter-spacing:-1px;
+    margin-bottom:12px;
+}
+
+.performance>p{
+    color:#94a3b8;
+    line-height:1.8;
+    max-width:550px;
+}
+
+.performance-message{
+    margin-top:25px;
+    padding:18px;
+    border-radius:17px;
+    background:rgba(30,41,59,.65);
+    border:1px solid rgba(255,255,255,.06);
+}
+
+.performance-message strong{
+    display:block;
+    margin-bottom:5px;
+}
+
+.performance-message span{
+    color:#94a3b8;
+    font-size:14px;
+}
+
+
+/* STATS */
+
+.stats{
+    position:relative;
+    z-index:3;
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:14px;
+    margin-top:20px;
+}
+
+.stat{
+    padding:21px;
+    border-radius:20px;
+    background:rgba(15,23,42,.85);
+    border:1px solid rgba(255,255,255,.07);
+    transition:.3s;
+}
+
+.stat:hover{
+    transform:translateY(-5px);
+    border-color:rgba(139,92,246,.3);
+}
+
+.stat-top{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.stat-icon{
+    width:42px;
+    height:42px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border-radius:13px;
+    background:rgba(124,58,237,.13);
+    font-size:21px;
+}
+
+.stat-label{
+    margin-top:15px;
+    color:#64748b;
+    font-size:13px;
+}
+
+.stat-value{
+    margin-top:4px;
+    font-size:25px;
+    font-weight:850;
+}
+
+
+/* ACTIONS */
+
+.actions{
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+    margin-top:25px;
+}
+
+.action{
+    border-radius:13px;
+    padding:11px 18px;
+    font-weight:750;
+    transition:.25s;
+}
+
+.action:hover{
+    transform:translateY(-2px);
+}
+
+
+/* AI SECTION */
+
+.ai-section{
+    margin-top:20px;
+    padding:25px;
+    border-radius:24px;
+    background:
+        linear-gradient(
+            120deg,
+            rgba(124,58,237,.17),
+            rgba(6,182,212,.08)
+        );
+    border:1px solid rgba(139,92,246,.22);
+}
+
+.ai-header{
+    display:flex;
+    align-items:center;
+    gap:13px;
+}
+
+.ai-icon{
+    width:46px;
+    height:46px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border-radius:14px;
+    background:linear-gradient(135deg,#8b5cf6,#06b6d4);
+    font-size:23px;
+}
+
+.ai-header h3{
+    margin:0;
+    font-size:18px;
+    font-weight:850;
+}
+
+.ai-header small{
+    color:#64748b;
+}
+
+.ai-content{
+    margin-top:17px;
+    color:#cbd5e1;
+    line-height:1.8;
+}
+
+
+/* SECTIONS */
+
+.section{
+    margin-top:28px;
+    overflow:hidden;
+    border-radius:25px;
+    background:rgba(15,23,42,.84);
+    border:1px solid rgba(255,255,255,.07);
+    box-shadow:0 15px 50px rgba(0,0,0,.25);
+}
+
+.section-header{
+    padding:22px 25px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    border-bottom:1px solid rgba(255,255,255,.06);
+    background:rgba(30,41,59,.35);
+}
+
+.section-header h2{
+    margin:0;
+    font-size:20px;
+    font-weight:850;
+}
+
+.section-header span{
+    color:#64748b;
+    font-size:13px;
+}
+
+
+/* ANSWERS */
+
+.answer{
+    margin:14px 18px;
+    padding:20px;
+    border-radius:17px;
+    background:#0d1424;
+    border:1px solid rgba(255,255,255,.05);
+    transition:.25s;
+}
+
+.answer:hover{
+    transform:translateX(4px);
+    border-color:rgba(6,182,212,.25);
+}
+
+.question{
+    color:#67e8f9;
+    font-weight:750;
+    line-height:1.7;
+}
+
+.correct{
+    margin:12px 0 0;
+    color:#86efac;
+}
+
+
+/* LEADERBOARD */
+
+.leaderboard{
+    padding:15px;
+}
+
+.player{
+    display:grid;
+    grid-template-columns:50px 1fr auto;
+    align-items:center;
+    gap:15px;
+    padding:16px;
+    margin-bottom:10px;
+    border-radius:17px;
+    background:#0d1424;
+    border:1px solid rgba(255,255,255,.05);
+}
+
+.player:first-child{
+    background:linear-gradient(
+        90deg,
+        rgba(234,179,8,.12),
+        rgba(15,23,42,.8)
+    );
+}
+
+.player:last-child{
+    margin-bottom:0;
+}
+
+.rank{
+    width:42px;
+    height:42px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border-radius:13px;
+    background:#1e293b;
+    font-size:18px;
+}
+
+.player-name{
+    font-weight:750;
+}
+
+.player-score{
+    padding:7px 13px;
+    border-radius:10px;
+    color:#86efac;
+    background:rgba(34,197,94,.10);
+    font-weight:800;
+}
+
+
+/* FINAL CTA */
+
+.final-cta{
+    margin-top:28px;
+    padding:35px 25px;
+    text-align:center;
+    border-radius:25px;
+    background:
+        linear-gradient(
+            135deg,
+            #312e81,
+            #1e3a8a,
+            #155e75
+        );
+    box-shadow:0 20px 50px rgba(30,64,175,.2);
+}
+
+.final-cta h2{
+    font-size:25px;
+    font-weight:900;
+}
+
+.final-cta p{
+    color:#cbd5e1;
+}
+
+
+/* RESPONSIVE */
+
+@media(max-width:850px){
+
+    .hero-content{
+        grid-template-columns:1fr;
+        text-align:center;
+    }
+
+    .performance>p{
+        margin:auto;
+    }
+
+    .actions{
+        justify-content:center;
+    }
+
+}
+
+@media(max-width:650px){
+
+    .result-page{
+        padding:20px 10px 50px;
+    }
+
+    .hero{
+        padding:28px 17px;
+    }
+
+    .result-top{
+        display:none;
+    }
+
+    .performance h1{
+        font-size:32px;
+    }
+
+    .score-ring{
+        width:175px;
+        height:175px;
+    }
+
+    .score-number{
+        font-size:43px;
+    }
+
+    .stats{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .actions{
+        flex-direction:column;
+    }
+
+    .action{
+        width:100%;
+    }
+
+}
+
+</style>
+
+
 <script>
 localStorage.removeItem("quizTime");
 </script>
-    
-<body style="background-color: #1e1036;">
-
-<div class="container">
-
-    <div class="card result-card bg-dark text-white text-center p-5 " style="max-width:1000px; margin:auto; margin-top:80px; border:none; border-radius:20px;
-            box-shadow:0 0 25px rgba(0,0,0,0.4);">
-
-        <h1 class="mb-4">🏆 Quiz Completed!</h1>
-
-        <div class="score-circle">
-            {{ score }}
-        </div>
-
-        <h3 class="mt-4">
-            Score: {{ score }} / {{ total }}
-        </h3>
-
-        {% set percentage = (score / total) * 100 %}
 
 
-        {% if percentage >= 90 %}
-            <h4 class="mt-4 text-success">
-                🌟 Excellent! Outstanding Performance!
-            </h4>
+<div class="result-page">
 
-        {% elif percentage >= 75 %}
-            <h4 class="mt-4 text-primary">
-                🎉 Very Good! Keep It Up!
-            </h4>
+<div class="result-container">
 
-        {% elif percentage >= 60 %}
-            <h4 class="mt-4 text-info">
-                👍 Good Job!
-            </h4>
 
-        {% elif percentage >= 45 %}
-            <h4 class="mt-4 text-warning">
-                😊 Nice Effort! Keep Practicing!
-            </h4>
+<!-- =====================================================
+     MINI HEADER
+===================================================== -->
 
-        {% elif percentage >= 35 %}
-            <h4 class="mt-4 text-secondary">
-                📚 Need More Practice!
-            </h4>
+<div class="result-top">
 
-        {% else %}
-            <h4 class="mt-4 text-danger">
-                💪 Don't Give Up! Try Again!
-            </h4>
-        {% endif %}
-                
-        <p class="text-light">
-            Keep practicing and improve your knowledge.
-        </p>
-
- 
-        <div class="progress" style="height:25px;">
-    <div class="progress-bar bg-success"
-         role="progressbar"
-         style="width: {{ percentage }}%;">
-        {{ percentage|round(1) }}%
+    <div class="brand-mini">
+        <span>🎓</span>
+        Study Quiz Hub
     </div>
+
+    <div class="result-status">
+        ● QUIZ COMPLETED
+    </div>
+
 </div>
 
-       
 
-{% set percentage = ((score / total) * 100)|round(0) %}
+<!-- =====================================================
+     HERO
+===================================================== -->
+
+<div class="hero">
+
+
+<div class="hero-content">
+
+
+<!-- SCORE -->
+
+<div class="score-area">
+
+<div class="score-ring">
+
+<div class="score-inner">
+
+<div class="score-number">
+    {{ score }}
+</div>
+
+<div class="score-total">
+    OUT OF {{ total }}
+</div>
+
+</div>
+
+</div>
+
+<div class="score-percent">
+    {{ percentage|round(1) }}% Score
+</div>
+
+</div>
+
+
+<!-- PERFORMANCE -->
+
+<div class="performance">
+
+<h1>Your Result Is In 🎉</h1>
+
+<p>
+Your quiz has been successfully completed.
+Take a moment to review your performance,
+identify your weak areas and continue learning.
+</p>
+
+
+<div class="performance-message">
 
 {% if percentage >= 90 %}
-    {% set grade = "A+" %}
+
+<strong class="text-success">
+🌟 Outstanding Performance
+</strong>
+
+<span>
+Excellent! Your concepts are very strong.
+You are ready for a more challenging quiz.
+</span>
+
 {% elif percentage >= 75 %}
-    {% set grade = "A" %}
+
+<strong class="text-info">
+🎯 Excellent Progress
+</strong>
+
+<span>
+You have a strong understanding of the topic.
+Keep practicing to reach the top score.
+</span>
+
 {% elif percentage >= 60 %}
-    {% set grade = "B" %}
+
+<strong class="text-primary">
+👍 Good Progress
+</strong>
+
+<span>
+Your foundation is good. Focus on your weak
+topics to improve your score further.
+</span>
+
 {% elif percentage >= 45 %}
+
+<strong class="text-warning">
+📚 Keep Practicing
+</strong>
+
+<span>
+Review your mistakes and attempt another quiz
+to strengthen your understanding.
+</span>
+
+{% else %}
+
+<strong class="text-danger">
+💪 Keep Going
+</strong>
+
+<span>
+Don't worry about the score. Every attempt is
+a learning opportunity.
+</span>
+
+{% endif %}
+
+</div>
+
+</div>
+
+</div>
+
+
+<!-- =====================================================
+     STATISTICS
+===================================================== -->
+
+{% set rounded_percentage = ((score / total) * 100)|round(0) %}
+
+{% if rounded_percentage >= 90 %}
+    {% set grade = "A+" %}
+{% elif rounded_percentage >= 75 %}
+    {% set grade = "A" %}
+{% elif rounded_percentage >= 60 %}
+    {% set grade = "B" %}
+{% elif rounded_percentage >= 45 %}
     {% set grade = "C" %}
-{% elif percentage >= 35 %}
+{% elif rounded_percentage >= 35 %}
     {% set grade = "D" %}
 {% else %}
     {% set grade = "F" %}
 {% endif %}
 
-<div class="row text-center mt-5">
 
-    <div class="col-md-3 mb-3">
-        <div class="card bg-primary text-white shadow border-0">
-            <div class="card-body">
-                <h5>📝 Attempted</h5>
-                <h3>{{ total }}/{{ total }}</h3>
-            </div>
-        </div>
-    </div>
+<div class="stats">
 
-    <div class="col-md-3 mb-3">
-        <div class="card bg-success text-white shadow border-0">
-            <div class="card-body">
-                <h5>📊 Percentage</h5>
-                <h3>{{ percentage }}%</h3>
-            </div>
-        </div>
-    </div>
+<div class="stat">
 
-    <div class="col-md-3 mb-3">
-        <div class="card bg-warning text-dark shadow border-0">
-            <div class="card-body">
-                <h5>🎓 Grade</h5>
-                <h3>{{ grade }}</h3>
-            </div>
-        </div>
-    </div>
+<div class="stat-top">
+    <div class="stat-icon">📝</div>
+</div>
 
-    <!-- Time Taken -->
-    <div class="col-md-3 mb-3">
-        <div class="card bg-info text-dark">
-            <div class="card-body">
-                <h5>⏰ Time Taken : </h5>
-                <h4>{{ time_taken }} seconds</h4>
-            </div>
-        </div>
-    </div>
+<div class="stat-label">
+Questions
+</div>
+
+<div class="stat-value">
+{{ total }}
+</div>
 
 </div>
 
-<!-- AI Tips section -->
-                     <div class="mb-3">
-                        <h5 class="fw-bold">AI Study Tips:</h5>
-                        {% if tip %}
-                        <div class ="alert alert-info">{{ tip }}</div>
-                        {% else %}
-                        <a href="{{url_for('get_ai_tip', Sr_no=student['Sr_no'])}}" class="btn btn-primary">Get AI Study Tips</a>
-                        {% endif %}
-                    </div>
 
+<div class="stat">
 
-        <div class="row mt-4 align-items-center">
+<div class="stat-top">
+    <div class="stat-icon">🎯</div>
+</div>
 
-    <!-- Left -->
-    <div class="col-4 text-start">
-        <a href="/" class="btn btn-info btn-primary btn-custom">
-            🔄 Restart Quiz
-        </a>
-    </div>
+<div class="stat-label">
+Accuracy
+</div>
 
-    <div class="col-4 text-center">
-        <a href="{{ url_for('leaderboard') }}" class="btn btn-warning">
-            🏆 Leaderboard
-        </a>
-    </div>
-
-    <!-- Right -->
-    <div class="col-4 text-end">
-        <a href="{{ url_for('logout') }}" class="btn btn-info btn-danger btn-custom">
-            <i class="bi bi-box-arrow-right"></i> Logout
-        </a>
-    </div>
+<div class="stat-value">
+{{ rounded_percentage }}%
+</div>
 
 </div>
 
-   
-    <br>
-    <a href="{{ url_for('personalized_quiz') }}"
-       class="btn btn-primary">
-        🤖 AI Personalized Quiz
-    </a>
-    <br>
-  
-  <a href="{{ url_for('wrong_questions', attempt_date=attempt_date) }}"
-   class="btn btn-danger">
-    <i class="bi bi-exclamation-triangle-fill"></i>
-    Wrong Question Analysis
+
+<div class="stat">
+
+<div class="stat-top">
+    <div class="stat-icon">🎓</div>
+</div>
+
+<div class="stat-label">
+Grade
+</div>
+
+<div class="stat-value">
+{{ grade }}
+</div>
+
+</div>
+
+
+<div class="stat">
+
+<div class="stat-top">
+    <div class="stat-icon">⏱️</div>
+</div>
+
+<div class="stat-label">
+Time Taken
+</div>
+
+<div class="stat-value">
+{{ time_taken }}s
+</div>
+
+</div>
+
+</div>
+
+
+<!-- =====================================================
+     AI INSIGHT
+===================================================== -->
+
+<div class="ai-section">
+
+<div class="ai-header">
+
+<div class="ai-icon">
+🤖
+</div>
+
+<div>
+<h3>AI Learning Insight</h3>
+<small>Personalized recommendation</small>
+</div>
+
+</div>
+
+
+<div class="ai-content">
+
+{% if tip %}
+
+{{ tip }}
+
+{% else %}
+
+Your AI study recommendation is ready.
+Get personalized tips based on your quiz performance
+and discover what you should study next.
+
+<br><br>
+
+<a
+href="{{ url_for('get_ai_tip', Sr_no=student['Sr_no']) }}"
+class="btn btn-primary action">
+
+✨ Generate My AI Recommendation
+
 </a>
 
-        
+{% endif %}
+
+</div>
 
 </div>
 
 
-    </div>
-    <hr class="my-5">
+<!-- =====================================================
+     ACTION BUTTONS
+===================================================== -->
 
-<h2 class="text-warning mb-4">
-    📚 Correct Answers
-</h2>
+<div class="actions">
+
+<a href="/" class="btn btn-primary action">
+🔄 Retake Quiz
+</a>
+
+<a
+href="{{ url_for('personalized_quiz') }}"
+class="btn btn-success action">
+
+🤖 Personalized Quiz
+
+</a>
+
+<a
+href="{{ url_for('wrong_questions', attempt_date=attempt_date) }}"
+class="btn btn-danger action">
+
+⚠️ Review Mistakes
+
+</a>
+
+<a
+href="{{ url_for('leaderboard') }}"
+class="btn btn-warning action">
+
+🏆 Leaderboard
+
+</a>
+
+<a
+href="{{ url_for('logout') }}"
+class="btn btn-outline-light action">
+
+🚪 Logout
+
+</a>
+
+</div>
+
+</div>
+
+
+<!-- =====================================================
+     CORRECT ANSWERS
+===================================================== -->
+
+<div class="section">
+
+<div class="section-header">
+
+<h2>📚 Correct Answers</h2>
+
+<span>
+{{ answers|length }} Questions
+</span>
+
+</div>
+
 
 {% for q in answers %}
 
-<div class="card bg-secondary text-white mb-3 shadow">
+<div class="answer">
 
-    <div class="card-body">
+<div class="question">
+Q{{ loop.index }}. {{ q.question }}
+</div>
 
-        <h5 class="text-info">
-            Q{{ loop.index }}. {{ q.question }}
-        </h5>
-
-        <p class="mb-0">
-            <strong class="text-success">
-                ✅ Correct Answer:
-            </strong>
-            {{ q.answer }}
-        </p>
-
-    </div>
+<p class="correct">
+✓ <strong>Correct Answer:</strong>
+{{ q.answer }}
+</p>
 
 </div>
 
+{% else %}
+
+<div class="text-center text-secondary p-4">
+No answer details available.
+</div>
 
 {% endfor %}
-<!-- Leaderboard Table -->
-
-<div class="card shadow rounded-4 border-0">
-
-    <div class="card-header bg-primary text-white py-3">
-
-        <h4 class="mb-0">
-            🏆 Top 5 Leaderboard
-        </h4>
-
-    </div>
-
-    <div class="table-responsive">
-
-        <table class="table table-hover align-middle mb-0">
-
-            <thead class="table-dark">
-
-                <tr>
-
-                    <th class="text-center">🏆 Rank</th>
-
-                    <th>👤 Student Name</th>
-
-                    <th class="text-center">⭐ Highest Score</th>
-
-                </tr>
-
-            </thead>
-
-            <tbody>
-
-                {% for student in leaderboard_entries %}
-
-                <tr>
-
-                    <td class="text-center">
-
-                        {% if loop.index == 1 %}
-                            🥇
-                        {% elif loop.index == 2 %}
-                            🥈
-                        {% elif loop.index == 3 %}
-                            🥉
-                        {% else %}
-                            {{ loop.index }}
-                        {% endif %}
-
-                    </td>
-
-                    <td>
-                        {{ student.name }}
-                    </td>
-
-                    <td class="text-center">
-                        <span class="badge bg-success fs-6">
-                            {{ student.score }}
-                        </span>
-                    </td>
-
-                </tr>
-
-                {% endfor %}
-
-            </tbody>
-
-        </table>
-
-    </div>
 
 </div>
 
-</body>
-</html>
+
+<!-- =====================================================
+     LEADERBOARD
+===================================================== -->
+
+<div class="section">
+
+<div class="section-header">
+
+<h2>🏆 Top 5 Learners</h2>
+
+<span>
+Best Scores
+</span>
+
+</div>
+
+
+<div class="leaderboard">
+
+{% for student in leaderboard_entries %}
+
+<div class="player">
+
+<div class="rank">
+
+{% if loop.index == 1 %}
+🥇
+{% elif loop.index == 2 %}
+🥈
+{% elif loop.index == 3 %}
+🥉
+{% else %}
+{{ loop.index }}
+{% endif %}
+
+</div>
+
+<div class="player-name">
+{{ student.name }}
+</div>
+
+<div class="player-score">
+⭐ {{ student.score }}
+</div>
+
+</div>
+
+{% else %}
+
+<div class="text-center text-secondary p-4">
+No leaderboard records available.
+</div>
+
+{% endfor %}
+
+</div>
+
+</div>
+
+
+<!-- =====================================================
+     FINAL CTA
+===================================================== -->
+
+<div class="final-cta">
+
+<h2>
+🚀 Continue Your Learning Journey
+</h2>
+
+<p>
+Practice smarter, improve your weak topics and
+challenge yourself with AI-powered quizzes.
+</p>
+
+<a
+href="{{ url_for('personalized_quiz') }}"
+class="btn btn-light action">
+
+Start Your Next Quiz →
+
+</a>
+
+</div>
+
+
+</div>
+
+</div>
 
 
 {% endblock %}

@@ -446,6 +446,8 @@ def login():
         else:
             flash("Invalid Username or Password!", "danger")
 
+        
+
     return render_template("login.html")
 
 #==================================> Forget Password Route <=================================
@@ -2369,7 +2371,7 @@ The response should not be more than 3 lines.
 """
     client = Groq(api_key=os.environ.get("GROQ_API_KEY"))
     response = client.chat.completions.create(
-        model="llama-3.1-8b-instant",
+        model="openai/gpt-oss-120b",
         messages=[
             {
                 "role": "user",
@@ -2513,7 +2515,7 @@ Generate a detailed, professional response of about 700-1000 words.
     client = Groq(api_key=os.environ.get("GROQ_API_KEY"))
 
     response = client.chat.completions.create(
-        model="llama-3.3-70b-versatile",
+        model="openai/gpt-oss-120b",
         messages=[
             {
                 "role": "user",
@@ -2885,7 +2887,7 @@ Return in this exact format:
 """
     client = Groq(api_key=os.environ.get("GROQ_API_KEY"))
     response = client.chat.completions.create(
-        model="llama-3.1-8b-instant",
+        model="openai/gpt-oss-120b",
         messages=[
             {
                 "role": "user",
@@ -3073,7 +3075,7 @@ Use exactly this format:
     )
 
     response = client.chat.completions.create(
-        model="llama-3.1-8b-instant",
+        model="openai/gpt-oss-120b",
         messages=[
             {
                 "role": "user",

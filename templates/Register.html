@@ -1,538 +1,1050 @@
+
 {% extends "base.html" %}
 
 {% block title %}
-Register - Study Quiz Hub
+Create Account | Study Quiz Hub
 {% endblock %}
-
 
 {% block content %}
 
-
 <style>
 
-body{
+/* =====================================================
+   PAGE
+===================================================== */
+
+.register-page {
+    min-height: calc(100vh - 70px);
+    padding: 35px 20px;
+
+    background: #f5f7fb;
+
+    font-family: "Poppins", sans-serif;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+/* =====================================================
+   MAIN CARD
+===================================================== */
+
+.register-box {
+    width: 100%;
+    max-width: 1120px;
+
+    background: #ffffff;
+
+    border-radius: 24px;
+
+    overflow: hidden;
+
+    box-shadow:
+        0 25px 70px rgba(15, 23, 42, 0.12);
+
+    border: 1px solid #e8eaf0;
+}
+
+
+/* =====================================================
+   LEFT FORM SECTION
+===================================================== */
+
+.form-section {
+    padding: 45px 50px;
+}
+
+
+/* Brand */
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    margin-bottom: 35px;
+}
+
+.brand-logo {
+    width: 42px;
+    height: 42px;
+
+    border-radius: 12px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    color: white;
+
+    font-size: 21px;
 
     background:
-    linear-gradient(135deg,#1e1036,#4b0082,#001f3f);
+        linear-gradient(
+            135deg,
+            #6d28d9,
+            #4f46e5
+        );
+}
 
-    font-family:'Poppins',sans-serif;
+.brand-name {
+    font-size: 18px;
+    font-weight: 700;
 
+    color: #111827;
 }
 
 
+/* Heading */
 
-/* Main Card */
+.form-heading h1 {
+    font-size: 30px;
 
+    font-weight: 800;
 
-.register-card{
+    color: #111827;
 
-    border:none;
+    letter-spacing: -0.7px;
 
-    border-radius:35px;
+    margin-bottom: 8px;
+}
 
-    overflow:hidden;
+.form-heading p {
+    color: #6b7280;
 
-    background:white;
+    font-size: 13px;
 
-    box-shadow:0 20px 50px rgba(0,0,0,.4);
+    line-height: 1.6;
 
+    margin-bottom: 28px;
 }
 
 
+/* =====================================================
+   FORM
+===================================================== */
 
+.form-label {
+    font-size: 12px;
 
+    font-weight: 600;
 
-/* Header */
+    color: #374151;
 
-
-.register-header{
-
-    background:
-    linear-gradient(135deg,#00c6ff,#0072ff);
-
-    color:white;
-
-    padding:35px;
-
-    text-align:center;
-
+    margin-bottom: 7px;
 }
-
-
-
-.register-icon{
-
-    font-size:55px;
-
-}
-
-
-
-.register-header h2{
-
-    font-weight:800;
-
-}
-
-
-
-
-
-/* Form */
-
 
 .form-control,
-.form-select{
+.form-select {
 
-    border-radius:15px;
+    height: 48px;
 
-    padding:13px;
+    border-radius: 10px;
 
-    border:1px solid #ddd;
+    border: 1px solid #dfe3eb;
 
+    background: #fafbfc;
+
+    font-size: 13px;
+
+    padding: 0 14px;
+
+    transition: all .25s;
 }
 
-
+.form-control:hover,
+.form-select:hover {
+    border-color: #c4b5fd;
+}
 
 .form-control:focus,
-.form-select:focus{
+.form-select:focus {
 
-    box-shadow:0 0 10px rgba(0,114,255,.4);
+    background: white;
 
+    border-color: #6d28d9;
+
+    box-shadow:
+        0 0 0 4px rgba(109,40,217,.08);
 }
 
 
+/* File input */
+
+input[type="file"] {
+    padding-top: 12px;
+}
 
 
+/* =====================================================
+   BUTTON
+===================================================== */
 
-/* Button */
+.create-btn {
 
+    height: 50px;
 
-.register-btn{
+    border: none;
+
+    border-radius: 10px;
+
+    color: white;
+
+    font-size: 14px;
+
+    font-weight: 700;
 
     background:
+        linear-gradient(
+            135deg,
+            #6d28d9,
+            #4f46e5
+        );
 
-    linear-gradient(135deg,#00c6ff,#0072ff);
+    box-shadow:
+        0 8px 20px rgba(79,70,229,.20);
 
-    color:white;
+    transition: all .25s;
+}
 
-    border:none;
+.create-btn:hover {
 
-    border-radius:30px;
+    color: white;
 
-    padding:14px;
+    transform: translateY(-2px);
 
-    font-weight:bold;
-
-    transition:.3s;
-
+    box-shadow:
+        0 13px 28px rgba(79,70,229,.30);
 }
 
 
+/* Login */
 
-.register-btn:hover{
+.login-text {
 
-    transform:translateY(-4px);
+    text-align: center;
 
-    color:white;
+    color: #6b7280;
 
+    font-size: 13px;
+
+    margin-top: 22px;
+}
+
+.login-text a {
+
+    color: #6d28d9;
+
+    font-weight: 700;
+
+    text-decoration: none;
 }
 
 
+/* =====================================================
+   RIGHT VISUAL SECTION
+===================================================== */
+
+.visual-section {
+
+    min-height: 690px;
+
+    position: relative;
+
+    overflow: hidden;
+
+    padding: 45px;
+
+    color: white;
+
+    background:
+        linear-gradient(
+            150deg,
+            #111827 0%,
+            #1e1b4b 45%,
+            #4c1d95 100%
+        );
+}
+
+
+/* Decorative glow */
+
+.visual-section::before {
+
+    content: "";
+
+    position: absolute;
+
+    width: 330px;
+    height: 330px;
+
+    border-radius: 50%;
+
+    background:
+        rgba(124,58,237,.25);
+
+    top: -160px;
+    right: -120px;
+
+    filter: blur(5px);
+}
+
+.visual-section::after {
+
+    content: "";
+
+    position: absolute;
+
+    width: 240px;
+    height: 240px;
+
+    border-radius: 50%;
+
+    background:
+        rgba(59,130,246,.18);
+
+    bottom: -120px;
+    left: -100px;
+
+    filter: blur(5px);
+}
+
+
+/* Visual content */
+
+.visual-content {
+
+    position: relative;
+
+    z-index: 2;
+}
+
+
+/* Badge */
+
+.platform-label {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 6px;
+
+    padding: 7px 12px;
+
+    border-radius: 20px;
+
+    color: #ddd6fe;
+
+    font-size: 10px;
+
+    font-weight: 600;
+
+    background:
+        rgba(255,255,255,.08);
+
+    border:
+        1px solid rgba(255,255,255,.12);
+
+    margin-bottom: 22px;
+}
+
+
+/* Main heading */
+
+.visual-content h2 {
+
+    font-size: 35px;
+
+    line-height: 1.18;
+
+    font-weight: 800;
+
+    letter-spacing: -1px;
+
+    margin-bottom: 14px;
+}
+
+.visual-content h2 span {
+    color: #a78bfa;
+}
+
+.visual-description {
+
+    color: #cbd5e1;
+
+    font-size: 13px;
+
+    line-height: 1.7;
+
+    max-width: 390px;
+
+    margin-bottom: 30px;
+}
+
+
+/* =====================================================
+   DASHBOARD CARD
+===================================================== */
+
+.dashboard-card {
+
+    position: relative;
+
+    padding: 20px;
+
+    border-radius: 18px;
+
+    background:
+        rgba(255,255,255,.09);
+
+    border:
+        1px solid rgba(255,255,255,.14);
+
+    backdrop-filter: blur(15px);
+
+    box-shadow:
+        0 25px 50px rgba(0,0,0,.20);
+
+    margin-bottom: 22px;
+}
+
+
+/* Dashboard top */
+
+.dashboard-header {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    margin-bottom: 18px;
+}
+
+.dashboard-header strong {
+    font-size: 12px;
+}
+
+.dashboard-header span {
+
+    font-size: 9px;
+
+    color: #86efac;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 5px;
+}
+
+.online-dot {
+
+    width: 6px;
+    height: 6px;
+
+    border-radius: 50%;
+
+    background: #4ade80;
+}
+
+
+/* Stats */
+
+.dashboard-stats {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 10px;
+}
+
+.stat {
+
+    padding: 13px;
+
+    border-radius: 11px;
+
+    background:
+        rgba(255,255,255,.07);
+}
+
+.stat small {
+
+    display: block;
+
+    color: #94a3b8;
+
+    font-size: 8px;
+
+    margin-bottom: 5px;
+}
+
+.stat strong {
+    font-size: 20px;
+}
+
+
+/* Progress */
+
+.progress-info {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    margin-top: 18px;
+
+    margin-bottom: 7px;
+
+    font-size: 9px;
+
+    color: #cbd5e1;
+}
+
+.progress-track {
+
+    height: 6px;
+
+    border-radius: 10px;
+
+    overflow: hidden;
+
+    background:
+        rgba(255,255,255,.10);
+}
+
+.progress-value {
+
+    width: 82%;
+
+    height: 100%;
+
+    border-radius: 10px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #8b5cf6,
+            #60a5fa
+        );
+}
+
+
+/* =====================================================
+   FEATURE LIST
+===================================================== */
+
+.feature-list {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, 1fr);
+
+    gap: 10px;
+}
+
+.feature {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    padding: 11px;
+
+    border-radius: 11px;
+
+    background:
+        rgba(255,255,255,.06);
+
+    border:
+        1px solid rgba(255,255,255,.07);
+
+    transition: .25s;
+}
+
+.feature:hover {
+
+    background:
+        rgba(255,255,255,.12);
+
+    transform: translateY(-2px);
+}
+
+.feature-icon {
+
+    width: 32px;
+    height: 32px;
+
+    border-radius: 9px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    background:
+        rgba(255,255,255,.10);
+
+    font-size: 16px;
+}
+
+.feature strong {
+
+    display: block;
+
+    font-size: 10px;
+}
+
+.feature small {
+
+    color: #94a3b8;
+
+    font-size: 8px;
+}
+
+
+/* =====================================================
+   TRUST LINE
+===================================================== */
+
+.trust-line {
+
+    margin-top: 22px;
+
+    color: #94a3b8;
+
+    font-size: 10px;
+
+    text-align: center;
+}
+
+/* LEARNER IMAGE */
+
+.learner-image {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 10px 0 20px;
+}
+
+.learner-image img {
+    width: 100%;
+    max-width: 330px;
+    height: 260px;
+    object-fit: contain;
+    filter: drop-shadow(0 20px 30px rgba(0,0,0,.25));
+}
+
+
+/* WELCOME BENEFITS */
+
+.welcome-benefits {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+.welcome-benefits div {
+    padding: 11px;
+    border-radius: 10px;
+
+    color: #e2e8f0;
+    font-size: 10px;
+
+    background: rgba(255,255,255,.07);
+    border: 1px solid rgba(255,255,255,.08);
+}
+
+.welcome-benefits span {
+    color: #86efac;
+    font-weight: 700;
+    margin-right: 5px;
+}
+
+@media (max-width:575px) {
+
+    .welcome-benefits {
+        grid-template-columns: 1fr;
+    }
+
+    .learner-image img {
+        max-width: 280px;
+        height: 220px;
+    }
+}
+/* =====================================================
+   RESPONSIVE
+===================================================== */
+
+@media (max-width: 991px) {
+
+    .visual-section {
+
+        min-height: auto;
+
+        padding: 40px 30px;
+    }
+
+    .form-section {
+
+        padding: 38px 30px;
+    }
+}
+
+
+@media (max-width: 575px) {
+
+    .register-page {
+        padding: 15px 8px;
+    }
+
+    .form-section {
+        padding: 30px 20px;
+    }
+
+    .visual-section {
+        padding: 35px 20px;
+    }
+
+    .visual-content h2 {
+        font-size: 28px;
+    }
+
+    .feature-list {
+        grid-template-columns: 1fr;
+    }
+
+}
 
 </style>
 
+<body style="background-color: #1e1036;">
+<div class="register-page">
 
+    <div class="register-box">
 
+        <div class="row g-0">
 
 
+            <!-- =================================================
+                 LEFT SIDE — REGISTER FORM
+            ================================================== -->
 
-<div class="container py-5">
+            <div class="col-lg-7">
 
+                <div class="form-section">
 
 
+                    <!-- BRAND -->
 
+                    <div class="brand">
 
-{% with messages = get_flashed_messages(with_categories=true) %}
+                        <div class="brand-logo">
+                            🎓
+                        </div>
 
-{% if messages %}
+                        <div class="brand-name">
+                            Study Quiz Hub
+                        </div>
 
-{% for category,message in messages %}
-
-
-<div class="alert alert-{{category}} alert-dismissible fade show">
-
-{{message}}
-
-<button type="button"
-class="btn-close"
-data-bs-dismiss="alert"></button>
-
-</div>
-
-
-{% endfor %}
-
-{% endif %}
-
-{% endwith %}
-
-
-
-
-
-
-
-<div class="row justify-content-center">
-
-
-<div class="col-lg-6 col-md-8">
-
-
-<div class="card register-card">
-
-
-
-
-
-<div class="register-header">
-
-
-<div class="register-icon">
-
-🎓
-
-</div>
-
-
-<h2>
-
-Create Account
-
-</h2>
-
-
-<p class="mb-0">
-
-Join Study Quiz Hub and start your learning journey 🚀
-
-</p>
-
-
-</div>
-
-
-
-
-
-
-
-<div class="card-body p-5">
-
-
-
-
-
-<h4 class="text-center fw-bold">
-
-📚 Student Registration
-
-</h4>
-
-
-
-<p class="text-center text-muted">
-
-Learn • Practice • Improve with AI
-
-</p>
-
-
-
-
-
-
-
-<form action="{{url_for('Register')}}"
-method="POST" enctype="multipart/form-data">
-
-
-
-
-
-<div class="mb-3">
-
-
-<label class="fw-bold">
-
-👤 Student Name
-
-</label>
-
-
-<input
-
-type="text"
-
-class="form-control"
-
-name="student_name"
-
-placeholder="Enter your full name"
-
-required>
-
-
-</div>
-
-
-
-
-
-
-
-<div class="mb-3">
-
-
-<label class="fw-bold">
-
-💻 Username
-
-</label>
-
-
-<input
-
-type="text"
-
-class="form-control"
-
-name="username"
-
-placeholder="Create username"
-
-required>
-
-
-</div>
-
-
-
-
-
-
-
-<div class="mb-3">
-
-
-<label class="fw-bold">
-
-📧 Email
-
-</label>
-
-
-<input
-
-type="email"
-
-class="form-control"
-
-name="email"
-
-placeholder="Enter email address"
-
-required>
-
-
-</div>
-
-
-
-
-
-
-
-<div class="mb-3">
-
-
-<label class="fw-bold">
-
-🔐 Password
-
-</label>
-
-
-<input
-
-type="password"
-
-class="form-control"
-
-name="password"
-
-placeholder="Create password"
-
-required>
-
-
-</div>
-
-
-
-
-
-
-
-<div class="mb-4">
-
-
-<label class="fw-bold">
-
-📚 Select Learning Area
-
-</label>
-
-
-
-<select
-
-class="form-select"
-
-name="subject"
-
-required>
-
-
-
-<option value="">
-
-Choose Subject
-
-</option>
-
-
-
-<option value="Technology">
-
-🌐 Technology
-
-</option>
-
-
-
-
-<option value="Programming Language">
-
-💻 Programming Language
-
-</option>
-
-
-
-
-<option value="Computer Science">
-
-🖥 Computer Science
-
-</option>
-
-
-
-
-</select>
-
-
-</div>
-
-
-<div class="mb-3">
-                        <label class="form-label">Student Photo</label>
-                        
-                        <input type="file" name="photo" accept=".png,.jpg,.jpeg" class="form-control">
                     </div>
 
 
+                    <!-- FLASH MESSAGES -->
+
+                    {% with messages = get_flashed_messages(with_categories=true) %}
+
+                        {% if messages %}
+
+                            {% for category, message in messages %}
+
+                                <div class="alert alert-{{category}} alert-dismissible fade show">
+
+                                    {{ message }}
+
+                                    <button
+                                        type="button"
+                                        class="btn-close"
+                                        data-bs-dismiss="alert">
+                                    </button>
+
+                                </div>
+
+                            {% endfor %}
+
+                        {% endif %}
+
+                    {% endwith %}
 
 
-<div class="d-grid">
+                    <!-- HEADING -->
+
+                    <div class="form-heading">
+
+                        <h1>
+                            Create your account
+                        </h1>
+
+                        <p>
+                            Join thousands of learners and make
+                            your learning journey smarter.
+                        </p>
+
+                    </div>
 
 
-<button
+                    <!-- FORM -->
 
-class="btn register-btn"
-
-type="submit">
-
-
-🚀 Create Account
+                    <form
+                        action="{{ url_for('Register') }}"
+                        method="POST"
+                        enctype="multipart/form-data">
 
 
-</button>
+                        <!-- STUDENT NAME -->
 
+                        <div class="mb-3">
+
+                            <label class="form-label">
+                                Student Name
+                            </label>
+
+                            <input
+                                type="text"
+                                name="student_name"
+                                class="form-control"
+                                placeholder="Enter your full name"
+                                required>
+
+                        </div>
+
+
+                        <!-- USERNAME + EMAIL -->
+
+                        <div class="row">
+
+                            <div class="col-md-6 mb-3">
+
+                                <label class="form-label">
+                                    Username
+                                </label>
+
+                                <input
+                                    type="text"
+                                    name="username"
+                                    class="form-control"
+                                    placeholder="Choose username"
+                                    required>
+
+                            </div>
+
+
+                            <div class="col-md-6 mb-3">
+
+                                <label class="form-label">
+                                    Email Address
+                                </label>
+
+                                <input
+                                    type="email"
+                                    name="email"
+                                    class="form-control"
+                                    placeholder="Enter email"
+                                    required>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- PASSWORD -->
+
+                        <div class="mb-3">
+
+                            <label class="form-label">
+                                Password
+                            </label>
+
+                            <input
+                                type="password"
+                                name="password"
+                                class="form-control"
+                                placeholder="Create a secure password"
+                                required>
+
+                        </div>
+
+
+                        <!-- LEARNING AREA -->
+
+                        <div class="mb-3">
+
+                            <label class="form-label">
+                                Learning Area
+                            </label>
+
+                            <select
+                                name="subject"
+                                class="form-select"
+                                required>
+
+                                <option value="">
+                                    Select your learning area
+                                </option>
+
+                                <option value="Technology">
+                                    🌐 Technology
+                                </option>
+
+                                <option value="Programming Language">
+                                    💻 Programming Language
+                                </option>
+
+                                <option value="Computer Science">
+                                    🖥 Computer Science
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+                        <!-- PHOTO -->
+
+                        <div class="mb-4">
+
+                            <label class="form-label">
+                                Student Photo
+                            </label>
+
+                            <input
+                                type="file"
+                                name="photo"
+                                accept=".png,.jpg,.jpeg"
+                                class="form-control">
+
+                        </div>
+
+
+                        <!-- BUTTON -->
+
+                        <div class="d-grid">
+
+                            <button
+                                type="submit"
+                                class="btn create-btn">
+
+                                Create Account
+                                <span class="ms-1">→</span>
+
+                            </button>
+
+                        </div>
+
+
+                    </form>
+
+
+                    <!-- LOGIN -->
+
+                    <div class="login-text">
+
+                        Already have an account?
+
+                        <a href="{{ url_for('login') }}">
+                            Sign in
+                        </a>
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+
+
+            <!-- RIGHT SIDE — LEARNER WELCOME -->
+
+<div class="col-lg-5">
+
+    <div class="visual-section">
+
+        <div class="visual-content">
+
+            <div class="platform-label">
+                ✦ WELCOME TO STUDY QUIZ HUB
+            </div>
+
+            <h2>
+                Start your
+                <span>learning journey.</span>
+            </h2>
+
+            <p class="visual-description">
+                Learn new concepts, practice quizzes, track your
+                performance and improve your technical skills
+                with Study Quiz Hub.
+            </p>
+
+            <!-- LEARNER IMAGE -->
+
+            <div class="learner-image">
+
+                <img
+                    src="{{ url_for('static', filename='images/2c81f9f9-1325-4690-ba98-ea0d5821194e.png') }}"
+                    alt="Student learning illustration">
+
+            </div>
+
+            <!-- QUICK BENEFITS -->
+
+            <div class="welcome-benefits">
+
+                <div>
+                    <span>✓</span>
+                    Learn with interactive content
+                </div>
+
+                <div>
+                    <span>✓</span>
+                    Practice topic-wise quizzes
+                </div>
+
+                <div>
+                    <span>✓</span>
+                    Track your learning progress
+                </div>
+
+                <div>
+                    <span>✓</span>
+                    Improve your weak topics
+                </div>
+
+            </div>
+
+            <div class="trust-line">
+                ✦ Learn • Practice • Analyze • Improve
+            </div>
+
+        </div>
+
+    </div>
 
 </div>
 
-
-
-
-
-
-</form>
-
-
-
-
-
-
-
-<hr>
-
-
-
-
-
-
-<p class="text-center mb-0">
-
-
-Already have an account?
-
-
-<a href="{{url_for('login')}}"
-
-class="fw-bold text-decoration-none">
-
-
-Login Now
-
-
-</a>
-
-
-</p>
-
-
-
-
-
-
+    </div>
 
 </div>
-
-
-</div>
-
-
-</div>
-
-
-</div>
-
-
-
-</div>
-
-
 
 {% endblock %}
