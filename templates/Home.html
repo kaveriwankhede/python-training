@@ -1,3190 +1,1729 @@
+
 {% extends "base.html" %}
 
-{% block title %}Home - Study Quiz Hub{% endblock %}
+{% block title %} Home - Study Quiz Hub {% endblock %}
 
 {% block content %}
 
-<link rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
-<style>
+<!-- Bootstrap Icons CDN (head me add karo)-->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
-/* =========================================================
-   STUDY QUIZ HUB — PREMIUM WARM THEME
-   Terracotta • Coral • Cream • Brown • Gold • Sage
-========================================================= */
+ <style>
+/* ===============================
+   PART 1 HERO SECTION DESIGN
+================================ */
 
-:root{
-    --sqh-primary:#C2410C;
-    --sqh-coral:#E76F51;
-    --sqh-peach:#F4A261;
-    --sqh-gold:#D4A72C;
-    --sqh-sage:#6B8E71;
-
-    --sqh-dark:#2B1712;
-    --sqh-dark2:#43251C;
-    --sqh-dark3:#24130F;
-
-    --sqh-cream:#FFF8F1;
-    --sqh-soft:#FFF1E7;
-
-    --sqh-text:#29201C;
-    --sqh-muted:#76665D;
-}
-
-
-/* =========================================================
-   GLOBAL
-========================================================= */
-
-.sqh-home{
-    overflow:hidden;
-    background:var(--sqh-dark);
-    color:white;
-}
-
-.sqh-home *,
-.sqh-home *::before,
-.sqh-home *::after{
-    box-sizing:border-box;
-}
-
-.sqh-container{
-    width:min(1180px,92%);
-    margin:auto;
-}
-
-
-/* =========================================================
-   HERO
-========================================================= */
-
-.sqh-hero{
-    position:relative;
-    min-height:720px;
-    display:flex;
-    align-items:center;
-    overflow:hidden;
-
+.rainbow-card{
+    position: relative;
+    overflow: hidden;
+    padding: 40px 0;
+    border-radius: 30px;
     background:
-        radial-gradient(
-            circle at 15% 20%,
-            rgba(231,111,81,.28),
-            transparent 30%
-        ),
-        radial-gradient(
-            circle at 85% 25%,
-            rgba(244,162,97,.22),
-            transparent 28%
-        ),
-        radial-gradient(
-            circle at 50% 90%,
-            rgba(107,142,113,.16),
-            transparent 30%
-        ),
-        linear-gradient(
-            135deg,
-            var(--sqh-dark),
-            var(--sqh-dark2) 50%,
-            var(--sqh-dark3)
-        );
+    linear-gradient(135deg,
+    rgba(139,92,246,0.15),
+    rgba(59,130,246,0.15),
+    rgba(236,72,153,0.12));
+    backdrop-filter: blur(15px);
 }
 
 
-/* animated glow */
+/* Animated Glow Background */
 
-.sqh-hero::before{
+.rainbow-card::before{
+
     content:"";
     position:absolute;
-
     width:500px;
     height:500px;
+    background:linear-gradient(
+        45deg,
+        #8b5cf6,
+        #3b82f6,
+        #ec4899
+    );
 
-    left:-180px;
-    top:-180px;
-
-    background:
-        linear-gradient(
-            135deg,
-            var(--sqh-primary),
-            var(--sqh-coral)
-        );
-
-    filter:blur(130px);
-    opacity:.28;
-
-    animation:sqhGlow 8s ease-in-out infinite alternate;
+    filter:blur(120px);
+    opacity:0.25;
+    top:-200px;
+    left:-150px;
+    animation:moveGlow 8s infinite alternate;
 }
 
-.sqh-hero::after{
-    content:"";
-    position:absolute;
 
-    width:450px;
-    height:450px;
+@keyframes moveGlow{
 
-    right:-160px;
-    bottom:-180px;
-
-    background:
-        linear-gradient(
-            135deg,
-            var(--sqh-gold),
-            var(--sqh-sage)
-        );
-
-    filter:blur(130px);
-    opacity:.20;
-
-    animation:sqhGlow2 9s ease-in-out infinite alternate;
-}
-
-@keyframes sqhGlow{
     from{
-        transform:translate(0,0) scale(1);
+        transform:translate(0,0);
     }
 
     to{
-        transform:translate(180px,120px) scale(1.2);
-    }
-}
-
-@keyframes sqhGlow2{
-    from{
-        transform:translate(0,0) scale(1);
+        transform:translate(150px,80px);
     }
 
-    to{
-        transform:translate(-150px,-100px) scale(1.25);
-    }
 }
 
 
-/* =========================================================
-   HERO CONTENT
-========================================================= */
 
-.sqh-hero-content{
-    position:relative;
-    z-index:3;
-    padding:100px 0;
-}
-
-.sqh-hero-grid{
-    display:grid;
-    grid-template-columns:1.05fr .95fr;
-    align-items:center;
-    gap:70px;
-}
-
-
-/* =========================================================
-   BADGE
-========================================================= */
-
-.sqh-badge{
-    display:inline-flex;
-    align-items:center;
-    gap:9px;
-
-    padding:10px 18px;
-
+/* Badge */
+.badge{
+    padding:12px 22px;
     border-radius:50px;
-
-    color:#FFF8F1;
-
-    font-size:13px;
-    font-weight:700;
-
-    background:rgba(255,255,255,.08);
-
-    border:1px solid
-        rgba(255,255,255,.16);
-
-    backdrop-filter:blur(15px);
-
-    box-shadow:
-        0 10px 35px
-        rgba(0,0,0,.18);
-
-    margin-bottom:24px;
-}
-
-.sqh-badge i{
-    color:var(--sqh-gold);
+    font-size:15px;
+    color: #fff !important;   /* <-- ye line add karo */
+    background:linear-gradient(135deg,#6366f1,#8b5cf6)!important;
+    box-shadow:0 10px 25px rgba(99,102,241,0.35);
 }
 
 
-/* =========================================================
-   TITLE
-========================================================= */
+/* Main Heading */
 
-.sqh-title{
-    margin:0;
+.display-3{
 
-    font-size:clamp(45px,5vw,72px);
+    font-size:55px;
+    line-height:1.15;
+    letter-spacing:-1px;
+    color:#111827;
 
-    line-height:1.04;
-
-    font-weight:850;
-
-    letter-spacing:-2.5px;
 }
 
-.sqh-title-main{
-    color:white;
-}
 
-.sqh-title-gradient{
-    display:inline-block;
+
+.text-primary{
 
     background:
-        linear-gradient(
-            90deg,
-            var(--sqh-peach),
-            var(--sqh-coral),
-            var(--sqh-gold),
-            var(--sqh-peach)
-        );
+    linear-gradient(
+        90deg,
+        #6366f1,
+        #ec4899
+    );
 
     -webkit-background-clip:text;
     -webkit-text-fill-color:transparent;
 
-    background-size:200% auto;
-
-    animation:sqhGradient 5s linear infinite;
-}
-
-@keyframes sqhGradient{
-    to{
-        background-position:200% center;
-    }
 }
 
 
-/* =========================================================
-   SUBTITLE
-========================================================= */
 
-.sqh-subtitle{
-    max-width:650px;
+.hero-buttons{
 
-    margin:28px 0 0;
-
-    color:#E9D9D0;
-
-    font-size:18px;
-
-    line-height:1.8;
-}
-
-.sqh-subtitle strong{
-    color:#F4A261;
-}
-
-
-/* =========================================================
-   HERO BUTTONS
-========================================================= */
-
-.sqh-actions{
     display:flex;
     flex-wrap:wrap;
-    gap:14px;
+    gap:18px;
+    margin-top:35px;
 
-    margin-top:34px;
 }
 
-.sqh-btn{
-    position:relative;
 
+
+/* Buttons */
+
+.hero-btn{
+
+    text-decoration:none;
+    padding:14px 28px;
+    border-radius:50px;
+    font-weight:600;
+    font-size:16px;
     display:inline-flex;
     align-items:center;
-    justify-content:center;
     gap:10px;
+    transition:0.4s;
+    border:2px solid transparent;
 
-    padding:15px 24px;
+}
+
+
+
+/* AI Button */
+
+.ai-btn{
+
+    color:#fff;
+    background:
+    linear-gradient(
+    135deg,
+    #8b5cf6,
+    #6366f1);
+
+    box-shadow:
+    0 10px 25px rgba(139,92,246,.35);
+
+}
+
+
+
+/* Learning Button */
+
+.learn-btn{
+
+    color:#2563eb;
+    background:white;
+    border-color:#2563eb;
+
+}
+
+
+
+/* Quiz Button */
+
+.quiz-btn{
+
+    color:#ec4899;
+    background:white;
+    border-color:#ec4899;
+
+}
+
+
+
+/* Hover */
+
+.hero-btn:hover{
+
+    transform:translateY(-5px) scale(1.03);
+
+}
+
+
+
+/* Feature List */
+
+.row.mt-5 p{
+
+    font-size:17px;
+    font-weight:600;
+    color:#374151;
+    padding:12px 18px;
+
+    background:
+    rgba(255,255,255,0.65);
 
     border-radius:15px;
 
-    text-decoration:none;
-
-    font-size:15px;
-    font-weight:750;
-
-    transition:.35s ease;
-
-    overflow:hidden;
-}
-
-.sqh-btn:hover{
-    transform:translateY(-5px);
-}
-
-
-/* primary */
-
-.sqh-btn-primary{
-    color:white;
-
-    background:
-        linear-gradient(
-            135deg,
-            var(--sqh-primary),
-            var(--sqh-coral)
-        );
-
-    box-shadow:
-        0 15px 35px
-        rgba(194,65,12,.35);
-}
-
-.sqh-btn-primary:hover{
-    color:white;
-
-    box-shadow:
-        0 20px 45px
-        rgba(194,65,12,.50);
-}
-
-
-/* secondary */
-
-.sqh-btn-secondary{
-    color:white;
-
-    background:
-        rgba(255,255,255,.07);
-
-    border:1px solid
-        rgba(255,255,255,.16);
-
-    backdrop-filter:blur(15px);
-}
-
-.sqh-btn-secondary:hover{
-    color:white;
-
-    background:
-        rgba(255,255,255,.13);
-
-    border-color:
-        rgba(244,162,97,.35);
-}
-
-
-/* =========================================================
-   MINI FEATURES
-========================================================= */
-
-.sqh-mini-features{
-    display:flex;
-    flex-wrap:wrap;
-    gap:12px;
-
-    margin-top:40px;
-}
-
-.sqh-mini-feature{
-    display:flex;
-    align-items:center;
-    gap:9px;
-
-    padding:10px 14px;
-
-    border-radius:12px;
-
-    color:#D9C8BE;
-
-    font-size:13px;
-
-    background:
-        rgba(255,255,255,.055);
-
-    border:1px solid
-        rgba(255,255,255,.08);
+    backdrop-filter:blur(10px);
 
     transition:.3s;
-}
 
-.sqh-mini-feature:hover{
-    transform:translateY(-3px);
-
-    color:white;
-
-    background:
-        rgba(255,255,255,.10);
-
-    border-color:
-        rgba(244,162,97,.25);
-}
-
-.sqh-mini-feature i{
-    color:var(--sqh-peach);
 }
 
 
-/* =========================================================
-   HERO VISUAL
-========================================================= */
+.row.mt-5 p:hover{
 
-.sqh-visual{
-    position:relative;
+    transform:translateX(8px);
 
-    min-height:500px;
+    background:white;
 
-    display:flex;
+    box-shadow:
+    0 10px 25px rgba(0,0,0,.08);
 
-    align-items:center;
-    justify-content:center;
 }
 
 
-/* image */
 
-.sqh-main-image{
-    position:relative;
-    z-index:2;
+/* Right Image */
 
-    width:min(100%,500px);
+.col-lg-6 img{
 
     border-radius:35px;
 
     filter:
-        drop-shadow(
-            0 35px 55px
-            rgba(0,0,0,.45)
-        );
+    drop-shadow(
+    0 25px 40px
+    rgba(0,0,0,.18));
 
     animation:
-        sqhFloat 5s ease-in-out infinite;
+    floating 4s ease-in-out infinite;
 
-    transition:transform .25s ease;
 }
 
-@keyframes sqhFloat{
 
-    0%,100%{
+
+@keyframes floating{
+
+    0%{
         transform:translateY(0);
     }
 
     50%{
-        transform:translateY(-16px);
+        transform:translateY(-15px);
+    }
+
+    100%{
+        transform:translateY(0);
     }
 
 }
 
 
-/* =========================================================
-   FLOATING CARDS
-========================================================= */
 
-.sqh-float-card{
-    position:absolute;
-    z-index:5;
+/* Paragraph */
 
-    display:flex;
-    align-items:center;
+.col-lg-6 p{
 
-    gap:12px;
+    font-size:17px;
+    line-height:1.8;
+    color:#4b5563;
 
-    padding:14px 17px;
-
-    border-radius:17px;
-
-    background:
-        rgba(255,255,255,.10);
-
-    border:1px solid
-        rgba(255,255,255,.18);
-
-    backdrop-filter:blur(20px);
-
-    box-shadow:
-        0 20px 45px
-        rgba(0,0,0,.25);
-
-    animation:
-        sqhFloatCard 4s ease-in-out infinite;
 }
 
-.sqh-float-card i{
 
-    width:42px;
-    height:42px;
 
-    display:flex;
-    align-items:center;
+/* Responsive */
+
+@media(max-width:992px){
+
+.display-3{
+
+    font-size:42px;
+
+}
+
+
+.hero-buttons{
+
     justify-content:center;
 
-    border-radius:13px;
-
-    font-size:19px;
-
-    color:white;
-
-    background:
-        linear-gradient(
-            135deg,
-            var(--sqh-primary),
-            var(--sqh-coral)
-        );
-}
-
-.sqh-float-card strong{
-    display:block;
-    font-size:14px;
-}
-
-.sqh-float-card small{
-    color:#D9C8BE;
-    font-size:11px;
-}
-
-.sqh-float-1{
-    top:55px;
-    left:0;
-}
-
-.sqh-float-2{
-    right:-10px;
-    top:180px;
-
-    animation-delay:1s;
-}
-
-.sqh-float-3{
-    left:30px;
-    bottom:55px;
-
-    animation-delay:2s;
-}
-
-@keyframes sqhFloatCard{
-
-    0%,100%{
-        transform:translateY(0);
-    }
-
-    50%{
-        transform:translateY(-10px);
-    }
-
 }
 
 
-/* =========================================================
-   COMMON SECTION
-========================================================= */
+.col-lg-6{
 
-.sqh-section{
-    padding:100px 0;
-}
-
-.sqh-section-light{
-    background:
-        linear-gradient(
-            135deg,
-            #FFF8F1,
-            #FFFFFF,
-            #FFF4EA
-        );
-
-    color:var(--sqh-text);
-}
-
-
-/* =========================================================
-   SECTION HEADING
-========================================================= */
-
-.sqh-section-heading{
     text-align:center;
 
-    max-width:720px;
-
-    margin:0 auto 55px;
 }
 
-.sqh-section-label{
-    display:inline-block;
-
-    padding:8px 15px;
-
-    border-radius:50px;
-
-    font-size:11px;
-
-    font-weight:800;
-
-    letter-spacing:1.5px;
-
-    color:#9A3412;
-
-    background:#FFF0E6;
-
-    border:1px solid #FED7AA;
-
-    margin-bottom:15px;
 }
+/*=====================================================
+        STATISTICS SECTION
+======================================================*/
 
-.sqh-section-heading h2{
-    margin:0;
-
-    font-size:
-        clamp(30px,4vw,45px);
-
-    font-weight:850;
-
-    letter-spacing:-1px;
-}
-
-.sqh-section-heading p{
-    margin:15px auto 0;
-
-    color:#76665D;
-
-    line-height:1.7;
-}
-
-
-/* =========================================================
-   FEATURE CARDS
-========================================================= */
-
-.sqh-feature-grid{
-
-    display:grid;
-
-    grid-template-columns:
-        repeat(3,1fr);
-
-    gap:20px;
-}
-
-.sqh-feature-card{
-
+.Statistics-card{
+    padding:90px 0;
     position:relative;
-
-    padding:30px;
-
-    min-height:210px;
-
-    border-radius:24px;
-
-    background:
-        rgba(255,255,255,.92);
-
-    border:1px solid
-        rgba(194,65,12,.10);
-
-    box-shadow:
-        0 10px 35px
-        rgba(60,30,15,.07);
-
     overflow:hidden;
-
-    transition:
-        transform .4s ease,
-        box-shadow .4s ease,
-        border-color .4s ease;
 }
 
-.sqh-feature-card::before{
-
-    content:"";
-
+.Statistics-card::before{
+    content:'';
     position:absolute;
-
-    width:130px;
-    height:130px;
-
-    right:-60px;
-    top:-60px;
-
-    border-radius:50%;
-
-    background:
-        linear-gradient(
-            135deg,
-            var(--sqh-coral),
-            var(--sqh-peach)
-        );
-
-    opacity:.09;
-
-    transition:.4s;
+    width:550px;
+    height:550px;
+    background:linear-gradient(135deg,#7c3aed,#3b82f6);
+    filter:blur(180px);
+    opacity:.20;
+    left:-200px;
+    top:-150px;
+    z-index:-1;
 }
 
-.sqh-feature-card:hover{
-
-    transform:
-        translateY(-10px);
-
-    border-color:
-        rgba(194,65,12,.25);
-
-    box-shadow:
-        0 25px 55px
-        rgba(194,65,12,.13);
+.Statistics-card::after{
+    content:'';
+    position:absolute;
+    width:500px;
+    height:500px;
+    background:linear-gradient(135deg,#06b6d4,#22c55e);
+    filter:blur(180px);
+    opacity:.18;
+    right:-180px;
+    bottom:-180px;
+    z-index:-1;
 }
 
-.sqh-feature-card:hover::before{
-    transform:scale(1.7);
+/*==========================
+        Heading
+===========================*/
+
+.Statistics-card h2{
+    font-size:2.8rem;
+    font-weight:800;
+    color:#fff;
 }
 
-
-/* feature icons */
-
-.sqh-feature-icon{
-
-    width:58px;
-    height:58px;
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
-    border-radius:17px;
-
-    font-size:23px;
-
-    margin-bottom:20px;
-
-    transition:.35s;
+.Statistics-card .badge{
+    border-radius:50px;
+    font-size:15px;
+    letter-spacing:.5px;
 }
 
-.sqh-icon-purple{
-    color:#C2410C;
-    background:#FFEDD5;
+/*==========================
+        Premium Cards
+===========================*/
+.stat-card p{
+    color: #ffffff !important;
 }
+.stat-card{
 
-.sqh-icon-blue{
-    color:#6B8E71;
-    background:#E8F0E9;
-}
+    background:rgba(255,255,255,.08);
 
-.sqh-icon-pink{
-    color:#C2410C;
-    background:#FCE4D6;
-}
+    backdrop-filter:blur(25px);
 
-.sqh-icon-green{
-    color:#58755D;
-    background:#E2EDE4;
-}
-
-.sqh-icon-orange{
-    color:#B7791F;
-    background:#FEF3C7;
-}
-
-.sqh-icon-cyan{
-    color:#A0522D;
-    background:#F6E4D8;
-}
-
-.sqh-feature-card h3{
-    margin:0 0 9px;
-
-    font-size:19px;
-
-    font-weight:750;
-
-    color:#29201C;
-}
-
-.sqh-feature-card p{
-    margin:0;
-
-    color:#76665D;
-
-    line-height:1.7;
-
-    font-size:14px;
-}
-
-
-/* =========================================================
-   STATISTICS
-========================================================= */
-
-.sqh-stat-section{
-
-    position:relative;
-
-    padding:100px 0;
-
-    background:
-
-        radial-gradient(
-            circle at 10% 20%,
-            rgba(231,111,81,.25),
-            transparent 25%
-        ),
-
-        radial-gradient(
-            circle at 90% 80%,
-            rgba(107,142,113,.18),
-            transparent 25%
-        ),
-
-        linear-gradient(
-            135deg,
-            #2B1712,
-            #43251C
-        );
-}
-
-.sqh-stat-grid{
-
-    display:grid;
-
-    grid-template-columns:
-        repeat(3,1fr);
-
-    gap:22px;
-}
-
-.sqh-stat-card{
-
-    position:relative;
-
-    padding:35px 25px;
-
-    text-align:center;
+    border:1px solid rgba(255,255,255,.12)!important;
 
     border-radius:28px;
 
-    background:
-        rgba(255,255,255,.07);
-
-    border:1px solid
-        rgba(255,255,255,.12);
-
-    backdrop-filter:blur(20px);
-
     overflow:hidden;
 
-    transition:.4s;
-}
-
-.sqh-stat-card:hover{
-
-    transform:
-        translateY(-12px);
-
-    background:
-        rgba(255,255,255,.10);
-
-    box-shadow:
-        0 25px 60px
-        rgba(0,0,0,.25);
-}
-
-.sqh-stat-icon{
-
-    width:75px;
-    height:75px;
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
-    margin:0 auto 22px;
-
-    border-radius:22px;
-
-    font-size:30px;
-
-    color:white;
-
-    background:
-        linear-gradient(
-            135deg,
-            #C2410C,
-            #E76F51
-        );
-
-    box-shadow:
-        0 15px 35px
-        rgba(194,65,12,.30);
-}
-
-.sqh-stat-card:nth-child(2)
-.sqh-stat-icon{
-
-    background:
-        linear-gradient(
-            135deg,
-            #6B8E71,
-            #8EAA91
-        );
-}
-
-.sqh-stat-card:nth-child(3)
-.sqh-stat-icon{
-
-    background:
-        linear-gradient(
-            135deg,
-            #D4A72C,
-            #F4A261
-        );
-}
-
-.sqh-stat-number{
-
-    margin:0;
-
-    font-size:48px;
-
-    font-weight:850;
-
-    color:white;
-
-    letter-spacing:-2px;
-}
-
-.sqh-stat-card h3{
-
-    margin:8px 0;
-
-    font-size:17px;
-
-    color:white;
-}
-
-.sqh-stat-card p{
-
-    margin:0;
-
-    color:#D9C8BE;
-
-    font-size:13px;
-
-    line-height:1.7;
-}
-
-
-/* =========================================================
-   LEARNING JOURNEY
-========================================================= */
-
-.sqh-journey{
-
-    background:#2B1712;
-
-    padding:100px 0;
-}
-
-.sqh-journey-track{
-
-    display:grid;
-
-    grid-template-columns:
-        repeat(5,1fr);
+    transition:.45s;
 
     position:relative;
 
-    gap:18px;
+    box-shadow:
+    0 20px 45px rgba(0,0,0,.30);
+
 }
 
-.sqh-journey-track::before{
+.stat-card::before{
 
-    content:"";
+    content:'';
 
     position:absolute;
 
-    top:45px;
+    inset:0;
 
-    left:10%;
-    right:10%;
+    background:linear-gradient(
+    135deg,
+    rgba(124,58,237,.12),
+    rgba(59,130,246,.10),
+    rgba(6,182,212,.12));
 
-    height:2px;
+    opacity:0;
 
-    background:
-        linear-gradient(
-            90deg,
-            #C2410C,
-            #D4A72C,
-            #6B8E71
-        );
+    transition:.4s;
 
-    opacity:.6;
 }
 
-.sqh-step{
+.stat-card:hover{
 
-    position:relative;
+    transform:
+    translateY(-14px)
+    scale(1.03);
 
-    z-index:2;
+    box-shadow:
+    0 35px 60px rgba(59,130,246,.28);
 
-    text-align:center;
 }
 
-.sqh-step-circle{
+.stat-card:hover::before{
 
-    width:90px;
-    height:90px;
+    opacity:1;
+
+}
+
+/*==========================
+        Icon Circle
+===========================*/
+
+.icon-circle{
+
+    width:95px;
+
+    height:95px;
+
+    margin:auto;
+
+    border-radius:50%;
 
     display:flex;
 
     align-items:center;
+
     justify-content:center;
 
-    margin:0 auto 22px;
+    font-size:38px;
 
-    border-radius:50%;
-
-    font-size:26px;
-
-    font-weight:850;
-
-    color:white;
-
-    background:
-        linear-gradient(
-            135deg,
-            #C2410C,
-            #E76F51
-        );
-
-    border:7px solid #2B1712;
-
-    box-shadow:
-        0 10px 35px
-        rgba(194,65,12,.30);
-
-    transition:.4s;
-}
-
-.sqh-step:hover
-.sqh-step-circle{
-
-    transform:
-        translateY(-8px)
-        scale(1.08)
-        rotate(5deg);
-}
-
-.sqh-step h3{
-
-    margin:0 0 8px;
-
-    font-size:17px;
-
-    color:white;
-}
-
-.sqh-step p{
-
-    margin:0;
-
-    color:#BDAAA0;
-
-    font-size:13px;
-
-    line-height:1.6;
-}
-
-
-/* =========================================================
-   CTA
-========================================================= */
-
-.sqh-cta{
-
-    padding:100px 0;
-
-    background:#FFF8F1;
-}
-
-.sqh-cta-box{
+    color:#fff;
 
     position:relative;
 
-    overflow:hidden;
+    transition:.4s;
 
-    padding:65px 45px;
-
-    text-align:center;
-
-    border-radius:35px;
-
-    background:
-        linear-gradient(
-            135deg,
-            #7C2D12,
-            #C2410C,
-            #9A3412
-        );
-
-    box-shadow:
-        0 30px 80px
-        rgba(124,45,18,.25);
 }
 
-.sqh-cta-box::before,
-.sqh-cta-box::after{
+.icon-circle::after{
 
-    content:"";
+    content:'';
 
     position:absolute;
 
-    width:230px;
-    height:230px;
+    inset:-8px;
 
     border-radius:50%;
 
-    background:white;
+    border:2px solid rgba(255,255,255,.15);
 
-    opacity:.07;
-
-    filter:blur(5px);
 }
 
-.sqh-cta-box::before{
+.stat-card:hover .icon-circle{
 
-    top:-120px;
-    left:-70px;
+    transform:rotate(12deg) scale(1.10);
+
 }
 
-.sqh-cta-box::after{
+/*==========================
+        Counter Number
+===========================*/
 
-    right:-80px;
-    bottom:-130px;
-}
+.stat-card h2{
 
-.sqh-cta-box > *{
-
-    position:relative;
-
-    z-index:2;
-}
-
-.sqh-cta-box h2{
-
-    margin:0;
-
-    color:white;
-
-    font-size:
-        clamp(30px,4vw,45px);
-
-    font-weight:850;
-}
-
-.sqh-cta-box p{
-
-    max-width:650px;
-
-    margin:15px auto 28px;
-
-    color:#FFE4D6;
-
-    line-height:1.7;
-}
-
-.sqh-cta-btn{
-
-    display:inline-flex;
-
-    align-items:center;
-
-    gap:10px;
-
-    padding:15px 28px;
-
-    border-radius:15px;
-
-    color:#7C2D12;
-
-    background:#FFF8F1;
-
-    text-decoration:none;
+    font-size:3rem;
 
     font-weight:800;
 
-    transition:.35s;
+    margin-top:28px;
+
 }
 
-.sqh-cta-btn:hover{
+.stat-card h5{
 
-    color:#7C2D12;
+    color:#fff;
 
-    transform:
-        translateY(-5px)
-        scale(1.03);
+    margin-top:15px;
 
-    box-shadow:
-        0 15px 35px
-        rgba(0,0,0,.20);
+    font-weight:700;
+
+}
+
+.stat-card p{
+
+    color:white;
+
+    margin-top:15px;
+
+    line-height:1.8;
+
+}
+
+/*==========================
+        Badge
+===========================*/
+
+.stat-card .badge{
+
+    margin-top:18px;
+
+    padding:12px 22px;
+
+    font-size:14px;
+
+    border-radius:50px;
+
+    transition:.3s;
+
+}
+
+.stat-card:hover .badge{
+
+    transform:scale(1.08);
+
+}
+
+/*==========================
+        Shine Effect
+===========================*/
+
+.stat-card::after{
+
+    content:'';
+
+    position:absolute;
+
+    top:-100%;
+
+    left:-100%;
+
+    width:180%;
+
+    height:180%;
+
+    background:linear-gradient(
+    120deg,
+    transparent,
+    rgba(245, 241, 244, 0.18),
+    transparent);
+
+    transform:rotate(20deg);
+
+}
+
+.stat-card:hover::after{
+
+    animation:shine 1.2s;
+
+}
+
+@keyframes shine{
+
+0%{
+
+transform:
+translateX(-100%)
+rotate(20deg);
+
+}
+
+100%{
+
+transform:
+translateX(100%)
+rotate(20deg);
+
+}
+
+}
+
+/*==========================
+        Counter Animation
+===========================*/
+
+.stat-card{
+
+animation:fadeUp .8s ease;
+
+}
+
+@keyframes fadeUp{
+
+from{
+
+opacity:0;
+
+transform:translateY(40px);
+
+}
+
+to{
+
+opacity:1;
+
+transform:translateY(0);
+
+}
+
+}
+
+/*==========================
+        Responsive
+===========================*/
+
+@media(max-width:991px){
+
+.stat-card{
+
+margin-bottom:25px;
+
+}
+
+.icon-circle{
+
+width:80px;
+
+height:80px;
+
+font-size:30px;
+
+}
+
+.stat-card h2{
+
+font-size:2.3rem;
+
+}
+
+}
+p{
+    color: white;
 }
 
 
-/* =========================================================
-   FUTURE / ROADMAP
-========================================================= */
+/*=====================================================
+        LEARNING JOURNEY
+======================================================*/
 
-.sqh-future{
+.journey-card{
 
-    padding:100px 0;
+background:rgba(255,255,255,.08);
 
-    background:
-        linear-gradient(
-            135deg,
-            #FFF8F1,
-            #FFFFFF
-        );
+backdrop-filter:blur(18px);
+
+border:1px solid rgba(255,255,255,.10);
+
+border-radius:28px;
+
+padding:35px 20px;
+
+transition:.45s;
+
+position:relative;
+
+overflow:hidden;
+
+height:100%;
+
+box-shadow:
+0 18px 35px rgba(0,0,0,.30);
+
 }
 
-.sqh-future-grid{
+.journey-card:hover{
 
-    display:grid;
+transform:
+translateY(-15px);
+
+box-shadow:
+0 30px 60px rgba(59,130,246,.25);
+
+}
+
+/*==========================
+        Circle Number
+===========================*/
+
+.circle{
+
+width:75px;
+
+height:75px;
+
+margin:auto;
+
+display:flex;
+
+align-items:center;
+
+justify-content:center;
+
+border-radius:50%;
+
+font-size:26px;
+
+font-weight:700;
+
+color:#fff;
+
+margin-bottom:20px;
+
+box-shadow:
+0 12px 25px rgba(0,0,0,.30);
+
+transition:.4s;
+
+}
+
+.journey-card:hover .circle{
+
+transform:
+rotate(360deg)
+scale(1.12);
+
+}
+
+/*==========================
+        Shine
+===========================*/
+
+.journey-card::before{
+
+content:'';
+
+position:absolute;
+
+top:-100%;
+
+left:-100%;
+
+width:180%;
+
+height:180%;
+
+background:
+linear-gradient(
+120deg,
+transparent,
+rgba(255,255,255,.18),
+transparent);
+
+transform:rotate(25deg);
+
+}
+
+.journey-card:hover::before{
+
+animation:shine2 1.3s;
+
+}
+
+@keyframes shine2{
+
+0%{
+
+transform:
+translateX(-100%)
+rotate(25deg);
+
+}
+
+100%{
+
+transform:
+translateX(100%)
+rotate(25deg);
+
+}
+
+}
+
+.journey-card h5{
+
+margin-top:18px;
+
+font-weight:700;
+
+color:#fff;
+
+}
+
+.journey-card p{
+
+color:#cbd5e1;
+
+line-height:1.7;
+
+}
+
+
+/*=====================================================
+        GLOBAL ANIMATIONS
+======================================================*/
+
+.stat-card,
+.journey-card,
+.d-flex.align-items-start{
+
+animation:fadeInUp .9s ease;
+
+}
+
+@keyframes fadeInUp{
+
+from{
+
+opacity:0;
+
+transform:translateY(40px);
+
+}
+
+to{
+
+opacity:1;
+
+transform:translateY(0);
+
+}
+
+}
+
+/*=====================================================
+        SCROLLBAR
+======================================================*/
+
+::-webkit-scrollbar{
+
+width:10px;
+
+}
+
+::-webkit-scrollbar-track{
+
+background:#111827;
+
+}
+
+::-webkit-scrollbar-thumb{
+
+background:linear-gradient(
+180deg,
+#7c3aed,
+#3b82f6,
+#06b6d4);
+
+border-radius:30px;
+
+}
+
+::-webkit-scrollbar-thumb:hover{
+
+background:#8b5cf6;
+
+}
+
+/*=====================================================
+        RESPONSIVE
+======================================================*/
+
+@media(max-width:991px){
+
+.d-flex.align-items-start{
+
+padding:20px;
+
+}
+
+.journey-card{
+
+margin-bottom:25px;
+
+}
+
+.circle{
+
+width:65px;
+
+height:65px;
+
+font-size:22px;
+
+}
+
+}
+```css
+/* ==========================================
+   FUTURE IMPROVEMENTS - STUDY QUIZ HUB
+========================================== */
+
+.future-section {
+    padding: 90px 20px;
+    background: linear-gradient(
+        135deg,
+        #f8f7ff 0%,
+        #ffffff 50%,
+        #f5f7ff 100%
+    );
+}
+
+.future-container {
+    max-width: 1200px;
+    margin: auto;
+}
+
+
+/* ================= HEADING ================= */
+
+.future-heading {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.future-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+
+    padding: 7px 16px;
+
+    border-radius: 50px;
+
+    background: linear-gradient(
+        135deg,
+        #ede9fe,
+        #e0e7ff
+    );
+
+    color: #6d28d9;
+
+    font-size: 11px;
+    font-weight: 700;
+
+    letter-spacing: 1.2px;
+
+    margin-bottom: 15px;
+
+    border: 1px solid #ddd6fe;
+}
+
+.future-heading h2 {
+    margin: 0;
+
+    font-size: 38px;
+    font-weight: 750;
+
+    letter-spacing: -0.8px;
+
+    background: linear-gradient(
+        90deg,
+        #7c3aed,
+        #4f46e5
+    );
+
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.future-heading p {
+    max-width: 650px;
+
+    margin: 14px auto 0;
+
+    color: #64748b;
+
+    font-size: 15px;
+
+    line-height: 1.7;
+}
+
+
+/* ================= GRID ================= */
+
+.future-grid {
+    display: grid;
 
     grid-template-columns:
-        repeat(3,1fr);
+        repeat(3, 1fr);
 
-    gap:20px;
+    gap: 22px;
 }
 
-.sqh-future-card{
 
-    padding:27px;
+/* ================= CARD ================= */
 
-    border-radius:22px;
+.future-card {
+    position: relative;
 
-    background:white;
+    padding: 28px 25px;
 
-    border:1px solid #E8DED7;
+    border-radius: 22px;
 
-    transition:.35s;
+    background: rgba(255, 255, 255, 0.85);
+
+    border: 1px solid rgba(139, 92, 246, 0.12);
 
     box-shadow:
-        0 8px 25px
-        rgba(60,30,15,.05);
+        0 8px 30px rgba(30, 41, 59, 0.06);
+
+    backdrop-filter: blur(12px);
+
+    transition:
+        transform 0.35s ease,
+        box-shadow 0.35s ease,
+        border-color 0.35s ease;
+
+    overflow: hidden;
 }
 
-.sqh-future-card:hover{
 
-    transform:
-        translateY(-7px);
+/* Gradient glow */
 
-    border-color:#FDBA74;
+.future-card::after {
+    content: "";
+
+    position: absolute;
+
+    width: 120px;
+    height: 120px;
+
+    right: -55px;
+    top: -55px;
+
+    border-radius: 50%;
+
+    background: linear-gradient(
+        135deg,
+        #8b5cf6,
+        #6366f1
+    );
+
+    opacity: 0.08;
+
+    transition: 0.4s ease;
+}
+
+
+/* Hover */
+
+.future-card:hover {
+    transform: translateY(-8px);
+
+    border-color: rgba(124, 58, 237, 0.3);
 
     box-shadow:
-        0 20px 40px
-        rgba(194,65,12,.12);
+        0 18px 45px rgba(99, 102, 241, 0.13);
 }
 
-.sqh-future-icon{
+.future-card:hover::after {
+    transform: scale(1.5);
 
-    width:52px;
-    height:52px;
-
-    display:flex;
-
-    align-items:center;
-    justify-content:center;
-
-    border-radius:15px;
-
-    background:#FFF0E6;
-
-    color:#C2410C;
-
-    font-size:21px;
-
-    margin-bottom:18px;
-}
-
-.sqh-future-card h3{
-
-    margin:0 0 8px;
-
-    font-size:17px;
-
-    color:#29201C;
-}
-
-.sqh-future-card p{
-
-    margin:0;
-
-    color:#76665D;
-
-    font-size:13px;
-
-    line-height:1.7;
+    opacity: 0.12;
 }
 
 
-/* =========================================================
-   RESPONSIVE
-========================================================= */
+/* ================= ICON ================= */
 
-@media(max-width:1000px){
+.future-card-icon {
+    width: 58px;
+    height: 58px;
 
-    .sqh-hero-grid{
+    display: flex;
 
-        grid-template-columns:1fr;
+    align-items: center;
+    justify-content: center;
 
-        text-align:center;
-    }
+    border-radius: 17px;
 
-    .sqh-subtitle{
+    font-size: 22px;
 
-        margin-left:auto;
-        margin-right:auto;
-    }
+    margin-bottom: 20px;
 
-    .sqh-actions,
-    .sqh-mini-features{
+    transition:
+        transform 0.35s ease,
+        box-shadow 0.35s ease;
+}
 
-        justify-content:center;
-    }
-
-    .sqh-visual{
-
-        min-height:450px;
-    }
-
-    .sqh-feature-grid,
-    .sqh-future-grid{
-
-        grid-template-columns:
-            repeat(2,1fr);
-    }
-
-    .sqh-stat-grid{
-
-        grid-template-columns:
-            repeat(2,1fr);
-    }
-
-    .sqh-journey-track{
-
-        grid-template-columns:
-            repeat(3,1fr);
-
-        row-gap:45px;
-    }
-
-    .sqh-journey-track::before{
-        display:none;
-    }
+.future-card:hover .future-card-icon {
+    transform: translateY(-4px) scale(1.05);
 }
 
 
-@media(max-width:650px){
+/* Icon Colors */
 
-    .sqh-hero{
+.coding-icon {
+    color: #7c3aed;
+    background: linear-gradient(
+        135deg,
+        #ede9fe,
+        #ddd6fe
+    );
+}
 
-        min-height:auto;
-    }
+.email-icon {
+    color: #0284c7;
+    background: linear-gradient(
+        135deg,
+        #e0f2fe,
+        #bae6fd
+    );
+}
 
-    .sqh-hero-content{
+.notification-icon {
+    color: #d97706;
+    background: linear-gradient(
+        135deg,
+        #fef3c7,
+        #fde68a
+    );
+}
 
-        padding:75px 0;
-    }
+.interview-icon {
+    color: #059669;
+    background: linear-gradient(
+        135deg,
+        #d1fae5,
+        #a7f3d0
+    );
+}
 
-    .sqh-title{
+.badge-icon {
+    color: #db2777;
+    background: linear-gradient(
+        135deg,
+        #fce7f3,
+        #fbcfe8
+    );
+}
 
-        font-size:43px;
+.language-icon {
+    color: #4f46e5;
+    background: linear-gradient(
+        135deg,
+        #e0e7ff,
+        #c7d2fe
+    );
+}
 
-        letter-spacing:-1.5px;
-    }
 
-    .sqh-subtitle{
+/* ================= CONTENT ================= */
 
-        font-size:15px;
-    }
+.future-card-content h3 {
+    margin: 0 0 9px;
 
-    .sqh-actions{
+    color: #1e293b;
 
-        flex-direction:column;
-    }
+    font-size: 18px;
 
-    .sqh-btn{
+    font-weight: 700;
+}
 
-        width:100%;
-    }
+.future-card-content p {
+    margin: 0;
 
-    .sqh-mini-feature{
+    color: #64748b;
 
-        width:100%;
+    font-size: 13.5px;
 
-        justify-content:center;
-    }
+    line-height: 1.7;
+}
 
-    .sqh-float-1{
 
-        left:-5px;
-        top:25px;
-    }
+/* ================= ARROW ================= */
 
-    .sqh-float-2{
+.future-arrow {
+    position: absolute;
 
-        right:-5px;
-        top:160px;
-    }
+    right: 22px;
+    bottom: 22px;
 
-    .sqh-float-3{
+    width: 34px;
+    height: 34px;
 
-        left:5px;
-        bottom:30px;
-    }
+    display: flex;
 
-    .sqh-feature-grid,
-    .sqh-stat-grid,
-    .sqh-future-grid{
+    align-items: center;
+    justify-content: center;
 
-        grid-template-columns:1fr;
-    }
+    border-radius: 50%;
 
-    .sqh-journey-track{
+    background: #f5f3ff;
 
-        grid-template-columns:1fr;
+    color: #7c3aed;
 
-        gap:30px;
-    }
+    font-size: 12px;
 
-    .sqh-journey-track::before{
+    opacity: 0;
 
-        display:none;
-    }
+    transform: translateX(-8px);
 
-    .sqh-visual{
+    transition: 0.3s ease;
+}
 
-        min-height:390px;
-    }
+.future-card:hover .future-arrow {
+    opacity: 1;
 
-    .sqh-main-image{
+    transform: translateX(0);
+}
 
-        width:90%;
-    }
 
-    .sqh-cta-box{
+/* ================= RESPONSIVE ================= */
 
-        padding:50px 25px;
+@media (max-width: 992px) {
+
+    .future-grid {
+        grid-template-columns: repeat(2, 1fr);
     }
 }
 
 
-/* =========================================================
-   ACCESSIBILITY
-========================================================= */
+@media (max-width: 650px) {
 
-@media(prefers-reduced-motion:reduce){
+    .future-section {
+        padding: 65px 15px;
+    }
 
-    *,
-    *::before,
-    *::after{
+    .future-heading h2 {
+        font-size: 30px;
+    }
 
-        animation-duration:.01ms !important;
+    .future-grid {
+        grid-template-columns: 1fr;
+    }
 
-        animation-iteration-count:1 !important;
+    .future-card {
+        padding: 24px;
+    }
+}
 
-        scroll-behavior:auto !important;
 
-        transition-duration:.01ms !important;
+@media (max-width: 400px) {
+
+    .future-heading h2 {
+        font-size: 26px;
+    }
+
+    .future-heading p {
+        font-size: 13px;
+    }
+
+    .future-card-icon {
+        width: 52px;
+        height: 52px;
+        font-size: 20px;
+    }
+
+    .future-card-content h3 {
+        font-size: 16px;
+    }
+
+    .future-card-content p {
+        font-size: 13px;
     }
 }
 
 </style>
-
-
-<div class="sqh-home">
-
-
-<!-- ======================================================
-     HERO
-====================================================== -->
-
-<section class="sqh-hero">
-
-    <div class="sqh-container sqh-hero-content">
-
-        <div class="sqh-hero-grid">
-
-
-            <!-- LEFT -->
-
-            <div>
-
-                <span class="sqh-badge">
-
-                    <i class="bi bi-stars"></i>
-
-                    Learn • Practice • Achieve
-
-                </span>
-
-
-                <h1 class="sqh-title">
-
-                    <span class="sqh-title-main">
-                        Learn Smarter.
-                    </span>
-
-                    <br>
-
-                    <span class="sqh-title-gradient">
-                        Quiz Better.
-                    </span>
-
-                    <br>
-
-                    <span class="sqh-title-main">
-                        Achieve More.
-                    </span>
-
-                </h1>
-
-
-                <p class="sqh-subtitle">
-
-                    Welcome to
-                    <strong>Study Quiz Hub</strong> —
-                    an interactive learning platform where you can
-                    learn concepts, practice MCQs, take quizzes,
-                    analyze your performance and track your learning
-                    journey.
-
-                </p>
-
-
-                <!-- BUTTONS -->
-
-                <div class="sqh-actions">
-
-                    <a href="/website_guide"
-                       class="sqh-btn sqh-btn-primary">
-
-                        <i class="bi bi-robot"></i>
-
-                        Get AI Tip
-
-                    </a>
-
-
-                    <a href="Theory"
-                       class="sqh-btn sqh-btn-secondary">
-
-                        <i class="bi bi-book-half"></i>
-
-                        Start Learning
-
-                    </a>
-
-
-                    <a href="{{ url_for('explore_technology') }}"
-                       class="sqh-btn sqh-btn-secondary">
-
-                        <i class="bi bi-patch-question"></i>
-
-                        Take Quiz
-
-                    </a>
-
-                </div>
-
-
-                <!-- MINI FEATURES -->
-
-                <div class="sqh-mini-features">
-
-                    <div class="sqh-mini-feature">
-
-                        <i class="bi bi-book"></i>
-
-                        Theory Notes
-
-                    </div>
-
-
-                    <div class="sqh-mini-feature">
-
-                        <i class="bi bi-robot"></i>
-
-                        AI Assistant
-
-                    </div>
-
-
-                    <div class="sqh-mini-feature">
-
-                        <i class="bi bi-bar-chart"></i>
-
-                        Performance
-
-                    </div>
-
-
-                    <div class="sqh-mini-feature">
-
-                        <i class="bi bi-award"></i>
-
-                        Certificates
-
-                    </div>
-
-                </div>
-
+{% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        {% for category, message in messages %}
+            <div class="alert alert-{{ category }} mt-3">
+                {{ message }}
             </div>
-
-
-            <!-- RIGHT VISUAL -->
-
-            <div class="sqh-visual">
-
-
-                <img
-                    src="{{ url_for(
-                    'static',
-                    filename='images/ChatGPT Image Jul 21, 2026, 11_38_49 PM.png'
-                    ) }}"
-                    class="sqh-main-image"
-                    alt="Study Quiz Hub">
-
-
-                <!-- FLOATING CARD 1 -->
-
-                <div class="sqh-float-card sqh-float-1">
-
-                    <i class="bi bi-lightbulb-fill"></i>
-
-                    <div>
-
-                        <strong>Learn</strong>
-
-                        <small>
-                            Build strong concepts
-                        </small>
-
-                    </div>
-
-                </div>
-
-
-                <!-- FLOATING CARD 2 -->
-
-                <div class="sqh-float-card sqh-float-2">
-
-                    <i class="bi bi-patch-question-fill"></i>
-
-                    <div>
-
-                        <strong>Practice</strong>
-
-                        <small>
-                            Test your knowledge
-                        </small>
-
-                    </div>
-
-                </div>
-
-
-                <!-- FLOATING CARD 3 -->
-
-                <div class="sqh-float-card sqh-float-3">
-
-                    <i class="bi bi-trophy-fill"></i>
-
-                    <div>
-
-                        <strong>Achieve</strong>
-
-                        <small>
-                            Track your success
-                        </small>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-
-<!-- ======================================================
-     PLATFORM FEATURES
-====================================================== -->
-
-<section class="sqh-section sqh-section-light">
-
-    <div class="sqh-container">
-
-        <div class="sqh-section-heading">
-
-            <span class="sqh-section-label">
-                WHY STUDY QUIZ HUB?
-            </span>
-
-            <h2>
-                Everything You Need to Learn Better
-            </h2>
-
-            <p>
-                A simple learning journey designed to help students
-                understand concepts, practice regularly and measure
-                their progress.
-            </p>
-
-        </div>
-
-
-        <div class="sqh-feature-grid">
-
-
-            <!-- 1 -->
-
-            <div class="sqh-feature-card">
-
-                <div class="sqh-feature-icon sqh-icon-purple">
-
-                    <i class="bi bi-book-half"></i>
-
-                </div>
-
-                <h3>
-                    Theory Notes
-                </h3>
-
-                <p>
-                    Understand important concepts through
-                    simple and structured learning material.
-                </p>
-
-            </div>
-
-
-            <!-- 2 -->
-
-            <div class="sqh-feature-card">
-
-                <div class="sqh-feature-icon sqh-icon-blue">
-
-                    <i class="bi bi-pencil-square"></i>
-
-                </div>
-
-                <h3>
-                    Practice Quiz
-                </h3>
-
-                <p>
-                    Practice MCQs and strengthen your knowledge
-                    before attempting the final quiz.
-                </p>
-
-            </div>
-
-
-            <!-- 3 -->
-
-            <div class="sqh-feature-card">
-
-                <div class="sqh-feature-icon sqh-icon-pink">
-
-                    <i class="bi bi-robot"></i>
-
-                </div>
-
-                <h3>
-                    AI Assistant
-                </h3>
-
-                <p>
-                    Get intelligent learning guidance and
-                    useful tips during your learning journey.
-                </p>
-
-            </div>
-
-
-            <!-- 4 -->
-
-            <div class="sqh-feature-card">
-
-                <div class="sqh-feature-icon sqh-icon-green">
-
-                    <i class="bi bi-bar-chart-fill"></i>
-
-                </div>
-
-                <h3>
-                    Performance
-                </h3>
-
-                <p>
-                    Understand your quiz performance and
-                    identify areas where you can improve.
-                </p>
-
-            </div>
-
-
-            <!-- 5 -->
-
-            <div class="sqh-feature-card">
-
-                <div class="sqh-feature-icon sqh-icon-orange">
-
-                    <i class="bi bi-person-video3"></i>
-
-                </div>
-
-                <h3>
-                    Interview Preparation
-                </h3>
-
-                <p>
-                    Prepare yourself with useful technical
-                    interview learning resources.
-                </p>
-
-            </div>
-
-
-            <!-- 6 -->
-
-            <div class="sqh-feature-card">
-
-                <div class="sqh-feature-icon sqh-icon-cyan">
-
-                    <i class="bi bi-award-fill"></i>
-
-                </div>
-
-                <h3>
-                    Certificates
-                </h3>
-
-                <p>
-                    Complete your learning journey and
-                    showcase your quiz achievements.
-                </p>
-
-            </div>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-
-<!-- ======================================================
-     STATISTICS
-====================================================== -->
-
-<section class="sqh-stat-section">
-
-    <div class="sqh-container">
-
-        <div class="sqh-section-heading">
-
-            <span class="sqh-section-label">
-                PLATFORM STATISTICS
-            </span>
-
-            <h2 style="color:white;">
-                Study Quiz Hub in Numbers
-            </h2>
-
-            <p style="color:#D9C8BE;">
-                Growing every day with students, subjects
-                and learning questions.
-            </p>
-
-        </div>
-
-
-        <div class="sqh-stat-grid">
-
-
-            <!-- STUDENTS -->
-
-            <div class="sqh-stat-card">
-
-                <div class="sqh-stat-icon">
-
-                    <i class="bi bi-people-fill"></i>
-
-                </div>
-
-                <h2 class="sqh-stat-number">
-                    {{ total_students }}
-                </h2>
-
-                <h3>
-                    Registered Students
-                </h3>
-
-                <p>
-                    Students learning and practicing
-                    through Study Quiz Hub.
-                </p>
-
-            </div>
-
-
-            <!-- SUBJECTS -->
-
-            <div class="sqh-stat-card">
-
-                <div class="sqh-stat-icon">
-
-                    <i class="bi bi-journal-code"></i>
-
-                </div>
-
-                <h2 class="sqh-stat-number">
-                    {{ total_subjects }}
-                </h2>
-
-                <h3>
-                    Available Subjects
-                </h3>
-
-                <p>
-                    Explore subjects and improve your
-                    technical knowledge.
-                </p>
-
-            </div>
-
-
-            <!-- QUESTIONS -->
-
-            <div class="sqh-stat-card">
-
-                <div class="sqh-stat-icon">
-
-                    <i class="bi bi-patch-question-fill"></i>
-
-                </div>
-
-                <h2 class="sqh-stat-number">
-                    1000
-                </h2>
-
-                <h3>
-                    Quiz Questions
-                </h3>
-
-                <p>
-                    Practice questions to test and
-                    strengthen your knowledge.
-                </p>
-
-            </div>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-
-<!-- ======================================================
-     LEARNING JOURNEY
-====================================================== -->
-
-<section class="sqh-journey">
-
-    <div class="sqh-container">
-
-        <div class="sqh-section-heading">
-
-            <span class="sqh-section-label">
-                YOUR LEARNING PATH
-            </span>
-
-            <h2 style="color:white;">
-                From Learning to Achievement
-            </h2>
-
-            <p style="color:#BDAAA0;">
-                Follow a simple five-step learning journey.
-            </p>
-
-        </div>
-
-
-        <div class="sqh-journey-track">
-
-
-            <!-- 01 -->
-
-            <div class="sqh-step">
-
-                <div class="sqh-step-circle">
-                    01
-                </div>
-
-                <h3>
-                    📖 Learn
-                </h3>
-
-                <p>
-                    Understand concepts
-                    with theory notes.
-                </p>
-
-            </div>
-
-
-            <!-- 02 -->
-
-            <div class="sqh-step">
-
-                <div class="sqh-step-circle">
-                    02
-                </div>
-
-                <h3>
-                    📝 Practice
-                </h3>
-
-                <p>
-                    Solve practice
-                    questions.
-                </p>
-
-            </div>
-
-
-            <!-- 03 -->
-
-            <div class="sqh-step">
-
-                <div class="sqh-step-circle">
-                    03
-                </div>
-
-                <h3>
-                    ❓ Quiz
-                </h3>
-
-                <p>
-                    Test yourself with
-                    timed quizzes.
-                </p>
-
-            </div>
-
-
-            <!-- 04 -->
-
-            <div class="sqh-step">
-
-                <div class="sqh-step-circle">
-                    04
-                </div>
-
-                <h3>
-                    📊 Analyze
-                </h3>
-
-                <p>
-                    Understand your
-                    performance.
-                </p>
-
-            </div>
-
-
-            <!-- 05 -->
-
-            <div class="sqh-step">
-
-                <div class="sqh-step-circle">
-                    05
-                </div>
-
-                <h3>
-                    🏆 Achieve
-                </h3>
-
-                <p>
-                    Earn certificates
-                    and celebrate success.
-                </p>
-
-            </div>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-
-<!-- ======================================================
-     CTA
-====================================================== -->
-
-<section class="sqh-cta">
-
-    <div class="sqh-container">
-
-        <div class="sqh-cta-box">
-
-            <h2>
-                Ready to Start Learning?
-            </h2>
-
-            <p>
-                Turn your learning time into meaningful progress.
-                Learn concepts, practice questions and test your
-                knowledge with Study Quiz Hub.
-            </p>
-
-            <a href="{{ url_for('explore_technology') }}"
-               class="sqh-cta-btn">
-
-                <i class="bi bi-rocket-takeoff-fill"></i>
-
-                Start Your Learning Journey
-
-            </a>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-
-<!-- ======================================================
-     FUTURE IMPROVEMENTS
-====================================================== -->
-
-<section class="sqh-future">
-
-    <div class="sqh-container">
-
-        <div class="sqh-section-heading">
-
-            <span class="sqh-section-label">
-                ROADMAP
-            </span>
-
-            <h2 style="color:#29201C;">
-                What's Coming Next?
-            </h2>
-
-            <p>
-                Planned improvements for making Study Quiz Hub
-                even more powerful in the future.
-            </p>
-
-        </div>
-
-
-        <div class="sqh-future-grid">
-
-
-            <!-- 1 -->
-
-            <div class="sqh-future-card">
-
-                <div class="sqh-future-icon">
-
-                    <i class="bi bi-code-slash"></i>
-
-                </div>
-
-                <h3>
-                    Coding Practice
-                </h3>
-
-                <p>
-                    Practice coding problems and
-                    improve programming skills.
-                </p>
-
-            </div>
-
-
-            <!-- 2 -->
-
-            <div class="sqh-future-card">
-
-                <div class="sqh-future-icon">
-
-                    <i class="bi bi-envelope-check"></i>
-
-                </div>
-
-                <h3>
-                    Email Verification
-                </h3>
-
-                <p>
-                    Improve account security through
-                    email verification.
-                </p>
-
-            </div>
-
-
-            <!-- 3 -->
-
-            <div class="sqh-future-card">
-
-                <div class="sqh-future-icon">
-
-                    <i class="bi bi-bell"></i>
-
-                </div>
-
-                <h3>
-                    Email Notifications
-                </h3>
-
-                <p>
-                    Receive important learning and
-                    quiz-related notifications.
-                </p>
-
-            </div>
-
-
-            <!-- 4 -->
-
-            <div class="sqh-future-card">
-
-                <div class="sqh-future-icon">
-
-                    <i class="bi bi-person-video2"></i>
-
-                </div>
-
-                <h3>
-                    AI Interview Simulator
-                </h3>
-
-                <p>
-                    Practice technical and HR
-                    interview questions with AI.
-                </p>
-
-            </div>
-
-
-            <!-- 5 -->
-
-            <div class="sqh-future-card">
-
-                <div class="sqh-future-icon">
-
-                    <i class="bi bi-award"></i>
-
-                </div>
-
-                <h3>
-                    Achievements & Badges
-                </h3>
-
-                <p>
-                    Earn achievements by completing
-                    learning milestones.
-                </p>
-
-            </div>
-
-
-            <!-- 6 -->
-
-            <div class="sqh-future-card">
-
-                <div class="sqh-future-icon">
-
-                    <i class="bi bi-translate"></i>
-
-                </div>
-
-                <h3>
-                    Multi-Language Learning
-                </h3>
-
-                <p>
-                    Access learning content in
-                    multiple languages.
-                </p>
-
-            </div>
-
-        </div>
-
-    </div>
-
-</section>
-
+        {% endfor %}
+    {% endif %}
+{% endwith %}
+<br>
+<body style="background-color: #1e1036;">
+
+<!-- ================= Welcome Hero Section ================= -->
+<div class="rainbow-card">
+<div class="py-5">
+<div class="container">
+
+<div class="row align-items-center">
+
+<!-- Left Content -->
+
+<div class="col-lg-6">
+
+<span class="badge bg-primary mb-3">
+✨ Learn • Practice • Achieve
+</span>
+
+<h1 class="display-3 fw-bold">
+Welcome to <br>
+<span class="text-primary">Study Quiz Hub</span> 📚
+</h1>
+
+<h2 class="mt-4 fw-bold">
+Hello Learners! 👋
+</h2>
+
+<p>
+
+Welcome to Study Quiz Hub, a smart and interactive platform where learning
+                meets practice. Solve quizzes, strengthen your concepts, improve your problem-solving
+                skills, and monitor your progress. Our goal is to make education simple,
+                engaging, and accessible for every learner.
+
+</p>
+<div class="hero-buttons">
+
+    <a href="/website_guide" class="hero-btn ai-btn">
+        <i class="bi bi-robot"></i>
+        Get AI Tip
+    </a>
+
+    <a href="Theory" class="hero-btn learn-btn">
+        <i class="bi bi-rocket-takeoff-fill"></i>
+        Start Learning
+    </a>
+
+    <a href="{{ url_for('explore_technology') }}" class="hero-btn quiz-btn">
+        <i class="bi bi-patch-question-fill"></i>
+        Take Quiz
+    </a>
 
 </div>
 
 
-<!-- ======================================================
-     JAVASCRIPT
-====================================================== -->
+<div class="row mt-5">
 
-<script>
+<div class="col-6">
 
-document.addEventListener("DOMContentLoaded", function () {
+<p>📖 Theory Notes</p>
 
+<p>💻 Interview Prep</p>
 
-    /* =====================================================
-       1. SCROLL REVEAL
-    ===================================================== */
+<p>🤖 AI Assistant</p>
 
-    const revealItems =
-        document.querySelectorAll(
-            ".sqh-feature-card," +
-            ".sqh-stat-card," +
-            ".sqh-step," +
-            ".sqh-future-card," +
-            ".sqh-cta-box"
-        );
+</div>
 
+<div class="col-6">
 
-    revealItems.forEach((item,index)=>{
+<p>📝 Practice Quiz</p>
 
-        item.style.opacity="0";
+<p>📊 Performance</p>
 
-        item.style.transform=
-            "translateY(35px)";
+<p>🏆 Certificates</p>
 
-        item.style.transition=
-            "opacity .7s ease, transform .7s ease";
+</div>
 
-        item.dataset.delay=
-            (index % 6) * 80;
+</div>
 
-    });
+</div>
 
 
-    const revealObserver =
-        new IntersectionObserver(
-            function(entries,observer){
 
-                entries.forEach(entry=>{
+<!-- Right Image -->
 
-                    if(!entry.isIntersecting)
-                        return;
+<div class="col-lg-6">
 
-                    const element=
-                        entry.target;
+<img src="{{ url_for('static', filename='images/ChatGPT Image Jul 21, 2026, 11_38_49 PM.png') }}"
+class="img-fluid"
+style="max-width:100%;">
 
-                    setTimeout(()=>{
+</div>
 
-                        element.style.opacity="1";
+</div>
 
-                        element.style.transform=
-                            "translateY(0)";
+</div>
+</div>
+</div>
 
-                    },
-                    Number(
-                        element.dataset.delay || 0
-                    ));
+</section>
+<div class="Statistics-card">
+<div class="container py-1">
 
-                    observer.unobserve(element);
+    <div class="text-center mb-5">
 
-                });
+        <span class="badge bg-primary px-3 py-2">
+            📊 Statistics
+    </span>
 
-            },
-            {
-                threshold:.12
-            }
-        );
+        <h2 class="fw-bold mt-3">
+            Study Quiz Hub in Numbers
+        </h2>
 
+      <p class="badge bg-secondary text-white px-3 py-2">
+    Empowering students with knowledge, practice, and success.
+</p>
+    
 
-    revealItems.forEach(item=>{
-        revealObserver.observe(item);
-    });
+    </div>
 
+    <div class="row g-4">
 
+        <!-- Students -->
+        <div class="col-lg-4 col-md-6">
 
-    /* =====================================================
-       2. ANIMATED STATISTICS
-    ===================================================== */
+            <div class="card stat-card h-100 border-0">
 
-    const counters =
-        document.querySelectorAll(
-            ".sqh-stat-number"
-        );
+                <div class="card-body text-center">
 
+                    <div class="icon-circle bg-primary">
+                        <i class="bi bi-people-fill"></i>
+                    </div>
 
-    function animateCounter(element){
+                    <h2 class="fw-bold mt-4 text-primary">
+                        {{ total_students }}
+                    </h2>
 
-        const targetText =
-            element.textContent.trim();
+                    <h5 class="fw-semibold">
+                        Registered Students
+                    </h5>
 
-        const target =
-            parseInt(
-                targetText.replace(/,/g,""),
-                10
-            );
+                    <p class="text-muted">
+                        Join thousands of learners and start your learning journey.
+                    </p>
 
-        if(isNaN(target))
-            return;
+                    <span class="badge bg-primary-subtle text-danger px-3 py-2">
+                        👨‍🎓{{ total_students }} + Students
+                    </span>
 
-        let current=0;
+                </div>
 
-        const duration=1600;
+            </div>
 
-        const startTime=
-            performance.now();
+        </div>
 
+        <!-- Subjects -->
+        <div class="col-lg-4 col-md-6">
 
-        function updateCounter(currentTime){
+            <div class="card stat-card h-100 border-0">
 
-            const progress=
-                Math.min(
-                    (currentTime-startTime) /
-                    duration,
-                    1
-                );
+                <div class="card-body text-center">
 
-            const eased=
-                1-Math.pow(
-                    1-progress,
-                    3
-                );
+                    <div class="icon-circle bg-success">
+                        <i class="bi bi-book-half"></i>
+                    </div>
 
-            current=
-                Math.floor(
-                    target*eased
-                );
+                    <h2 class="fw-bold mt-4 text-success">
+                        {{ total_subjects }}
+                    </h2>
 
-            element.textContent=
-                current.toLocaleString();
+                    <h5 class="fw-semibold">
+                        Available Subjects
+                    </h5>
 
+                    <p class="text-muted">
+                        Learn programming, AI, web development and more.
+                    </p>
 
-            if(progress<1){
+                    <span class="badge bg-success-subtle text-success px-3 py-2">
+                        📚 {{ total_subjects }} + Subjects
+                    </span>
 
-                requestAnimationFrame(
-                    updateCounter
-                );
+                </div>
 
-            }else{
+            </div>
 
-                element.textContent=
-                    target.toLocaleString();
+        </div>
 
-            }
+        <!-- Questions -->
+        <div class="col-lg-4 col-md-6">
 
-        }
+            <div class="card stat-card h-100 border-0">
 
+                <div class="card-body text-center">
 
-        requestAnimationFrame(
-            updateCounter
-        );
+                    <div class="icon-circle bg-danger">
+                        <i class="bi bi-patch-question-fill"></i>
+                    </div>
 
-    }
+                    <h2 class="fw-bold mt-4 text-danger">
+                        1,000 +
+                    </h2>
 
+                    <h5 class="fw-semibold">
+                        Quiz Questions
+                    </h5>
 
-    const counterObserver =
-        new IntersectionObserver(
-            function(entries,observer){
+                    <p class="text-muted">
+                        Practice with thousands of MCQs and improve your skills.
+                    </p>
 
-                entries.forEach(entry=>{
+                    <span class="badge bg-danger-subtle text-danger px-3 py-2">
+                        ❓ 10000 + Questions
+                    </span>
 
-                    if(!entry.isIntersecting)
-                        return;
+                </div>
 
-                    animateCounter(
-                        entry.target
-                    );
+            </div>
 
-                    observer.unobserve(
-                        entry.target
-                    );
+        </div>
 
-                });
+    </div>
 
-            },
-            {
-                threshold:.6
-            }
-        );
+</div>
+</div>
 
 
-    counters.forEach(counter=>{
-        counterObserver.observe(counter);
-    });
+<section class="container py-5">
 
+<div class="text-center mb-5">
+<h2 class="fw-bold display-5 text-white">
+    🚀 Learning Journey
+</h2>
 
+<span class="badge bg-secondary px-3 py-2">
+            Your path from learning to success.
+        </span>
 
-    /* =====================================================
-       3. 3D CARD TILT
-    ===================================================== */
 
-    const tiltCards =
-        document.querySelectorAll(
-            ".sqh-feature-card," +
-            ".sqh-stat-card," +
-            ".sqh-future-card"
-        );
+</div>
 
+<div class="row text-center g-4">
 
-    tiltCards.forEach(card=>{
+<div class="col-lg">
+<div class="journey-card">
+<div class="circle bg-primary">1</div>
+<h5>📖 Learn</h5>
+<p>Read easy theory notes.</p>
+</div>
+</div>
 
-        card.addEventListener(
-            "mousemove",
-            function(event){
+<div class="col-lg">
+<div class="journey-card">
+<div class="circle bg-success">2</div>
+<h5>📝 Practice</h5>
+<p>Solve practice MCQs.</p>
+</div>
+</div>
 
-                const rect=
-                    card.getBoundingClientRect();
+<div class="col-lg">
+<div class="journey-card">
+<div class="circle bg-warning">3</div>
+<h5>❓ Quiz</h5>
+<p>Take a timed quiz.</p>
+</div>
+</div>
 
-                const x=
-                    event.clientX -
-                    rect.left;
-
-                const y=
-                    event.clientY -
-                    rect.top;
-
-                const centerX=
-                    rect.width/2;
-
-                const centerY=
-                    rect.height/2;
-
-                const rotateX=
-                    ((y-centerY) /
-                    centerY)*-4;
-
-                const rotateY=
-                    ((x-centerX) /
-                    centerX)*4;
-
-
-                card.style.transform=
-                    `perspective(900px)
-                     rotateX(${rotateX}deg)
-                     rotateY(${rotateY}deg)
-                     translateY(-8px)`;
-
-            }
-        );
-
-
-        card.addEventListener(
-            "mouseleave",
-            function(){
-
-                card.style.transform="";
-
-            }
-        );
-
-    });
-
-
-
-    /* =====================================================
-       4. HERO MOUSE GLOW
-    ===================================================== */
-
-    const hero =
-        document.querySelector(
-            ".sqh-hero"
-        );
-
-
-    if(hero){
-
-        hero.addEventListener(
-            "mousemove",
-            function(event){
-
-                const rect=
-                    hero.getBoundingClientRect();
-
-                const x=
-                    event.clientX -
-                    rect.left;
-
-                const y=
-                    event.clientY -
-                    rect.top;
-
-
-                hero.style.background=
-                    `
-                    radial-gradient(
-                        circle at
-                        ${x}px ${y}px,
-                        rgba(231,111,81,.18),
-                        transparent 25%
-                    ),
-
-                    radial-gradient(
-                        circle at 15% 20%,
-                        rgba(194,65,12,.28),
-                        transparent 30%
-                    ),
-
-                    radial-gradient(
-                        circle at 85% 25%,
-                        rgba(244,162,97,.22),
-                        transparent 28%
-                    ),
-
-                    linear-gradient(
-                        135deg,
-                        #2B1712,
-                        #43251C 50%,
-                        #24130F
-                    )
-                    `;
-
-            }
-        );
-
-    }
-
-
-
-    /* =====================================================
-       5. HERO IMAGE PARALLAX
-    ===================================================== */
-
-    const heroImage =
-        document.querySelector(
-            ".sqh-main-image"
-        );
-
-
-    if(hero && heroImage){
-
-        hero.addEventListener(
-            "mousemove",
-            function(event){
-
-                const rect=
-                    hero.getBoundingClientRect();
-
-                const x=
-                    (event.clientX-
-                    rect.left)/
-                    rect.width;
-
-                const y=
-                    (event.clientY-
-                    rect.top)/
-                    rect.height;
-
-
-                const moveX=
-                    (x-.5)*14;
-
-                const moveY=
-                    (y-.5)*10;
-
-
-                heroImage.style.transform=
-                    `
-                    translate(
-                        ${moveX}px,
-                        ${moveY}px
-                    )
-                    `;
-
-            }
-        );
-
-
-        hero.addEventListener(
-            "mouseleave",
-            function(){
-
-                heroImage.style.transform="";
-
-            }
-        );
-
-    }
-
-
-
-    /* =====================================================
-       6. FLOATING CARDS PARALLAX
-    ===================================================== */
-
-    const floatingCards =
-        document.querySelectorAll(
-            ".sqh-float-card"
-        );
-
-
-    if(hero){
-
-        hero.addEventListener(
-            "mousemove",
-            function(event){
-
-                const rect=
-                    hero.getBoundingClientRect();
-
-                const x=
-                    (event.clientX-
-                    rect.left)/
-                    rect.width;
-
-                const y=
-                    (event.clientY-
-                    rect.top)/
-                    rect.height;
-
-
-                floatingCards.forEach(
-                    (card,index)=>{
-
-                        const strength=
-                            (index+1)*5;
-
-                        const moveX=
-                            (x-.5)*strength;
-
-                        const moveY=
-                            (y-.5)*strength;
-
-
-                        card.style.marginLeft=
-                            `${moveX}px`;
-
-                        card.style.marginTop=
-                            `${moveY}px`;
-
-                    }
-                );
-
-            }
-        );
-
-
-        hero.addEventListener(
-            "mouseleave",
-            function(){
-
-                floatingCards.forEach(card=>{
-
-                    card.style.marginLeft="";
-
-                    card.style.marginTop="";
-
-                });
-
-            }
-        );
-
-    }
-
-
-
-    /* =====================================================
-       7. BUTTON RIPPLE
-    ===================================================== */
-
-    const buttons =
-        document.querySelectorAll(
-            ".sqh-btn,.sqh-cta-btn"
-        );
-
-
-    buttons.forEach(button=>{
-
-        button.addEventListener(
-            "click",
-            function(event){
-
-                const ripple=
-                    document.createElement(
-                        "span"
-                    );
-
-
-                const rect=
-                    button.getBoundingClientRect();
-
-                const size=
-                    Math.max(
-                        rect.width,
-                        rect.height
-                    );
-
-                const x=
-                    event.clientX-
-                    rect.left-
-                    size/2;
-
-                const y=
-                    event.clientY-
-                    rect.top-
-                    size/2;
-
-
-                ripple.style.position=
-                    "absolute";
-
-                ripple.style.width=
-                    `${size}px`;
-
-                ripple.style.height=
-                    `${size}px`;
-
-                ripple.style.left=
-                    `${x}px`;
-
-                ripple.style.top=
-                    `${y}px`;
-
-                ripple.style.borderRadius=
-                    "50%";
-
-                ripple.style.background=
-                    "rgba(255,255,255,.25)";
-
-                ripple.style.transform=
-                    "scale(0)";
-
-                ripple.style.pointerEvents=
-                    "none";
-
-                ripple.style.animation=
-                    "sqhRipple .6s ease-out";
-
-
-                button.appendChild(
-                    ripple
-                );
-
-
-                setTimeout(()=>{
-                    ripple.remove();
-                },600);
-
-            }
-        );
-
-    });
-
-
-
-    /* =====================================================
-       8. JOURNEY ACTIVE EFFECT
-    ===================================================== */
-
-    const steps =
-        document.querySelectorAll(
-            ".sqh-step"
-        );
-
-
-    const stepObserver =
-        new IntersectionObserver(
-            function(entries){
-
-                entries.forEach(entry=>{
-
-                    if(entry.isIntersecting){
-
-                        entry.target.classList.add(
-                            "sqh-step-active"
-                        );
-
-                    }
-
-                });
-
-            },
-            {
-                threshold:.5
-            }
-        );
-
-
-    steps.forEach(step=>{
-        stepObserver.observe(step);
-    });
-
-
-
-    /* =====================================================
-       9. FEATURE ICON ANIMATION
-    ===================================================== */
-
-    const featureCards =
-        document.querySelectorAll(
-            ".sqh-feature-card"
-        );
-
-
-    featureCards.forEach(card=>{
-
-        const icon=
-            card.querySelector(
-                ".sqh-feature-icon"
-            );
-
-
-        card.addEventListener(
-            "mouseenter",
-            function(){
-
-                if(icon){
-
-                    icon.style.transform=
-                        "rotate(-6deg) scale(1.1)";
-
-                }
-
-            }
-        );
-
-
-        card.addEventListener(
-            "mouseleave",
-            function(){
-
-                if(icon){
-
-                    icon.style.transform="";
-
-                }
-
-            }
-        );
-
-    });
-
-
-
-    /* =====================================================
-       10. CTA MOUSE EFFECT
-    ===================================================== */
-
-    const cta =
-        document.querySelector(
-            ".sqh-cta-box"
-        );
-
-
-    if(cta){
-
-        cta.addEventListener(
-            "mousemove",
-            function(event){
-
-                const rect=
-                    cta.getBoundingClientRect();
-
-                const x=
-                    event.clientX-
-                    rect.left;
-
-                const y=
-                    event.clientY-
-                    rect.top;
-
-
-                cta.style.background=
-                    `
-                    radial-gradient(
-                        circle at
-                        ${x}px ${y}px,
-                        rgba(255,255,255,.12),
-                        transparent 35%
-                    ),
-
-                    linear-gradient(
-                        135deg,
-                        #7C2D12,
-                        #C2410C,
-                        #9A3412
-                    )
-                    `;
-
-            }
-        );
-
-    }
-
-
-
-    /* =====================================================
-       11. PAGE LOADING
-    ===================================================== */
-
-    document.body.classList.add(
-        "sqh-page-loaded"
-    );
-
-
-
-    /* =====================================================
-       12. JOURNEY PROGRESS
-    ===================================================== */
-
-    let currentStep=0;
-
-
-    function highlightJourney(){
-
-        if(!steps.length)
-            return;
-
-
-        steps.forEach(
-            (step,index)=>{
-
-                const circle=
-                    step.querySelector(
-                        ".sqh-step-circle"
-                    );
-
-
-                if(index<=currentStep){
-
-                    circle.style.boxShadow=
-                        `
-                        0 0 0 6px
-                        rgba(194,65,12,.12),
-
-                        0 12px 35px
-                        rgba(194,65,12,.35)
-                        `;
-
-                }
-
-            }
-        );
-
-    }
-
-
-    if(steps.length){
-
-        setInterval(
-            function(){
-
-                currentStep=
-                    (currentStep+1)
-                    %steps.length;
-
-                highlightJourney();
-
-            },
-            1800
-        );
-
-    }
-
-
-    highlightJourney();
-
-});
-
-
-/* =========================================================
-   RIPPLE + PAGE ANIMATIONS
-========================================================= */
-
-const rippleStyle=
-document.createElement("style");
-
-rippleStyle.innerHTML=`
-
-@keyframes sqhRipple{
-
-    0%{
-        transform:scale(0);
-        opacity:1;
-    }
-
-    100%{
-        transform:scale(2);
-        opacity:0;
-    }
-
-}
-
-
-.sqh-home{
-
-    animation:
-        sqhPageIn .8s ease;
-}
-
-
-@keyframes sqhPageIn{
-
-    from{
-        opacity:0;
-        transform:translateY(8px);
-    }
-
-    to{
-        opacity:1;
-        transform:translateY(0);
-    }
-
-}
-
-
-.sqh-step-active
-.sqh-step-circle{
-
-    animation:
-        sqhStepPulse 1.5s ease;
-}
-
-
-@keyframes sqhStepPulse{
-
-    0%{
-        box-shadow:
-            0 0 0 0
-            rgba(194,65,12,.5);
-    }
-
-    70%{
-        box-shadow:
-            0 0 0 14px
-            rgba(194,65,12,0);
-    }
-
-    100%{
-        box-shadow:
-            0 0 0 0
-            rgba(194,65,12,0);
-    }
-
-}
-
-`;
-
-document.head.appendChild(
-    rippleStyle
-);
-
-</script>
+<div class="col-lg">
+<div class="journey-card">
+<div class="circle bg-danger">4</div>
+<h5>📈 Analyze</h5>
+<p>View your performance.</p>
+</div>
+</div>
+
+<div class="col-lg">
+<div class="journey-card">
+<div class="circle bg-dark">5</div>
+<h5>🏆 Certificate</h5>
+<p>Earn your certificate.</p>
+</div>
+</div>
+
+</div>
+
+</section>
+```html
+<!-- Future Improvements -->
+<section class="future-section">
+
+    <div class="future-container">
+
+        <div class="future-heading">
+            <span class="future-badge">COMING SOON</span>
+            <h2>Future Improvements</h2>
+            <p>
+                New features planned to make Study Quiz Hub smarter,
+                more secure, and more engaging.
+            </p>
+        </div>
+
+        <div class="future-grid">
+
+            <!-- Coding Practice -->
+            <div class="future-card">
+                <div class="future-card-icon coding-icon">
+                    <i class="fas fa-code"></i>
+                </div>
+
+                <div class="future-card-content">
+                    <h3>Coding Practice</h3>
+                    <p>
+                        Solve coding problems and improve your
+                        programming and problem-solving skills.
+                    </p>
+                </div>
+
+                <span class="future-arrow">
+                    <i class="fas fa-arrow-right"></i>
+                </span>
+            </div>
+
+
+            <!-- Email Verification -->
+            <div class="future-card">
+                <div class="future-card-icon email-icon">
+                    <i class="fas fa-envelope-circle-check"></i>
+                </div>
+
+                <div class="future-card-content">
+                    <h3>Email Verification</h3>
+                    <p>
+                        Verify student accounts through email
+                        for better security and account protection.
+                    </p>
+                </div>
+
+                <span class="future-arrow">
+                    <i class="fas fa-arrow-right"></i>
+                </span>
+            </div>
+
+
+            <!-- Email Notifications -->
+            <div class="future-card">
+                <div class="future-card-icon notification-icon">
+                    <i class="fas fa-bell"></i>
+                </div>
+
+                <div class="future-card-content">
+                    <h3>Email Notifications</h3>
+                    <p>
+                        Get important updates about quizzes,
+                        results, reminders, and learning activities.
+                    </p>
+                </div>
+
+                <span class="future-arrow">
+                    <i class="fas fa-arrow-right"></i>
+                </span>
+            </div>
+
+
+            <!-- AI Interview Simulator -->
+            <div class="future-card">
+                <div class="future-card-icon interview-icon">
+                    <i class="fas fa-user-tie"></i>
+                </div>
+
+                <div class="future-card-content">
+                    <h3>AI Interview Simulator</h3>
+                    <p>
+                        Practice technical and HR interviews
+                        with an AI-powered virtual interviewer.
+                    </p>
+                </div>
+
+                <span class="future-arrow">
+                    <i class="fas fa-arrow-right"></i>
+                </span>
+            </div>
+
+
+            <!-- Achievement & Badges -->
+            <div class="future-card">
+                <div class="future-card-icon badge-icon">
+                    <i class="fas fa-medal"></i>
+                </div>
+
+                <div class="future-card-content">
+                    <h3>Achievements & Badges</h3>
+                    <p>
+                        Earn badges and achievements by completing
+                        quizzes, goals, and learning milestones.
+                    </p>
+                </div>
+
+                <span class="future-arrow">
+                    <i class="fas fa-arrow-right"></i>
+                </span>
+            </div>
+
+
+            <!-- Multi Language -->
+            <div class="future-card">
+                <div class="future-card-icon language-icon">
+                    <i class="fas fa-language"></i>
+                </div>
+
+                <div class="future-card-content">
+                    <h3>Multi-Language Learning</h3>
+                    <p>
+                        Access learning content in multiple languages
+                        for a more inclusive learning experience.
+                    </p>
+                </div>
+
+                <span class="future-arrow">
+                    <i class="fas fa-arrow-right"></i>
+                </span>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+</body>
 
 {% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

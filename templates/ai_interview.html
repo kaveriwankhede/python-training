@@ -1,0 +1,3669 @@
+```html
+{% extends "base.html" %}
+
+{% block title %}AI Interview Arena | Study Quiz Hub{% endblock %}
+
+{% block content %}
+
+<style>
+
+/* =========================================================
+   AI INTERVIEW ARENA — PREMIUM UI
+========================================================= */
+
+.ai-arena {
+    min-height: calc(100vh - 70px);
+    padding: 30px 18px 55px;
+    position: relative;
+    overflow: hidden;
+    background:
+        radial-gradient(circle at 10% 10%, rgba(99,102,241,.18), transparent 27%),
+        radial-gradient(circle at 90% 15%, rgba(6,182,212,.14), transparent 28%),
+        radial-gradient(circle at 50% 100%, rgba(139,92,246,.13), transparent 30%),
+        #060a14;
+    color: #fff;
+}
+
+.ai-arena::before {
+    content: "";
+    position: absolute;
+    width: 600px;
+    height: 600px;
+    top: -330px;
+    right: -240px;
+    border: 1px solid rgba(99,102,241,.12);
+    border-radius: 50%;
+    box-shadow: 0 0 120px rgba(99,102,241,.06);
+}
+
+.ai-arena::after {
+    content: "";
+    position: absolute;
+    width: 450px;
+    height: 450px;
+    bottom: -300px;
+    left: -220px;
+    border: 1px solid rgba(6,182,212,.10);
+    border-radius: 50%;
+}
+
+.arena-container {
+    max-width: 1380px;
+    margin: auto;
+    position: relative;
+    z-index: 2;
+}
+
+
+/* =========================================================
+   SETUP
+========================================================= */
+
+.setup-screen {
+    min-height: 84vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.setup-panel {
+    width: 100%;
+    max-width: 1180px;
+    display: grid;
+    grid-template-columns: 38% 62%;
+    overflow: hidden;
+    border: 1px solid rgba(255,255,255,.09);
+    border-radius: 32px;
+    background: rgba(10,16,30,.86);
+    backdrop-filter: blur(25px);
+    box-shadow:
+        0 35px 100px rgba(0,0,0,.48),
+        inset 0 1px 0 rgba(255,255,255,.05);
+}
+
+
+/* =========================================================
+   INTRO
+========================================================= */
+
+.setup-intro {
+    padding: 50px 38px;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background:
+        radial-gradient(circle at 50% 25%, rgba(99,102,241,.22), transparent 40%),
+        linear-gradient(145deg,#121a38,#080e1d);
+}
+
+.setup-intro::before {
+    content: "";
+    position: absolute;
+    width: 350px;
+    height: 350px;
+    border: 1px solid rgba(99,102,241,.12);
+    border-radius: 50%;
+    top: 18%;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.ai-orb {
+    width: 145px;
+    height: 145px;
+    margin: 0 auto 30px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.orb-ring {
+    position: absolute;
+    inset: 0;
+    border: 1px solid rgba(129,140,248,.5);
+    border-radius: 50%;
+    animation: orbRotate 8s linear infinite;
+}
+
+.orb-ring::before {
+    content: "";
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    top: 9px;
+    left: 50%;
+    border-radius: 50%;
+    background: #818cf8;
+    box-shadow: 0 0 20px #818cf8;
+}
+
+.orb-ring.two {
+    inset: 15px;
+    border-color: rgba(6,182,212,.4);
+    animation-direction: reverse;
+    animation-duration: 5s;
+}
+
+.orb-core {
+    width: 88px;
+    height: 88px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 28px;
+    font-size: 42px;
+    background:
+        radial-gradient(circle at 35% 30%,#818cf8,#4f46e5 50%,#0e7490);
+    box-shadow:
+        0 0 50px rgba(99,102,241,.4),
+        inset 0 0 25px rgba(255,255,255,.12);
+    animation: coreFloat 3s ease-in-out infinite;
+}
+
+@keyframes orbRotate {
+    to { transform: rotate(360deg); }
+}
+
+@keyframes coreFloat {
+    50% { transform: translateY(-7px); }
+}
+
+.setup-intro h1 {
+    margin: 0;
+    text-align: center;
+    font-size: 40px;
+    line-height: 1.05;
+    font-weight: 950;
+    letter-spacing: -1.7px;
+}
+
+.setup-intro h1 span {
+    color: #818cf8;
+}
+
+.setup-intro p {
+    max-width: 380px;
+    margin: 17px auto 0;
+    text-align: center;
+    color: #8995ae;
+    font-size: 13px;
+    line-height: 1.8;
+}
+
+.feature-row {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 28px;
+}
+
+.feature {
+    padding: 8px 12px;
+    border: 1px solid rgba(255,255,255,.08);
+    border-radius: 30px;
+    background: rgba(255,255,255,.035);
+    color: #aeb8ca;
+    font-size: 10px;
+    font-weight: 800;
+}
+
+
+/* =========================================================
+   FORM
+========================================================= */
+
+.setup-form {
+    padding: 36px 40px 40px;
+    background: rgba(7,12,24,.72);
+}
+
+.form-title {
+    margin-bottom: 25px;
+}
+
+.form-title small {
+    color: #818cf8;
+    font-size: 10px;
+    font-weight: 900;
+    letter-spacing: 1.6px;
+}
+
+.form-title h2 {
+    margin: 7px 0 4px;
+    font-size: 25px;
+    font-weight: 950;
+}
+
+.form-title p {
+    margin: 0;
+    color: #718098;
+    font-size: 11px;
+}
+
+
+/* =========================================================
+   FIELD
+========================================================= */
+
+.field {
+    margin-bottom: 20px;
+}
+
+.field-label {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 9px;
+}
+
+.field-label span:first-child {
+    color: #aeb8ca;
+    font-size: 10px;
+    font-weight: 900;
+    letter-spacing: .6px;
+}
+
+.field-label span:last-child {
+    color: #4f5b71;
+    font-size: 8px;
+}
+
+
+/* =========================================================
+   SELECTABLE CARDS
+========================================================= */
+
+.choice-grid {
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 9px;
+}
+
+.choice-grid.mode-grid {
+    grid-template-columns: repeat(3,1fr);
+}
+
+.choice-grid.role-grid {
+    grid-template-columns: repeat(3,1fr);
+}
+
+.choice-card {
+    position: relative;
+}
+
+.choice-card input {
+    display: none;
+}
+
+.choice-card label {
+    min-height: 74px;
+    padding: 12px 9px;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    border-radius: 15px;
+    border: 1px solid rgba(255,255,255,.075);
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255,255,255,.045),
+            rgba(255,255,255,.018)
+        );
+    color: #7d899f;
+    cursor: pointer;
+    transition: .22s ease;
+}
+
+.choice-card label:hover {
+    transform: translateY(-2px);
+    border-color: rgba(129,140,248,.35);
+    background: rgba(99,102,241,.07);
+    color: #c7d2fe;
+}
+
+.choice-icon {
+    width: 34px;
+    height: 34px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 6px;
+    border-radius: 10px;
+    background: rgba(255,255,255,.05);
+    font-size: 18px;
+}
+
+.choice-name {
+    font-size: 9px;
+    line-height: 1.25;
+    font-weight: 900;
+}
+
+.choice-description {
+    margin-top: 3px;
+    color: #566178;
+    font-size: 7px;
+}
+
+.choice-check {
+    position: absolute;
+    top: 7px;
+    right: 7px;
+    width: 17px;
+    height: 17px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: #6366f1;
+    color: white;
+    font-size: 9px;
+    opacity: 0;
+    transform: scale(.5);
+    transition: .2s;
+}
+
+.choice-card input:checked + label {
+    color: #dbeafe;
+    border-color: #6366f1;
+    background:
+        linear-gradient(
+            145deg,
+            rgba(99,102,241,.17),
+            rgba(6,182,212,.07)
+        );
+    box-shadow:
+        0 0 0 1px rgba(99,102,241,.12),
+        0 10px 25px rgba(79,70,229,.12);
+}
+
+.choice-card input:checked + label .choice-icon {
+    background: rgba(99,102,241,.18);
+}
+
+.choice-card input:checked ~ .choice-check {
+    opacity: 1;
+    transform: scale(1);
+}
+
+
+/* =========================================================
+   SUBJECT CARDS
+========================================================= */
+
+.subject-grid {
+    grid-template-columns: repeat(4,1fr);
+}
+
+.subject-card label {
+    min-height: 82px;
+}
+
+
+/* =========================================================
+   ROLE CARDS
+========================================================= */
+
+.role-grid {
+    grid-template-columns: repeat(4,1fr) !important;
+}
+
+.role-card label {
+    min-height: 68px;
+}
+
+
+/* =========================================================
+   HIDDEN REAL SELECTS
+========================================================= */
+
+.hidden-select {
+    display: none;
+}
+
+
+/* =========================================================
+   DIFFICULTY
+========================================================= */
+
+.levels {
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 9px;
+}
+
+.level {
+    position: relative;
+}
+
+.level input {
+    display: none;
+}
+
+.level label {
+    margin: 0;
+    padding: 13px 7px;
+    display: block;
+    text-align: center;
+    border-radius: 13px;
+    border: 1px solid rgba(255,255,255,.075);
+    background: #101729;
+    color: #748097;
+    cursor: pointer;
+    font-size: 10px;
+    font-weight: 900;
+    transition: .2s;
+}
+
+.level label:hover {
+    border-color: rgba(129,140,248,.35);
+}
+
+.level input:checked + label {
+    color: #dbeafe;
+    border-color: #6366f1;
+    background: rgba(99,102,241,.13);
+    box-shadow: 0 0 20px rgba(99,102,241,.08);
+}
+
+
+/* =========================================================
+   PERSONALITY
+========================================================= */
+
+.personality {
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    gap: 9px;
+}
+
+.personality-item {
+    position: relative;
+}
+
+.personality-item input {
+    display: none;
+}
+
+.personality-item label {
+    margin: 0;
+    padding: 12px 5px;
+    min-height: 65px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    border-radius: 13px;
+    border: 1px solid rgba(255,255,255,.075);
+    background: #101729;
+    color: #77839b;
+    cursor: pointer;
+    font-size: 9px;
+    font-weight: 900;
+    transition: .2s;
+}
+
+.personality-item label div {
+    font-size: 20px;
+    margin-bottom: 4px;
+}
+
+.personality-item label:hover {
+    border-color: rgba(6,182,212,.4);
+}
+
+.personality-item input:checked + label {
+    color: #dbeafe;
+    border-color: #06b6d4;
+    background: rgba(6,182,212,.09);
+    box-shadow: 0 0 22px rgba(6,182,212,.07);
+}
+
+
+/* =========================================================
+   LAUNCH
+========================================================= */
+
+.launch-btn {
+    width: 100%;
+    margin-top: 5px;
+    padding: 16px;
+    border: 0;
+    border-radius: 15px;
+    cursor: pointer;
+    color: white;
+    font-size: 12px;
+    font-weight: 950;
+    letter-spacing: .3px;
+    background:
+        linear-gradient(
+            100deg,
+            #4f46e5,
+            #6366f1,
+            #0891b2
+        );
+    box-shadow:
+        0 13px 35px rgba(79,70,229,.25);
+    transition: .25s;
+}
+
+.launch-btn:hover {
+    transform: translateY(-2px);
+    box-shadow:
+        0 18px 42px rgba(79,70,229,.35);
+}
+
+.form-note {
+    margin-top: 11px;
+    text-align: center;
+    color: #4f5b71;
+    font-size: 8px;
+}
+
+
+/* =========================================================
+   INTERVIEW ROOM
+========================================================= */
+
+.interview-room {
+    display: none;
+}
+
+.room-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px 20px;
+    border: 1px solid rgba(255,255,255,.08);
+    border-radius: 18px;
+    background: rgba(12,18,32,.76);
+    backdrop-filter: blur(18px);
+}
+
+.room-brand {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+}
+
+.brand-orb {
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg,#4f46e5,#0891b2);
+    font-size: 20px;
+}
+
+.brand-text strong {
+    display: block;
+    font-size: 12px;
+}
+
+.brand-text span {
+    color: #68748c;
+    font-size: 9px;
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.live-badge {
+    padding: 7px 10px;
+    border-radius: 20px;
+    background: rgba(16,185,129,.08);
+    border: 1px solid rgba(16,185,129,.18);
+    color: #34d399;
+    font-size: 9px;
+    font-weight: 900;
+}
+
+.timer-box {
+    padding: 7px 11px;
+    border-radius: 10px;
+    background: rgba(255,255,255,.045);
+    color: #cbd5e1;
+    font-size: 11px;
+    font-weight: 900;
+}
+
+
+/* =========================================================
+   MAIN GRID
+========================================================= */
+
+.arena-grid {
+    display: grid;
+    grid-template-columns: 250px 1fr 230px;
+    gap: 14px;
+    margin-top: 14px;
+}
+
+.profile-panel,
+.feedback-panel,
+.question-panel {
+    border: 1px solid rgba(255,255,255,.08);
+    background: rgba(12,18,32,.74);
+    backdrop-filter: blur(18px);
+    border-radius: 20px;
+}
+
+.profile-panel {
+    padding: 25px 17px;
+    text-align: center;
+}
+
+.profile-orb {
+    width: 120px;
+    height: 120px;
+    margin: 12px auto 18px;
+    padding: 7px;
+    border-radius: 50%;
+    background: conic-gradient(#6366f1,#06b6d4,#6366f1);
+}
+
+.profile-orb-inner {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: #111827;
+    font-size: 48px;
+}
+
+.profile-panel h2 {
+    margin: 0;
+    font-size: 19px;
+    font-weight: 900;
+}
+
+.profile-role {
+    color: #718098;
+    font-size: 10px;
+    margin-top: 4px;
+}
+
+.profile-line {
+    height: 1px;
+    margin: 22px 0;
+    background: rgba(255,255,255,.06);
+}
+
+.profile-detail {
+    text-align: left;
+    margin-bottom: 13px;
+}
+
+.profile-detail span {
+    display: block;
+    color: #59667d;
+    font-size: 8px;
+    text-transform: uppercase;
+    letter-spacing: .8px;
+}
+
+.profile-detail strong {
+    display: block;
+    margin-top: 4px;
+    color: #bfc8d8;
+    font-size: 10px;
+}
+
+
+/* =========================================================
+   QUESTION
+========================================================= */
+
+.question-panel {
+    min-height: 680px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.question-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 17px 20px;
+    border-bottom: 1px solid rgba(255,255,255,.06);
+}
+
+.question-meta {
+    display: flex;
+    gap: 7px;
+}
+
+.meta {
+    padding: 6px 9px;
+    border-radius: 20px;
+    background: rgba(99,102,241,.09);
+    color: #9da7ff;
+    font-size: 8px;
+    font-weight: 900;
+}
+
+.question-number {
+    color: #65718a;
+    font-size: 9px;
+    font-weight: 800;
+}
+
+.question-area {
+    padding: 35px 32px 15px;
+}
+
+.question-label {
+    color: #667085;
+    font-size: 9px;
+    font-weight: 900;
+    letter-spacing: 1.5px;
+}
+
+.question-text {
+    margin-top: 13px;
+    color: #f1f5f9;
+    font-size: clamp(21px,2.4vw,31px);
+    line-height: 1.3;
+    font-weight: 900;
+    letter-spacing: -.6px;
+}
+
+.conversation {
+    flex: 1;
+    min-height: 270px;
+    max-height: 330px;
+    overflow-y: auto;
+    padding: 5px 32px 15px;
+}
+
+.message {
+    display: flex;
+    gap: 9px;
+    margin-bottom: 16px;
+}
+
+.message.user {
+    justify-content: flex-end;
+}
+
+.message-avatar {
+    width: 30px;
+    height: 30px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 9px;
+    background: rgba(99,102,241,.12);
+    font-size: 13px;
+}
+
+.user-avatar {
+    background: rgba(6,182,212,.12);
+}
+
+.bubble {
+    max-width: 70%;
+    padding: 10px 13px;
+    border-radius: 13px;
+    font-size: 10px;
+    line-height: 1.65;
+    white-space: pre-wrap;
+}
+
+.ai-bubble {
+    background: rgba(255,255,255,.045);
+    color: #aeb8ca;
+    border-top-left-radius: 3px;
+}
+
+.user-bubble {
+    background: linear-gradient(135deg,#4f46e5,#6366f1);
+    color: white;
+    border-top-right-radius: 3px;
+}
+
+
+/* =========================================================
+   VOICE
+========================================================= */
+
+.voice-zone {
+    padding: 18px 25px 22px;
+    border-top: 1px solid rgba(255,255,255,.06);
+    text-align: center;
+    background: rgba(5,9,18,.35);
+}
+
+.voice-status {
+    height: 17px;
+    color: #647189;
+    font-size: 9px;
+    font-weight: 800;
+}
+
+.voice-status.listening {
+    color: #f87171;
+}
+
+.voice-status.speaking {
+    color: #818cf8;
+}
+
+.mic-area {
+    width: 92px;
+    height: 92px;
+    margin: 9px auto;
+    position: relative;
+}
+
+.mic-glow {
+    position: absolute;
+    inset: -8px;
+    border: 1px solid rgba(99,102,241,.18);
+    border-radius: 50%;
+}
+
+.mic-button {
+    width: 92px;
+    height: 92px;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    color: white;
+    font-size: 30px;
+    background: linear-gradient(145deg,#4f46e5,#0891b2);
+    box-shadow:
+        0 0 35px rgba(79,70,229,.22),
+        inset 0 0 20px rgba(255,255,255,.08);
+    transition: .25s;
+}
+
+.mic-button:hover:not(:disabled) {
+    transform: scale(1.05);
+}
+
+.mic-button:disabled {
+    opacity: .4;
+    cursor: not-allowed;
+}
+
+.mic-button.listening {
+    background: #ef4444;
+    animation: micBeat 1.1s infinite;
+}
+
+@keyframes micBeat {
+    50% {
+        box-shadow:
+            0 0 0 20px rgba(239,68,68,.03),
+            0 0 40px rgba(239,68,68,.25);
+    }
+}
+
+.voice-text {
+    margin-top: 5px;
+    color: #4f5b71;
+    font-size: 8px;
+}
+
+.action-row {
+    display: flex;
+    justify-content: center;
+    gap: 7px;
+    margin-top: 11px;
+}
+
+.action-btn {
+    padding: 7px 11px;
+    border-radius: 9px;
+    border: 1px solid rgba(255,255,255,.07);
+    background: rgba(255,255,255,.035);
+    color: #7f8ba0;
+    cursor: pointer;
+    font-size: 8px;
+    font-weight: 800;
+}
+
+.action-btn:hover {
+    color: #cbd5e1;
+    background: rgba(255,255,255,.06);
+}
+
+.action-btn.end {
+    color: #f87171;
+}
+
+
+/* =========================================================
+   FEEDBACK
+========================================================= */
+
+.feedback-panel {
+    padding: 20px 16px;
+}
+
+.panel-title {
+    color: #cbd5e1;
+    font-size: 10px;
+    font-weight: 900;
+}
+
+.panel-sub {
+    margin-top: 3px;
+    color: #59667d;
+    font-size: 8px;
+}
+
+.ai-analysis {
+    margin-top: 20px;
+}
+
+.analysis-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(255,255,255,.05);
+}
+
+.analysis-item span {
+    color: #758198;
+    font-size: 9px;
+}
+
+.analysis-item strong {
+    color: #34d399;
+    font-size: 9px;
+}
+
+.analysis-item.warning strong {
+    color: #fbbf24;
+}
+
+.mini-bar {
+    height: 4px;
+    margin-top: 6px;
+    overflow: hidden;
+    border-radius: 10px;
+    background: rgba(255,255,255,.06);
+}
+
+.mini-fill {
+    width: 80%;
+    height: 100%;
+    border-radius: 10px;
+    background: linear-gradient(90deg,#4f46e5,#06b6d4);
+}
+
+.ai-tip {
+    margin-top: 22px;
+    padding: 13px;
+    border: 1px solid rgba(99,102,241,.09);
+    border-radius: 12px;
+    background: rgba(99,102,241,.06);
+}
+
+.ai-tip strong {
+    display: block;
+    color: #a5b4fc;
+    font-size: 9px;
+}
+
+.ai-tip p {
+    margin: 6px 0 0;
+    color: #68758c;
+    font-size: 8px;
+    line-height: 1.6;
+}
+
+
+/* =========================================================
+   FINISH
+========================================================= */
+
+.finish-screen {
+    display: none;
+    min-height: 80vh;
+    align-items: center;
+    justify-content: center;
+}
+
+.result-card {
+    width: 100%;
+    max-width: 850px;
+    padding: 42px;
+    text-align: center;
+    border: 1px solid rgba(255,255,255,.08);
+    border-radius: 28px;
+    background: rgba(12,18,32,.82);
+    backdrop-filter: blur(20px);
+    box-shadow: 0 35px 90px rgba(0,0,0,.4);
+}
+
+.result-icon {
+    width: 80px;
+    height: 80px;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(16,185,129,.18);
+    border-radius: 24px;
+    background: rgba(16,185,129,.08);
+    font-size: 38px;
+}
+
+.result-card h1 {
+    margin: 18px 0 5px;
+    font-size: 28px;
+    font-weight: 950;
+}
+
+.result-card > p {
+    color: #68758c;
+    font-size: 11px;
+}
+
+.final-score {
+    margin: 25px auto;
+}
+
+.final-number {
+    color: #818cf8;
+    font-size: 65px;
+    line-height: 1;
+    font-weight: 950;
+}
+
+.final-label {
+    color: #667085;
+    font-size: 9px;
+    font-weight: 800;
+}
+
+.result-stats {
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    gap: 10px;
+    margin-top: 25px;
+}
+
+.result-stat {
+    padding: 17px 8px;
+    border: 1px solid rgba(255,255,255,.05);
+    border-radius: 15px;
+    background: rgba(255,255,255,.035);
+}
+
+.result-stat strong {
+    display: block;
+    font-size: 19px;
+}
+
+.result-stat span {
+    color: #667085;
+    font-size: 8px;
+}
+
+.result-actions {
+    display: flex;
+    justify-content: center;
+    gap: 9px;
+    margin-top: 25px;
+}
+
+.result-btn {
+    padding: 12px 18px;
+    border: none;
+    border-radius: 11px;
+    cursor: pointer;
+    font-size: 10px;
+    font-weight: 900;
+}
+
+.result-primary {
+    color: white;
+    background: #4f46e5;
+}
+
+.result-secondary {
+    color: #aeb8ca;
+    background: rgba(255,255,255,.06);
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media(max-width:1100px) {
+
+    .setup-panel {
+        grid-template-columns: 1fr;
+    }
+
+    .setup-intro {
+        padding: 38px 30px;
+    }
+
+    .arena-grid {
+        grid-template-columns: 210px 1fr;
+    }
+
+    .feedback-panel {
+        display: none;
+    }
+
+}
+
+@media(max-width:850px) {
+
+    .setup-form {
+        padding: 30px 24px;
+    }
+
+    .subject-grid,
+    .role-grid {
+        grid-template-columns: repeat(2,1fr) !important;
+    }
+
+    .choice-grid.mode-grid {
+        grid-template-columns: repeat(2,1fr);
+    }
+
+    .arena-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .profile-panel {
+        display: none;
+    }
+
+}
+
+@media(max-width:600px) {
+
+    .ai-arena {
+        padding: 12px 8px 30px;
+    }
+
+    .setup-intro h1 {
+        font-size: 31px;
+    }
+
+    .setup-form {
+        padding: 25px 17px;
+    }
+
+    .subject-grid,
+    .role-grid,
+    .choice-grid.mode-grid {
+        grid-template-columns: repeat(2,1fr) !important;
+    }
+
+    .personality {
+        grid-template-columns: repeat(2,1fr);
+    }
+
+    .levels {
+        grid-template-columns: 1fr;
+    }
+
+    .room-header {
+        padding: 12px;
+    }
+
+    .header-right .live-badge {
+        display: none;
+    }
+
+    .question-area {
+        padding: 25px 18px 10px;
+    }
+
+    .conversation {
+        padding: 5px 18px 15px;
+    }
+
+    .question-text {
+        font-size: 21px;
+    }
+
+    .result-card {
+        padding: 30px 18px;
+    }
+
+    .result-stats {
+        grid-template-columns: repeat(2,1fr);
+    }
+
+}
+
+</style>
+
+
+<div class="ai-arena">
+
+<div class="arena-container">
+
+
+<!-- =====================================================
+     SETUP SCREEN
+===================================================== -->
+
+<div id="setupScreen" class="setup-screen">
+
+<div class="setup-panel">
+
+
+<!-- =====================================================
+     LEFT INTRO
+===================================================== -->
+
+<div class="setup-intro">
+
+    <div class="ai-orb">
+
+        <div class="orb-ring"></div>
+        <div class="orb-ring two"></div>
+
+        <div class="orb-core">
+            🤖
+        </div>
+
+    </div>
+
+
+    <h1>
+        AI Interview
+        <span>Arena</span>
+    </h1>
+
+
+    <p>
+        Experience a realistic technical interview
+        powered by AI. Choose your interview style,
+        answer naturally and improve your confidence.
+    </p>
+
+
+    <div class="feature-row">
+
+        <div class="feature">
+            🎙 Voice Interview
+        </div>
+
+        <div class="feature">
+            🧠 AI Evaluation
+        </div>
+
+        <div class="feature">
+            ⚡ Live Feedback
+        </div>
+
+        <div class="feature">
+            📊 Performance
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     RIGHT CONFIGURATION
+===================================================== -->
+
+<div class="setup-form">
+
+<div class="form-title">
+
+    <small>
+        INTERVIEW CONFIGURATION
+    </small>
+
+    <h2>
+        Build Your Interview
+    </h2>
+
+    <p>
+        Select your preferences and enter the AI interview arena.
+    </p>
+
+</div>
+
+
+<!-- =====================================================
+     INTERVIEW MODE
+===================================================== -->
+
+<div class="field">
+
+<div class="field-label">
+
+    <span>INTERVIEW MODE</span>
+
+    <span>Choose one</span>
+
+</div>
+
+
+<div class="choice-grid mode-grid">
+
+    <div class="choice-card">
+
+        <input
+            type="radio"
+            id="modeTechnical"
+            name="modeCard"
+            value="Technical"
+            checked>
+
+        <label for="modeTechnical">
+
+            <div class="choice-icon">
+                💻
+            </div>
+
+            <div class="choice-name">
+                Technical
+            </div>
+
+            <div class="choice-description">
+                Core concepts
+            </div>
+
+        </label>
+
+        <div class="choice-check">
+            ✓
+        </div>
+
+    </div>
+
+
+    <div class="choice-card">
+
+        <input
+            type="radio"
+            id="modeHR"
+            name="modeCard"
+            value="HR">
+
+        <label for="modeHR">
+
+            <div class="choice-icon">
+                👔
+            </div>
+
+            <div class="choice-name">
+                HR Interview
+            </div>
+
+            <div class="choice-description">
+                Behavioral
+            </div>
+
+        </label>
+
+        <div class="choice-check">
+            ✓
+        </div>
+
+    </div>
+
+
+    <div class="choice-card">
+
+        <input
+            type="radio"
+            id="modeMixed"
+            name="modeCard"
+            value="Mixed">
+
+        <label for="modeMixed">
+
+            <div class="choice-icon">
+                🧠
+            </div>
+
+            <div class="choice-name">
+                Mixed
+            </div>
+
+            <div class="choice-description">
+                Technical + HR
+            </div>
+
+        </label>
+
+        <div class="choice-check">
+            ✓
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- Hidden select keeps your existing JS compatible -->
+
+<select id="interviewMode" class="hidden-select">
+
+    {% for mode in interview_modes %}
+
+    <option value="{{ mode }}">
+        {{ mode }}
+    </option>
+
+    {% endfor %}
+
+</select>
+
+</div>
+
+
+<!-- =====================================================
+     SUBJECT
+===================================================== -->
+
+<div class="field">
+
+<div class="field-label">
+
+    <span>SELECT SUBJECT</span>
+
+    <span>Choose your skill</span>
+
+</div>
+
+
+<div class="choice-grid subject-grid">
+
+
+{% for subject in subjects %}
+
+<div class="choice-card subject-card">
+
+    <input
+        type="radio"
+        id="subject{{ loop.index }}"
+        name="subjectCard"
+        value="{{ subject }}"
+        {% if loop.first %}checked{% endif %}>
+
+    <label for="subject{{ loop.index }}">
+
+        <div class="choice-icon">
+
+            {% if 'Python' in subject %}
+                🐍
+            {% elif 'Java' in subject %}
+                ☕
+            {% elif 'Web' in subject %}
+                🌐
+            {% elif 'Database' in subject or 'DBMS' in subject %}
+                🗄️
+            {% elif 'C' in subject %}
+                ⚙️
+            {% elif 'Operating' in subject or 'OS' in subject %}
+                🖥️
+            {% elif 'Network' in subject %}
+                🌐
+            {% else %}
+                📚
+            {% endif %}
+
+        </div>
+
+        <div class="choice-name">
+            {{ subject }}
+        </div>
+
+    </label>
+
+    <div class="choice-check">
+        ✓
+    </div>
+
+</div>
+
+{% endfor %}
+
+
+</div>
+
+
+<select id="interviewSubject" class="hidden-select">
+
+{% for subject in subjects %}
+
+<option value="{{ subject }}">
+    {{ subject }}
+</option>
+
+{% endfor %}
+
+</select>
+
+</div>
+
+
+<!-- =====================================================
+     TARGET ROLE
+===================================================== -->
+
+<div class="field">
+
+<div class="field-label">
+
+    <span>TARGET ROLE</span>
+
+    <span>Choose your career goal</span>
+
+</div>
+
+
+<div class="choice-grid role-grid">
+
+
+<div class="choice-card role-card">
+
+<input
+    type="radio"
+    id="roleSoftware"
+    name="roleCard"
+    value="Software Developer"
+    checked>
+
+<label for="roleSoftware">
+
+    <div class="choice-icon">
+        💻
+    </div>
+
+    <div class="choice-name">
+        Software Developer
+    </div>
+
+</label>
+
+<div class="choice-check">✓</div>
+
+</div>
+
+
+<div class="choice-card role-card">
+
+<input
+    type="radio"
+    id="rolePython"
+    name="roleCard"
+    value="Python Developer">
+
+<label for="rolePython">
+
+    <div class="choice-icon">
+        🐍
+    </div>
+
+    <div class="choice-name">
+        Python Developer
+    </div>
+
+</label>
+
+<div class="choice-check">✓</div>
+
+</div>
+
+
+<div class="choice-card role-card">
+
+<input
+    type="radio"
+    id="roleJava"
+    name="roleCard"
+    value="Java Developer">
+
+<label for="roleJava">
+
+    <div class="choice-icon">
+        ☕
+    </div>
+
+    <div class="choice-name">
+        Java Developer
+    </div>
+
+</label>
+
+<div class="choice-check">✓</div>
+
+</div>
+
+
+<div class="choice-card role-card">
+
+<input
+    type="radio"
+    id="roleWeb"
+    name="roleCard"
+    value="Web Developer">
+
+<label for="roleWeb">
+
+    <div class="choice-icon">
+        🌐
+    </div>
+
+    <div class="choice-name">
+        Web Developer
+    </div>
+
+</label>
+
+<div class="choice-check">✓</div>
+
+</div>
+
+
+<div class="choice-card role-card">
+
+<input
+    type="radio"
+    id="roleC"
+    name="roleCard"
+    value="C/C++ Developer">
+
+<label for="roleC">
+
+    <div class="choice-icon">
+        ⚙️
+    </div>
+
+    <div class="choice-name">
+        C/C++ Developer
+    </div>
+
+</label>
+
+<div class="choice-check">✓</div>
+
+</div>
+
+
+<div class="choice-card role-card">
+
+<input
+    type="radio"
+    id="roleJunior"
+    name="roleCard"
+    value="Junior Software Engineer">
+
+<label for="roleJunior">
+
+    <div class="choice-icon">
+        🚀
+    </div>
+
+    <div class="choice-name">
+        Junior Software Engineer
+    </div>
+
+</label>
+
+<div class="choice-check">✓</div>
+
+</div>
+
+
+<div class="choice-card role-card">
+
+<input
+    type="radio"
+    id="roleIntern"
+    name="roleCard"
+    value="Technical Intern">
+
+<label for="roleIntern">
+
+    <div class="choice-icon">
+        🎓
+    </div>
+
+    <div class="choice-name">
+        Technical Intern
+    </div>
+
+</label>
+
+<div class="choice-check">✓</div>
+
+</div>
+
+
+<div class="choice-card role-card">
+
+<input
+    type="radio"
+    id="roleStudent"
+    name="roleCard"
+    value="Computer Engineering Student">
+
+<label for="roleStudent">
+
+    <div class="choice-icon">
+        👨‍💻
+    </div>
+
+    <div class="choice-name">
+        Computer Engineering Student
+    </div>
+
+</label>
+
+<div class="choice-check">✓</div>
+
+</div>
+
+
+</div>
+
+
+<select id="interviewRole" class="hidden-select">
+
+    <option value="Software Developer">
+        Software Developer
+    </option>
+
+    <option value="Python Developer">
+        Python Developer
+    </option>
+
+    <option value="Java Developer">
+        Java Developer
+    </option>
+
+    <option value="Web Developer">
+        Web Developer
+    </option>
+
+    <option value="C/C++ Developer">
+        C/C++ Developer
+    </option>
+
+    <option value="Junior Software Engineer">
+        Junior Software Engineer
+    </option>
+
+    <option value="Technical Intern">
+        Technical Intern
+    </option>
+
+    <option value="Computer Engineering Student">
+        Computer Engineering Student
+    </option>
+
+</select>
+
+</div>
+
+
+<!-- =====================================================
+     DIFFICULTY
+===================================================== -->
+
+<div class="field">
+
+<div class="field-label">
+
+    <span>DIFFICULTY LEVEL</span>
+
+    <span>Challenge yourself</span>
+
+</div>
+
+
+<div class="levels">
+
+
+<div class="level">
+
+<input
+    type="radio"
+    id="beginner"
+    name="difficulty"
+    value="Beginner"
+    checked>
+
+<label for="beginner">
+    🌱 Beginner
+</label>
+
+</div>
+
+
+<div class="level">
+
+<input
+    type="radio"
+    id="intermediate"
+    name="difficulty"
+    value="Intermediate">
+
+<label for="intermediate">
+    ⚡ Intermediate
+</label>
+
+</div>
+
+
+<div class="level">
+
+<input
+    type="radio"
+    id="advanced"
+    name="difficulty"
+    value="Advanced">
+
+<label for="advanced">
+    🚀 Advanced
+</label>
+
+</div>
+
+
+</div>
+
+</div>
+
+
+<!-- =====================================================
+     PERSONALITY
+===================================================== -->
+
+<div class="field">
+
+<div class="field-label">
+
+    <span>AI INTERVIEWER STYLE</span>
+
+    <span>Choose personality</span>
+
+</div>
+
+
+<div class="personality">
+
+
+<div class="personality-item">
+
+<input
+    type="radio"
+    id="friendly"
+    name="personality"
+    value="Friendly"
+    checked>
+
+<label for="friendly">
+
+    <div>😊</div>
+
+    Friendly
+
+</label>
+
+</div>
+
+
+<div class="personality-item">
+
+<input
+    type="radio"
+    id="technical"
+    name="personality"
+    value="Technical">
+
+<label for="technical">
+
+    <div>🎯</div>
+
+    Technical
+
+</label>
+
+</div>
+
+
+<div class="personality-item">
+
+<input
+    type="radio"
+    id="faang"
+    name="personality"
+    value="FAANG">
+
+<label for="faang">
+
+    <div>💻</div>
+
+    FAANG
+
+</label>
+
+</div>
+
+
+<div class="personality-item">
+
+<input
+    type="radio"
+    id="rapid"
+    name="personality"
+    value="Rapid Fire">
+
+<label for="rapid">
+
+    <div>⚡</div>
+
+    Rapid Fire
+
+</label>
+
+</div>
+
+
+</div>
+
+</div>
+
+
+<button
+    class="launch-btn"
+    onclick="startInterview()">
+
+    ENTER AI INTERVIEW ARENA
+    &nbsp; →
+
+</button>
+
+
+<div class="form-note">
+    Practice session · No marks · AI-powered simulation
+</div>
+
+
+</div>
+
+</div>
+
+</div>
+
+
+<!-- =====================================================
+     INTERVIEW ROOM
+===================================================== -->
+
+<div id="interviewRoom" class="interview-room">
+
+
+<div class="room-header">
+
+<div class="room-brand">
+
+<div class="brand-orb">
+    🤖
+</div>
+
+<div class="brand-text">
+
+<strong>
+    AI Interview Arena
+</strong>
+
+<span>
+    Study Quiz Hub · Live Simulation
+</span>
+
+</div>
+
+</div>
+
+
+<div class="header-right">
+
+<div class="live-badge">
+    ● LIVE INTERVIEW
+</div>
+
+<div class="timer-box">
+    ⏱ <span id="timer">00:00</span>
+</div>
+
+</div>
+
+</div>
+
+
+<div class="arena-grid">
+
+
+<!-- PROFILE -->
+
+<div class="profile-panel">
+
+<div class="profile-orb">
+
+<div class="profile-orb-inner">
+    🤖
+</div>
+
+</div>
+
+
+<h2>
+    Alex
+</h2>
+
+
+<div class="profile-role">
+    AI Technical Interviewer
+</div>
+
+
+<div class="profile-line"></div>
+
+
+<div class="profile-detail">
+
+<span>
+    Candidate
+</span>
+
+<strong>
+    {{ student_name }}
+</strong>
+
+</div>
+
+
+<div class="profile-detail">
+
+<span>
+    Subject
+</span>
+
+<strong id="roomSubject">
+    —
+</strong>
+
+</div>
+
+
+<div class="profile-detail">
+
+<span>
+    Target Role
+</span>
+
+<strong id="roomRole">
+    —
+</strong>
+
+</div>
+
+
+<div class="profile-detail">
+
+<span>
+    Level
+</span>
+
+<strong id="roomDifficulty">
+    —
+</strong>
+
+</div>
+
+
+</div>
+
+
+<!-- QUESTION -->
+
+<div class="question-panel">
+
+
+<div class="question-top">
+
+<div class="question-meta">
+
+<div class="meta">
+    TECHNICAL
+</div>
+
+<div class="meta">
+    AI GENERATED
+</div>
+
+</div>
+
+
+<div class="question-number">
+
+QUESTION
+<span id="questionNumber">1</span>
+ / 10
+
+</div>
+
+</div>
+
+
+<div class="question-area">
+
+<div class="question-label">
+    INTERVIEWER QUESTION
+</div>
+
+
+<div id="questionText" class="question-text">
+
+    Preparing your first question...
+
+</div>
+
+</div>
+
+
+<div id="conversation" class="conversation">
+
+<div
+    id="welcomeMessage"
+    style="
+        text-align:center;
+        padding:40px 10px;
+        color:#59667d;
+        font-size:10px;
+    ">
+
+    🤖 AI interviewer is preparing...
+
+</div>
+
+</div>
+
+
+<div class="voice-zone">
+
+
+<div id="voiceStatus" class="voice-status">
+
+    Preparing interview...
+
+</div>
+
+
+<div class="mic-area">
+
+<div class="mic-glow"></div>
+
+<button
+    id="voiceButton"
+    class="mic-button"
+    onclick="toggleListening()"
+    disabled>
+
+    🎙️
+
+</button>
+
+</div>
+
+
+<div class="voice-text">
+    Press microphone to answer
+</div>
+
+
+<div class="action-row">
+
+<button
+    class="action-btn"
+    onclick="repeatQuestion()">
+
+    🔁 Repeat
+
+</button>
+
+
+<button
+    class="action-btn"
+    onclick="skipQuestion()">
+
+    ⏭ Skip
+
+</button>
+
+
+<button
+    class="action-btn end"
+    onclick="endInterview()">
+
+    🛑 End
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+
+<!-- FEEDBACK -->
+
+<div class="feedback-panel">
+
+<div class="panel-title">
+    AI LIVE ANALYSIS
+</div>
+
+<div class="panel-sub">
+    Real-time answer insights
+</div>
+
+
+<div class="ai-analysis">
+
+
+<div class="analysis-item">
+
+<span>
+    Relevance
+</span>
+
+<strong>
+    ✓ Good
+</strong>
+
+</div>
+
+
+<div class="analysis-item">
+
+<span>
+    Confidence
+</span>
+
+<strong>
+    82%
+</strong>
+
+</div>
+
+
+<div class="analysis-item">
+
+<span>
+    Communication
+</span>
+
+<strong>
+    Good
+</strong>
+
+</div>
+
+
+<div class="analysis-item warning">
+
+<span>
+    Examples
+</span>
+
+<strong>
+    Improve
+</strong>
+
+</div>
+
+
+<div class="mini-bar">
+
+<div class="mini-fill"></div>
+
+</div>
+
+
+</div>
+
+
+<div class="ai-tip">
+
+<strong>
+    💡 AI TIP
+</strong>
+
+<p>
+    Try supporting your answer with
+    a real-world example.
+</p>
+
+</div>
+
+</div>
+
+
+</div>
+
+</div>
+
+
+<!-- =====================================================
+     FINISH
+===================================================== -->
+
+<div id="finishScreen" class="finish-screen">
+
+<div class="result-card">
+
+<div class="result-icon">
+    🏆
+</div>
+
+
+<h1>
+    Arena Completed
+</h1>
+
+
+<p>
+    Your AI interview practice session is complete.
+</p>
+
+
+<div class="final-score">
+
+<div id="finalScore" class="final-number">
+    82
+</div>
+
+<div class="final-label">
+    AI PERFORMANCE SCORE
+</div>
+
+</div>
+
+
+<div class="result-stats">
+
+
+<div class="result-stat">
+
+<strong id="technicalScore">
+    86%
+</strong>
+
+<span>
+    Technical
+</span>
+
+</div>
+
+
+<div class="result-stat">
+
+<strong id="communicationScore">
+    78%
+</strong>
+
+<span>
+    Communication
+</span>
+
+</div>
+
+
+<div class="result-stat">
+
+<strong id="confidenceScore">
+    81%
+</strong>
+
+<span>
+    Confidence
+</span>
+
+</div>
+
+
+<div class="result-stat">
+
+<strong id="problemScore">
+    84%
+</strong>
+
+<span>
+    Problem Solving
+</span>
+
+</div>
+
+
+</div>
+
+
+<div class="result-actions">
+
+<button
+    class="result-btn result-primary"
+    onclick="location.reload()">
+
+    🎙️ Practice Again
+
+</button>
+
+
+<button
+    class="result-btn result-secondary"
+    onclick="window.location.href='{{ url_for('Home') }}'">
+
+    🏠 Back Home
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+
+</div>
+</div>
+
+
+<script>
+
+/* =========================================================
+   VARIABLES
+========================================================= */
+
+let recognition = null;
+
+let listening = false;
+let aiSpeaking = false;
+let interviewStarted = false;
+
+let selectedSubject = "";
+let selectedMode = "";
+let selectedRole = "";
+let selectedDifficulty = "";
+let selectedPersonality = "";
+
+let questionCount = 1;
+
+let timerSeconds = 0;
+let timerInterval = null;
+
+
+/* =========================================================
+   ELEMENTS
+========================================================= */
+
+const setupScreen =
+    document.getElementById("setupScreen");
+
+const interviewRoom =
+    document.getElementById("interviewRoom");
+
+const finishScreen =
+    document.getElementById("finishScreen");
+
+const conversation =
+    document.getElementById("conversation");
+
+const voiceButton =
+    document.getElementById("voiceButton");
+
+const voiceStatus =
+    document.getElementById("voiceStatus");
+
+const questionText =
+    document.getElementById("questionText");
+
+const interviewerAvatar =
+    document.querySelector(".profile-orb-inner");
+
+
+/* =========================================================
+   SYNC CARD SELECTION WITH HIDDEN SELECT
+========================================================= */
+
+function setupSelectionCards() {
+
+    /* MODE */
+
+    document
+        .querySelectorAll('input[name="modeCard"]')
+        .forEach(function(input) {
+
+            input.addEventListener(
+                "change",
+                function() {
+
+                    document.getElementById(
+                        "interviewMode"
+                    ).value = this.value;
+
+                }
+            );
+
+        });
+
+
+    /* SUBJECT */
+
+    document
+        .querySelectorAll('input[name="subjectCard"]')
+        .forEach(function(input) {
+
+            input.addEventListener(
+                "change",
+                function() {
+
+                    document.getElementById(
+                        "interviewSubject"
+                    ).value = this.value;
+
+                }
+            );
+
+        });
+
+
+    /* ROLE */
+
+    document
+        .querySelectorAll('input[name="roleCard"]')
+        .forEach(function(input) {
+
+            input.addEventListener(
+                "change",
+                function() {
+
+                    document.getElementById(
+                        "interviewRole"
+                    ).value = this.value;
+
+                }
+            );
+
+        });
+
+
+    /* Set initial values */
+
+    const firstMode =
+        document.querySelector(
+            'input[name="modeCard"]:checked'
+        );
+
+    if (firstMode) {
+
+        document.getElementById(
+            "interviewMode"
+        ).value =
+            firstMode.value;
+
+    }
+
+
+    const firstSubject =
+        document.querySelector(
+            'input[name="subjectCard"]:checked'
+        );
+
+    if (firstSubject) {
+
+        document.getElementById(
+            "interviewSubject"
+        ).value =
+            firstSubject.value;
+
+    }
+
+
+    const firstRole =
+        document.querySelector(
+            'input[name="roleCard"]:checked'
+        );
+
+    if (firstRole) {
+
+        document.getElementById(
+            "interviewRole"
+        ).value =
+            firstRole.value;
+
+    }
+
+}
+
+
+/* =========================================================
+   SPEECH RECOGNITION
+========================================================= */
+
+function setupSpeechRecognition() {
+
+    const SpeechRecognition =
+        window.SpeechRecognition ||
+        window.webkitSpeechRecognition;
+
+
+    if (!SpeechRecognition) {
+
+        voiceStatus.innerText =
+            "Voice recognition is not supported.";
+
+        return false;
+    }
+
+
+    recognition =
+        new SpeechRecognition();
+
+
+    recognition.lang =
+        "en-IN";
+
+    recognition.continuous =
+        false;
+
+    recognition.interimResults =
+        true;
+
+
+    recognition.onstart =
+        function() {
+
+            listening = true;
+
+            voiceButton.classList.add(
+                "listening"
+            );
+
+            voiceButton.innerHTML =
+                "⏹️";
+
+            voiceStatus.innerText =
+                "Listening... Speak naturally.";
+
+            voiceStatus.classList.add(
+                "listening"
+            );
+
+        };
+
+
+    recognition.onresult =
+        function(event) {
+
+            let finalText = "";
+
+
+            for (
+                let i = event.resultIndex;
+                i < event.results.length;
+                i++
+            ) {
+
+                if (
+                    event.results[i].isFinal
+                ) {
+
+                    finalText +=
+                        event.results[i][0]
+                        .transcript;
+
+                }
+
+            }
+
+
+            if (
+                finalText.trim()
+            ) {
+
+                sendAnswer(
+                    finalText.trim()
+                );
+
+            }
+
+        };
+
+
+    recognition.onerror =
+        function(event) {
+
+            stopListening();
+
+
+            if (
+                event.error ===
+                "not-allowed"
+            ) {
+
+                voiceStatus.innerText =
+                    "Microphone permission required.";
+
+            }
+
+            else {
+
+                voiceStatus.innerText =
+                    "Couldn't hear you. Try again.";
+
+            }
+
+        };
+
+
+    recognition.onend =
+        function() {
+
+            stopListening();
+
+        };
+
+
+    return true;
+
+}
+
+
+/* =========================================================
+   START INTERVIEW
+========================================================= */
+
+async function startInterview() {
+
+    selectedSubject =
+        document.getElementById(
+            "interviewSubject"
+        ).value;
+
+
+    selectedMode =
+        document.getElementById(
+            "interviewMode"
+        ).value;
+
+
+    selectedRole =
+        document.getElementById(
+            "interviewRole"
+        ).value;
+
+
+    selectedDifficulty =
+        document.querySelector(
+            'input[name="difficulty"]:checked'
+        ).value;
+
+
+    selectedPersonality =
+        document.querySelector(
+            'input[name="personality"]:checked'
+        ).value;
+
+
+    document.getElementById(
+        "roomSubject"
+    ).innerText =
+        selectedSubject;
+
+
+    document.getElementById(
+        "roomRole"
+    ).innerText =
+        selectedRole;
+
+
+    document.getElementById(
+        "roomDifficulty"
+    ).innerText =
+        selectedDifficulty;
+
+
+    setupScreen.style.display =
+        "none";
+
+
+    interviewRoom.style.display =
+        "block";
+
+
+    startTimer();
+
+
+    addThinking();
+
+
+    try {
+
+        const response =
+            await fetch(
+                "/ai_interview",
+                {
+                    method: "POST",
+
+                    headers: {
+                        "Content-Type":
+                            "application/json"
+                    },
+
+                    body: JSON.stringify({
+
+                        action: "start",
+
+                        subject:
+                            selectedSubject,
+
+                        mode:
+                            selectedMode,
+
+                        role:
+                            selectedRole,
+
+                        difficulty:
+                            selectedDifficulty,
+
+                        personality:
+                            selectedPersonality
+
+                    })
+
+                }
+            );
+
+
+        const data =
+            await response.json();
+
+
+        removeThinking();
+
+
+        if (!data.success) {
+
+            voiceStatus.innerText =
+                data.error ||
+                "Unable to start interview.";
+
+            return;
+
+        }
+
+
+        interviewStarted = true;
+
+
+        const welcome =
+            document.getElementById(
+                "welcomeMessage"
+            );
+
+
+        if (welcome) {
+            welcome.remove();
+        }
+
+
+        addAIMessage(
+            data.message
+        );
+
+
+        updateQuestionText(
+            data.message
+        );
+
+
+        setupSpeechRecognition();
+
+
+        speakAI(
+            data.message
+        );
+
+    }
+
+
+    catch(error) {
+
+        removeThinking();
+
+        voiceStatus.innerText =
+            "Connection problem.";
+
+        console.error(error);
+
+    }
+
+}
+
+
+/* =========================================================
+   TIMER
+========================================================= */
+
+function startTimer() {
+
+    timerInterval =
+        setInterval(
+            function() {
+
+                timerSeconds++;
+
+
+                const minutes =
+                    String(
+                        Math.floor(
+                            timerSeconds / 60
+                        )
+                    ).padStart(2,"0");
+
+
+                const seconds =
+                    String(
+                        timerSeconds % 60
+                    ).padStart(2,"0");
+
+
+                document.getElementById(
+                    "timer"
+                ).innerText =
+                    minutes +
+                    ":" +
+                    seconds;
+
+            },
+            1000
+        );
+
+}
+
+
+/* =========================================================
+   MICROPHONE
+========================================================= */
+
+function toggleListening() {
+
+    if (!recognition) {
+
+        voiceStatus.innerText =
+            "Voice recognition unavailable.";
+
+        return;
+
+    }
+
+
+    if (aiSpeaking) {
+
+        voiceStatus.innerText =
+            "Please wait for Alex.";
+
+        return;
+
+    }
+
+
+    if (listening) {
+
+        recognition.stop();
+
+    }
+
+    else {
+
+        try {
+
+            recognition.start();
+
+        }
+
+        catch(error) {
+
+            console.log(error);
+
+        }
+
+    }
+
+}
+
+
+function stopListening() {
+
+    listening = false;
+
+    voiceButton.classList.remove(
+        "listening"
+    );
+
+    voiceButton.innerHTML =
+        "🎙️";
+
+    voiceStatus.classList.remove(
+        "listening"
+    );
+
+}
+
+
+/* =========================================================
+   SEND ANSWER
+========================================================= */
+
+async function sendAnswer(answer) {
+
+    stopListening();
+
+
+    addUserMessage(
+        answer
+    );
+
+
+    voiceButton.disabled =
+        true;
+
+
+    voiceStatus.innerText =
+        "🤖 AI is analyzing your answer...";
+
+
+    addThinking();
+
+
+    try {
+
+        const response =
+            await fetch(
+                "/ai_interview",
+                {
+                    method: "POST",
+
+                    headers: {
+                        "Content-Type":
+                            "application/json"
+                    },
+
+                    body: JSON.stringify({
+
+                        action: "answer",
+
+                        answer:
+                            answer,
+
+                        input_type:
+                            "voice"
+
+                    })
+
+                }
+            );
+
+
+        const data =
+            await response.json();
+
+
+        removeThinking();
+
+
+        if (!data.success) {
+
+            voiceStatus.innerText =
+                data.error ||
+                "Unable to process answer.";
+
+            voiceButton.disabled =
+                false;
+
+            return;
+
+        }
+
+
+        addAIMessage(
+            data.message
+        );
+
+
+        questionCount++;
+
+
+        document.getElementById(
+            "questionNumber"
+        ).innerText =
+            Math.min(
+                questionCount,
+                10
+            );
+
+
+        updateQuestionText(
+            data.message
+        );
+
+
+        speakAI(
+            data.message
+        );
+
+    }
+
+
+    catch(error) {
+
+        removeThinking();
+
+        voiceStatus.innerText =
+            "Connection problem.";
+
+        console.error(error);
+
+    }
+
+
+    finally {
+
+        voiceButton.disabled =
+            false;
+
+    }
+
+}
+
+
+/* =========================================================
+   QUESTION
+========================================================= */
+
+function updateQuestionText(text) {
+
+    if (!text) return;
+
+    questionText.innerText =
+        text;
+
+}
+
+
+/* =========================================================
+   AI MESSAGE
+========================================================= */
+
+function addAIMessage(text) {
+
+    const message =
+        document.createElement("div");
+
+    message.className =
+        "message";
+
+
+    const avatar =
+        document.createElement("div");
+
+    avatar.className =
+        "message-avatar";
+
+    avatar.innerHTML =
+        "🤖";
+
+
+    const bubble =
+        document.createElement("div");
+
+    bubble.className =
+        "bubble ai-bubble";
+
+    bubble.innerText =
+        text;
+
+
+    message.appendChild(
+        avatar
+    );
+
+    message.appendChild(
+        bubble
+    );
+
+    conversation.appendChild(
+        message
+    );
+
+
+    scrollConversation();
+
+}
+
+
+/* =========================================================
+   USER MESSAGE
+========================================================= */
+
+function addUserMessage(text) {
+
+    const message =
+        document.createElement("div");
+
+    message.className =
+        "message user";
+
+
+    const bubble =
+        document.createElement("div");
+
+    bubble.className =
+        "bubble user-bubble";
+
+    bubble.innerText =
+        text;
+
+
+    const avatar =
+        document.createElement("div");
+
+    avatar.className =
+        "message-avatar user-avatar";
+
+    avatar.innerHTML =
+        "👤";
+
+
+    message.appendChild(
+        bubble
+    );
+
+    message.appendChild(
+        avatar
+    );
+
+    conversation.appendChild(
+        message
+    );
+
+
+    scrollConversation();
+
+}
+
+
+/* =========================================================
+   THINKING
+========================================================= */
+
+function addThinking() {
+
+    removeThinking();
+
+
+    const message =
+        document.createElement("div");
+
+    message.id =
+        "thinkingMessage";
+
+    message.className =
+        "message";
+
+
+    message.innerHTML = `
+
+        <div class="message-avatar">
+            🤖
+        </div>
+
+        <div class="bubble ai-bubble">
+            ● ● ●
+        </div>
+
+    `;
+
+
+    conversation.appendChild(
+        message
+    );
+
+
+    scrollConversation();
+
+}
+
+
+function removeThinking() {
+
+    const thinking =
+        document.getElementById(
+            "thinkingMessage"
+        );
+
+
+    if (thinking) {
+
+        thinking.remove();
+
+    }
+
+}
+
+
+/* =========================================================
+   AI SPEECH
+========================================================= */
+
+function speakAI(text) {
+
+    if (
+        !("speechSynthesis" in window)
+    ) {
+
+        voiceStatus.innerText =
+            "🎙️ Your turn — speak.";
+
+        voiceButton.disabled =
+            false;
+
+        return;
+
+    }
+
+
+    speechSynthesis.cancel();
+
+
+    const speech =
+        new SpeechSynthesisUtterance(
+            text
+        );
+
+
+    speech.lang =
+        "en-IN";
+
+    speech.rate =
+        .92;
+
+    speech.pitch =
+        1;
+
+
+    speech.onstart =
+        function() {
+
+            aiSpeaking =
+                true;
+
+
+            interviewerAvatar
+                .style
+                .transform =
+                "scale(1.08)";
+
+
+            voiceStatus.innerText =
+                "🔊 Alex is speaking...";
+
+
+            voiceStatus.classList.add(
+                "speaking"
+            );
+
+
+            voiceButton.disabled =
+                true;
+
+        };
+
+
+    speech.onend =
+        function() {
+
+            aiSpeaking =
+                false;
+
+
+            interviewerAvatar
+                .style
+                .transform =
+                "scale(1)";
+
+
+            voiceStatus.innerText =
+                "🎙️ Your turn — answer now.";
+
+
+            voiceStatus.classList.remove(
+                "speaking"
+            );
+
+
+            voiceButton.disabled =
+                false;
+
+        };
+
+
+    speech.onerror =
+        function() {
+
+            aiSpeaking =
+                false;
+
+            voiceButton.disabled =
+                false;
+
+        };
+
+
+    speechSynthesis.speak(
+        speech
+    );
+
+}
+
+
+/* =========================================================
+   REPEAT
+========================================================= */
+
+function repeatQuestion() {
+
+    const messages =
+        conversation.querySelectorAll(
+            ".ai-bubble"
+        );
+
+
+    if (!messages.length)
+        return;
+
+
+    const last =
+        messages[
+            messages.length - 1
+        ].innerText;
+
+
+    speakAI(last);
+
+}
+
+
+/* =========================================================
+   SKIP
+========================================================= */
+
+function skipQuestion() {
+
+    sendAnswer(
+        "I would like to skip this question."
+    );
+
+}
+
+
+/* =========================================================
+   END
+========================================================= */
+
+async function endInterview() {
+
+    speechSynthesis.cancel();
+
+
+    clearInterval(
+        timerInterval
+    );
+
+
+    aiSpeaking =
+        false;
+
+
+    if (
+        recognition &&
+        listening
+    ) {
+
+        recognition.stop();
+
+    }
+
+
+    try {
+
+        await fetch(
+            "/ai_interview",
+            {
+                method: "POST",
+
+                headers: {
+                    "Content-Type":
+                        "application/json"
+                },
+
+                body: JSON.stringify({
+                    action: "end"
+                })
+
+            }
+        );
+
+    }
+
+    catch(error) {
+
+        console.log(error);
+
+    }
+
+
+    interviewRoom.style.display =
+        "none";
+
+
+    finishScreen.style.display =
+        "flex";
+
+
+    document.getElementById(
+        "finalScore"
+    ).innerText =
+        "82";
+
+
+    document.getElementById(
+        "technicalScore"
+    ).innerText =
+        "86%";
+
+
+    document.getElementById(
+        "communicationScore"
+    ).innerText =
+        "78%";
+
+
+    document.getElementById(
+        "confidenceScore"
+    ).innerText =
+        "81%";
+
+
+    document.getElementById(
+        "problemScore"
+    ).innerText =
+        "84%";
+
+}
+
+
+/* =========================================================
+   SCROLL
+========================================================= */
+
+function scrollConversation() {
+
+    conversation.scrollTop =
+        conversation.scrollHeight;
+
+}
+
+
+/* =========================================================
+   PAGE LOAD
+========================================================= */
+
+window.addEventListener(
+    "DOMContentLoaded",
+    function() {
+
+        setupSelectionCards();
+
+        setupSpeechRecognition();
+
+    }
+);
+
+</script>
+
+{% endblock %}

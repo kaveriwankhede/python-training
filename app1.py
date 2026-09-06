@@ -31,7 +31,6 @@ def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 #=================================> Dictionary for Web Development <=================================
-
 QUESTIONS = [
     {
         "q": "Q1. What does HTML stand for?",
@@ -51,7 +50,6 @@ QUESTIONS = [
 ]
 
 #=================================> Dictionary for AI <=================================
-
 QUESTIONS1 = [
     {
         "q": "Q1. What does AI stand for?",
@@ -76,7 +74,6 @@ QUESTIONS1 = [
 ]
 
 #=================================> Dictionary for Data Science <=================================
-
 QUESTIONS2 = [
     {
         "q": "Q1. What is Data Science?",
@@ -101,7 +98,6 @@ QUESTIONS2 = [
 ]
 
 #=================================> Dictionary for Cloud Computing <=================================
-
 QUESTIONS3 = [
     {
         "q": "Q1. What is Cloud Computing?",
@@ -126,7 +122,6 @@ QUESTIONS3 = [
 ]
 
 #=================================> Dictionary for Cyber Security <=================================
-
 QUESTIONS4 = [
     {
         "q": "Q1. What is Cyber Security?",
@@ -176,7 +171,6 @@ QUESTIONS5 = [
 ]
 
 #=================================> Dictionary for C <=================================
-
 QUESTIONS_C = [
     {
         "q": "Q1. Who is known as the father of C language?",
@@ -201,7 +195,6 @@ QUESTIONS_C = [
 ]
 
 #=================================> Dictionary for C++ <=================================
-
 QUESTIONS_CPP = [
     {
         "q": "Q1. Who developed C++ language?",
@@ -226,7 +219,6 @@ QUESTIONS_CPP = [
 ]
 
 #=================================> Dictionary for Java <=================================
-
 QUESTIONS_JAVA = [
     {
         "q": "Q1. Who developed Java programming language?",
@@ -251,7 +243,6 @@ QUESTIONS_JAVA = [
 ]
 
 #=================================> Dictionary for Python <=================================
-
 QUESTIONS_PYTHON = [
     {
         "q": "Q1. Who developed Python language?",
@@ -277,7 +268,6 @@ QUESTIONS_PYTHON = [
 ]
 
 #=================================> Dictionary for Mobile Operating System <=================================
-
 QUESTIONS_OS = [
     {
         "q": "Q1. What is an Operating System?",
@@ -302,7 +292,6 @@ QUESTIONS_OS = [
 ]
 
 #=================================> Dictionary for DBMS <=================================
-
 QUESTIONS_DBMS = [
     {
         "q": "Q1. What is DBMS?",
@@ -327,7 +316,6 @@ QUESTIONS_DBMS = [
 ]
 
 #=================================> Dictionary for Computer Network <=================================
-
 QUESTIONS_CN = [
     {
         "q": "Q1. What is a computer network?",
@@ -352,7 +340,6 @@ QUESTIONS_CN = [
 ]
 
 #=================================> Dictionary for Data Structure <=================================
-
 QUESTIONS_DS = [
     {
         "q": "Q1. What is a data structure?",
@@ -377,7 +364,6 @@ QUESTIONS_DS = [
 ]
 
 #=================================> Dictionary for Student  <=================================
-
 stud = [
     {
         'Sr_no':1,
@@ -396,7 +382,6 @@ stud = [
 ]
 
 #==================================> Home Route <=================================
-
 @app.route('/')
 def Home():
     conn = get_db()
@@ -411,7 +396,6 @@ def Home():
     return render_template('Home.html',students=stud,total_students=total_students,total_subjects=total_subjects)
     
 #==================================> Login Route <=================================
-
 @app.route('/login', methods=['GET', 'POST'])
 def login():
 
@@ -451,7 +435,6 @@ def login():
     return render_template("login.html")
 
 #==================================> Forget Password Route <=================================
-
 @app.route('/forgot_password', methods=['GET', 'POST'])
 def forgot_password():
 
@@ -496,7 +479,6 @@ def forgot_password():
     return render_template('forgot_password.html')
 
 #==================================> Explore Technology Route <=================================
-
 @app.route('/explore_technology')
 def explore_technology():
     # Login check
@@ -517,7 +499,6 @@ def technology():
     return render_template('technology.html')
 
 #==================================> Web Development Route  <=================================
-
 @app.route('/web_development/<int:qno>', methods=['GET', 'POST'])
 def web_development(qno):
 
@@ -609,7 +590,6 @@ def web_development(qno):
     )
 
 #==================================> Artificial Intelligrnce Route  <=================================
-
 @app.route('/Artificial_Intelligence/<int:qno>', methods=['GET', 'POST'])
 def Artificial_Intelligence(qno):
 
@@ -689,7 +669,6 @@ def Artificial_Intelligence(qno):
     )
 
 #==================================> Data Science Route  <=================================
-
 @app.route('/data_science/<int:qno>', methods=['GET', 'POST'])
 def data_science(qno):
 
@@ -771,7 +750,6 @@ def data_science(qno):
     )
 
 #==================================> Cloude Computing Route  <=================================
-
 @app.route('/cloud_computing/<int:qno>', methods=['GET', 'POST'])
 def cloud_computing(qno):
 
@@ -853,7 +831,6 @@ def cloud_computing(qno):
     )
 
 #==================================> Cyber Security Route  <=================================
-
 @app.route('/cyber_security/<int:qno>', methods=['GET', 'POST'])
 def cyber_security(qno):
 
@@ -925,7 +902,6 @@ def cyber_security(qno):
     )
 
 #==================================> Mobile App Development Route  <=================================
-
 @app.route('/mobile_app_development/<int:qno>', methods=['GET', 'POST'])
 def Mobile_App_Development(qno):
 
@@ -1000,7 +976,6 @@ def Mobile_App_Development(qno):
     )
 
 #==================================> Explore Programming Language Route  <=================================
-
 @app.route('/explore_programing_lang')
 def explore_programing_lang():
 
@@ -1016,7 +991,6 @@ def explore_programing_lang():
     return render_template('programing_lang.html')
 
 #==================================> C Language Route  <=================================
-
 @app.route('/c_lang/<int:qno>', methods=['GET', 'POST'])
 def c_lang(qno):
 
@@ -1087,7 +1061,6 @@ def c_lang(qno):
     )
 
 #==================================> CPP Language Route  <=================================
-
 @app.route('/cpp_lang/<int:qno>', methods=['GET', 'POST'])
 def cpp_lang(qno):
 
@@ -1159,7 +1132,6 @@ def cpp_lang(qno):
     )
 
 #==================================> Java Language Route  <=================================
-
 @app.route('/java_lang/<int:qno>', methods=['GET', 'POST'])
 def java_lang(qno):
 
@@ -1231,7 +1203,6 @@ def java_lang(qno):
     )
 
 #==================================> Python Language Route  <=================================
-
 @app.route('/python_lang/<int:qno>', methods=['GET', 'POST'])
 def python_lang(qno):
 
@@ -1328,7 +1299,6 @@ def explore_computer_science():
     return render_template('computer_science.html')
 
 #==================================> Operating System Route  <=================================
-
 @app.route('/operating_system/<int:qno>', methods=['GET', 'POST'])
 def operating_system(qno):
     # Subject save  
@@ -1398,7 +1368,6 @@ def operating_system(qno):
     )
 
 #==================================> DBMS Route  <=================================
-
 @app.route('/dbms_lang/<int:qno>', methods=['GET', 'POST'])
 def dbms_lang(qno):
 
@@ -1469,7 +1438,6 @@ def dbms_lang(qno):
     )
 
 #==================================> Computer Network Route  <=================================
-
 @app.route('/computer_network/<int:qno>', methods=['GET', 'POST'])
 def computer_network(qno):
     # Subject save
@@ -1539,7 +1507,6 @@ def computer_network(qno):
     )
 
 #==================================> Data Structure Route  <=================================
-
 @app.route('/data_structure/<int:qno>', methods=['GET', 'POST'])
 def data_structure(qno):
     # Subject save
@@ -1609,7 +1576,6 @@ def data_structure(qno):
     )
 
 #==================================> Logout Route  <=================================
-
 @app.route('/logout')
 def logout():
 
@@ -1621,7 +1587,6 @@ def logout():
     return redirect(url_for("Home"))
 
 #==================================> Subjects Route  <=================================
-
 @app.route('/subjects')
 def subjects():
     conn = get_db()
@@ -1640,7 +1605,6 @@ def subjects():
     return render_template("subjects.html", rows=rows)
 
 #==================================> Update Leaderboard function  <=================================
-
 def update_leaderboard(student_name, score, time):
 
     conn = get_db()
@@ -1671,7 +1635,6 @@ def update_leaderboard(student_name, score, time):
     conn.close()
 
 #==================================> Rank Leaderboard function  <=================================
-
 def ranked_leaderboard():
 
     conn = get_db()
@@ -1693,7 +1656,6 @@ def ranked_leaderboard():
     return rows
 
 #==================================> Leaderboard Route  <=================================
-
 @app.route("/leaderboard")
 def leaderboard():
 
@@ -1716,7 +1678,6 @@ def leaderboard():
     )
 
 #==================================> Registrasion Route  <=================================
-
 @app.route('/Register', methods=['GET', 'POST'])
 def Register():
     
@@ -1762,7 +1723,6 @@ def Register():
     return render_template('Register.html')
 
 #==================================> Search Route  <=================================
-
 @app.route('/search')
 def search():
 
@@ -1806,7 +1766,6 @@ def search():
     )
 
 #==================================> About Route  <=================================
-
 @app.route('/about')
 def about():
     return render_template('about.html')
@@ -1849,7 +1808,6 @@ def Add_Question():
     return render_template('Add_Question.html')
 
 #==================================> Students Route  <=================================
-
 @app.route("/students")
 def students():
 
@@ -1912,7 +1870,6 @@ def students():
     )
 
 #==================================> Filter Route  <=================================
-
 @app.route('/filter_result')
 def filter_result():
 
@@ -1960,7 +1917,6 @@ def filter_result():
     )
 
 #==================================> Add Student Route  <=================================
-
 @app.route("/add_student", methods=["GET", "POST"])
 def add_student():
     conn= get_db()
@@ -2016,7 +1972,6 @@ def add_student():
     return render_template("add_student.html", subjects=subjects)
     
 #==================================> View Student Route  <=================================
-
 @app.route('/view_student/<int:Sr_no>')
 def view_student(Sr_no):
     conn = get_db()
@@ -2082,7 +2037,6 @@ WHERE Username=?
         )
 
 #==================================> Edit Student Route  <=================================
-
 @app.route('/edit_student/<source>/<int:id>', methods=['GET','POST'])
 def edit_student(source, id):
 
@@ -2178,7 +2132,6 @@ def edit_student(source, id):
     )
 
 #==================================> Result Route  <=================================
-
 @app.route('/Result')
 def Result():
 
@@ -2313,7 +2266,6 @@ VALUES (?, ?, ?, ?, ?, ?, ?)
     )
 
 #==================================> delete Route  <=================================
-
 @app.route("/delete/<int:sr_no>")
 def delete_student(sr_no):
 
@@ -2330,7 +2282,6 @@ def delete_student(sr_no):
     return redirect(url_for("filter_result"))
 
 #==================================> Theory Notes Route  <=================================
-
 @app.route("/Theory")
 def Theory():
     # Login check
@@ -2345,7 +2296,6 @@ def Theory():
     return render_template("Theory.html", search=search)
 
 #==================================> Get AI Tip Route  <=================================
-
 @app.route("/students/<int:Sr_no>/tip")
 def get_ai_tip(Sr_no):
 
@@ -2391,7 +2341,6 @@ The response should not be more than 3 lines.
 
 
 #==================================> AI History Route  <=================================
-
 @app.route("/ai_history")
 def ai_history():
 
@@ -2490,7 +2439,6 @@ Rules:
 
 
 #==================================> Website Guid  Route  <=================================
-
 @app.route("/website_guide")
 def website_guide():
 
@@ -2532,7 +2480,6 @@ Generate a detailed, professional response of about 700-1000 words.
     )
 
 #==================================> Dashboard Route  <=================================
-
 @app.route("/dashboard")
 def dashboard():
 
@@ -2588,7 +2535,6 @@ LIMIT 5
     )
 
 #==================================> Profile Route  <=================================
-
 @app.route("/profile")
 def profile():
 
@@ -2636,7 +2582,6 @@ def certificate():
     return render_template("certificate.html", student=student)
 
 #==================================> Contact Route  <=================================
-
 @app.route("/contact", methods=["GET", "POST"])
 def contact():
 
@@ -2663,7 +2608,6 @@ def contact():
     return render_template("contact.html")
 
 #==================================> Contact Message Route  <=================================
-
 @app.route("/contact_messages")
 def contact_messages():
 
@@ -2686,7 +2630,6 @@ def contact_messages():
     )
 
 #==================================> Feedback Route  <=================================
-
 @app.route("/feedback", methods=["GET", "POST"])
 def feedback():
 
@@ -2713,7 +2656,6 @@ def feedback():
     return render_template("feedback.html")
 
 #==================================> Interview Route  <=================================
-
 @app.route("/interview")
 def interview():
     # Login check
@@ -2760,7 +2702,6 @@ def interview():
     )
 
 #==================================> Settings Route  <=================================
-
 import json
 @app.route("/Settings", methods=["GET", "POST"])
 def Settings():
@@ -2804,7 +2745,6 @@ def Settings():
     )
 
 #==================================> AI Quiz Route  <=================================
-
 @app.route("/ai_quiz/<subject>/<int:qno>", methods=["GET", "POST"])
 def ai_quiz(subject, qno):
 
@@ -2854,7 +2794,6 @@ def ai_quiz(subject, qno):
     )
 
 #==================================> Generate AI Quiz Route  <=================================
-
 @app.route("/generate_ai_quiz/<subject>", methods=["GET", "POST"])
 def generate_ai_quiz(subject):
 
@@ -2920,7 +2859,6 @@ Return in this exact format:
     return redirect(url_for("ai_quiz", qno=0, subject=subject))
 
 #==================================> Quiz History Route  <=================================
-
 @app.route("/quiz_history")
 def quiz_history():
 
@@ -3092,7 +3030,6 @@ Use exactly this format:
     )
 
 #==================================> AI Roadmap Route  <=================================
-
 @app.route("/ai_roadmap")
 def ai_roadmap():
 
