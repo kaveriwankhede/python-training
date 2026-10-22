@@ -2546,12 +2546,13 @@ def profile():
     score = session.get("score", 0)
     conn = get_db()
 
-
     user = conn.execute("""
         SELECT *
         FROM USERS
         WHERE Username = ?
     """, (session["Username"],)).fetchone()
+
+    
 
     
     

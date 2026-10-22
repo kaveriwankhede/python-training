@@ -244,9 +244,7 @@ body{
 <div class="profile-top">
 
 
-<img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
-class="avatar">
-
+<img src="https://cdn-icons-png.flaticon.com/512/6596/6596121.png" class="avatar" alt="neutral avatar">
 
 </div>
 
@@ -295,7 +293,7 @@ class="avatar">
 </div>
 
 <h3 style="color: black;">
-{{student.score}}
+{{ highest_score }}
 </h3>
 
 <p>
@@ -481,12 +479,14 @@ class="btn btn-secondary btn-profile">
 
 
 
-<a href="{{ url_for('edit_student',
-                    source='score',
-                    id=student['id']) }}"
+{% if session['role'] == 'admin' or session['user_id'] == student['id'] %}
+
+<a href="{{ url_for('edit_student', source='score', id=student['id']) }}"
    class="btn btn-sm btn-success">
     <i class="bi bi-pencil-fill"></i>Edit Profile
 </a>
+
+{% endif %}
 
 
 
